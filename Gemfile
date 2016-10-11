@@ -19,6 +19,7 @@ gem 'pg',                       '~> 0.15'
 gem 'puma',                     '~> 3.6.0'
 gem 'rails',                    '4.2.7.1'
 gem 'react_webpack_rails',      '~> 0.6.0'
+gem 'rwr-redux',                :path => "/Users/Manske/Sites/Serve1/rwr-redux" # :git => 'git://github.com/mattmanske/rwr-redux.git'
 gem 'rwr-view_helpers',         '~> 0.1.1'
 gem 'sassc-rails',              '~> 1.3.0'
 gem 'sdoc',                     '~> 0.4.0', group: :doc

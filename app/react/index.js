@@ -1,19 +1,21 @@
 //-----------  Imports  -----------//
 
-import RWR                  from 'react-webpack-rails'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import RWR, { integrationsManager } from 'react-webpack-rails'
+import injectTapEventPlugin         from 'react-tap-event-plugin'
+import RWRRedux                     from 'rwr-redux'
 
-import FormWrapper          from './containers/form-wrapper'
-import ModalWrapper         from './containers/modal-wrapper'
-import TableWrapper         from './containers/table-wrapper'
+import ReduxStore   from './store/redux-store'
+import FormWrapper  from './containers/form-wrapper'
 
 //-----------  Initialization  -----------//
 
-RWR.run();
+RWR.run()
 injectTapEventPlugin()
+
+integrationsManager.register('redux-store', RWRRedux.storeIntegrationWrapper)
+integrationsManager.register('redux-container', RWRRedux.containerIntegrationWrapper)
 
 //-----------  Component Registration  -----------//
 
-RWR.registerComponent('FormWrapper', FormWrapper);
-RWR.registerComponent('ModalWrapper', ModalWrapper);
-RWR.registerComponent('TableWrapper', TableWrapper);
+RWRRedux.registerStore('ReduxStore', ReduxStore)
+RWRRedux.registerContainer('FormWrapper', FormWrapper)

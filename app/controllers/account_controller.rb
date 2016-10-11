@@ -36,7 +36,7 @@ private
     states   = select_format State.all.order(:name)
     counties = select_format County.where(state: 60).order(:name)
 
-    {
+    @props = {
       :type     => 'registration',
       :resource => @user,
       :action   => registration_path(:user),
