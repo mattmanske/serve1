@@ -6,6 +6,13 @@ import { Field } from 'redux-form'
 //-----------  Class Setup  -----------//
 
 class RegistrationFrom extends React.Component {
+
+  //-----------  Normalization  -----------//
+
+  normalizeSubdomain = (value) => `http://${value && value.toLowerCase()}.serve1.com`
+
+  //-----------  HTML Render  -----------//
+
   render(){
     const { pristine, reset, submitting, ...props } = this.props
 
@@ -19,10 +26,11 @@ class RegistrationFrom extends React.Component {
             <label>Your Email</label>
             <div>
               <Field
-                name="user.email"
+                name="email"
                 type="text"
-                component="input"
+                autoComplete="email"
                 placeholder="me@website.com"
+                component="input"
               />
             </div>
           </div>
@@ -32,8 +40,9 @@ class RegistrationFrom extends React.Component {
             <label>First Name</label>
             <div>
               <Field
-                name="uesr.first_name"
+                name="first_name"
                 type="text"
+                autoComplete="given-name"
                 component="input"
               />
             </div>
@@ -44,9 +53,37 @@ class RegistrationFrom extends React.Component {
             <label>Last Name</label>
             <div>
               <Field
-                name="uesr.last_name"
+                name="last_name"
                 type="text"
+                autoComplete="family-name"
                 component="input"
+              />
+            </div>
+          </div>
+
+          {/* Organization Name */}
+          <div>
+            <label>Organization</label>
+            <div>
+              <Field
+                name="organization"
+                type="text"
+                autoComplete="organization"
+                component="input"
+              />
+            </div>
+          </div>
+
+          {/* Subdomain */}
+          <div>
+            <label>Subdomain</label>
+            <div>
+              <Field
+                name="subdomain"
+                type="text"
+                autoComplete="family-name"
+                component="input"
+                normalize={this.normalizeSubdomain}
               />
             </div>
           </div>
@@ -56,11 +93,11 @@ class RegistrationFrom extends React.Component {
             <label>Password</label>
             <div>
               <Field
-                name="uesr.password"
+                name="password"
                 type="password"
-                component="input"
                 autoComplete="off"
                 placeholder="**********"
+                component="input"
               />
             </div>
           </div>
@@ -70,11 +107,11 @@ class RegistrationFrom extends React.Component {
             <label>Password</label>
             <div>
               <Field
-                name="uesr.password_confirmation"
+                name="password_confirmation"
                 type="password"
-                component="input"
                 autoComplete="off"
                 placeholder="**********"
+                component="input"
               />
             </div>
           </div>

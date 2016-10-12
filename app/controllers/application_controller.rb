@@ -58,7 +58,7 @@ private
 
   def form_repsonse(props)
     respond_to do |format|
-      format.html { render redux_store: 'ReduxStore', props: props }
+      format.html { render redux_store_and_container: 'FormWrapper', store: 'ReduxStore', props: props }
       format.json { render :json => props }
     end
   end

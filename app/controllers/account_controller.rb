@@ -4,7 +4,8 @@ class AccountController < Devise::RegistrationsController
   respond_to :json, only: [:new, :create]
 
   def new
-    @user = User.new().build_organization({ state_id: 60 })
+    @user = User.last
+    # @user = User.new().build_organization({ state_id: 60 })
     form_repsonse(form_props)
   end
 
@@ -36,10 +37,12 @@ private
     states   = select_format State.all.order(:name)
     counties = select_format County.where(state: 60).order(:name)
 
-    @props = {
-      :type     => 'registration',
+    {
       :resource => @user,
-      :action   => registration_path(:user),
+      :config => {
+        :action => registration_path(:user),
+        :type   => 'registration'
+      },
       :selections => {
         :states   => states,
         :counties => counties
