@@ -20,6 +20,12 @@ const ajaxSuccess = (err, res) => {
   return !(err || !res.ok)
 }
 
+//-----------  Convert to Subdomain  -----------//
+
+const convertToSubdomain = (string) => {
+  return string.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase()
+}
+
 //-----------  Exports  -----------//
 
-export { getVal, getUrl, ajaxSuccess }
+export { getVal, getUrl, ajaxSuccess, convertToSubdomain }

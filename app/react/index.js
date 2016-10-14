@@ -4,8 +4,8 @@ import RWR, { integrationsManager } from 'react-webpack-rails'
 import injectTapEventPlugin         from 'react-tap-event-plugin'
 import RWRRedux                     from 'rwr-redux'
 
-import ReduxStore   from './store/redux-store'
-import FormWrapper  from './containers/form-wrapper'
+import ReduxStore                   from './store/redux-store'
+import RegistrationForm             from './containers/registration-form'
 
 //-----------  Initialization  -----------//
 
@@ -18,4 +18,4 @@ integrationsManager.register('redux-container', RWRRedux.containerIntegrationWra
 //-----------  Component Registration  -----------//
 
 RWRRedux.registerStore('ReduxStore', ReduxStore)
-RWRRedux.registerContainer('FormWrapper', FormWrapper)
+RWRRedux.registerContainer('RegistrationForm', RegistrationForm)

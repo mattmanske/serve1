@@ -42,5 +42,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Set react server-side rendering
-  config.react.server_side = true
+  config.react.server_side = false
 end
