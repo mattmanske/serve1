@@ -86,12 +86,11 @@ class AppWrapper extends React.Component {
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
-        <GlobalHeader isMobile={isMobile}>
-          <Link to={'/users'}>Users</Link>
-          <Link to={'/fields'}>Fields</Link>
-          <Link to={'/sponsors'}>Sponsors</Link>
-          <Link to={'/sweepstakes'}>Sweepstakes</Link>
-          <Button size='sm' color='white' onClick={authActions.signOut} text='Logout' />
+        <GlobalHeader isMobile={isMobile} logo={<SvgLogo fill={vars.black} width={80} />}>
+          <Link to={'/shows'}>Shows</Link>
+          <Link to={'/orders'}>Orders</Link>
+          <Link to={'/financials'}>Financials</Link>
+          <Button size='sm' onClick={authActions.signOut} text='Logout' />
         </GlobalHeader>
 
         {React.Children.map(children, child => (

@@ -19,15 +19,9 @@ export default function createRoutes(store){
 
   return [{
     path : '/',
-    name : 'home',
+    name : 'dashobard',
     getComponent(nextState, cb){
-      import('routes/HomeRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/about',
-    name : 'about',
-    getComponent(nextState, cb){
-      import('routes/AboutRoute').then(loadModule(cb)).catch(err)
+      import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
     },
   }]
 }

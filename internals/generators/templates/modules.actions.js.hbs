@@ -1,0 +1,23 @@
+//-----------  Imports  -----------//
+
+import { action, createActionConstants } from 'modules/helpers'
+
+//-----------  Definitions  -----------//
+
+export const {{ constantCase name }} = createActionConstants('{{ constantCase name }}')
+
+//-----------  {{ titleCase name }} Actions  -----------//
+
+export const {{ lowerCase name }}Actions = {
+}
+
+//-----------  Saga Actions  -----------//
+
+export const sagaActions = {
+  success: ({{ lowerCase name }}) => {
+    return action({{ constantCase name }}.SUCCESS, { {{ lowerCase name }} })
+  },
+  failure: (error = null) => {
+    return action({{ constantCase name }}.FAILURE, { error })
+  }
+}

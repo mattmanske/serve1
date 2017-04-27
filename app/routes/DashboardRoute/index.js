@@ -1,7 +1,7 @@
 //-----------  Imports  -----------//
 
-import HomeRoute from './HomeRoute'
+import DashboardRoute from './DashboardRoute'
 
 //-----------  Exports  -----------//
 
-export default HomeRoute
+export default DashboardRoute

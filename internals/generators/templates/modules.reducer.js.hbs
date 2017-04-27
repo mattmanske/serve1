@@ -1,0 +1,29 @@
+//-----------  Imports  -----------//
+
+import { {{ constantCase name }} } from './actions'
+
+//-----------  Definitions  -----------//
+
+const initialState = {}
+
+//-----------  Reducers  -----------//
+
+function {{ lowerCase name }}Reducer(state = initialState, action){
+  const { {{ lowerCase name }}, error } = action
+
+  switch (action.type){
+
+    case {{ constantCase name }}.SUCCESS:
+      return { ...initialState, {{ lowerCase name }} }
+
+    case {{ constantCase name }}.FAILURE:
+      return { ...initialState, error }
+
+    default:
+      return state
+  }
+}
+
+//-----------  Exports  -----------//
+
+export default {{ lowerCase name }}Reducer
