@@ -18,6 +18,12 @@ export default function createRoutes(store){
   const { injectReducer, injectSagas } = getAsyncInjectors(store)
 
   return [{
+    path : '/shows',
+    name : 'shows',
+    getComponent(nextState, cb){
+      import('routes/ShowsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/',
     name : 'dashobard',
     getComponent(nextState, cb){

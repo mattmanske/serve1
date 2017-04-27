@@ -8,7 +8,8 @@ import useragent                        from 'express-useragent'
 
 import authReducer                      from 'modules/auth/reducer'
 import modalReducer                     from 'modules/modal/reducer'
-import ordersReducer from 'modules/orders/reducer'
+import showsReducer                     from 'modules/shows/reducer'
+import ordersReducer                    from 'modules/orders/reducer'
 
 //-----------  Definitions  -----------//
 
@@ -42,7 +43,8 @@ export default function createReducer(asyncReducers){
     auth    : authReducer,
     route   : routeReducer,
     modal   : modalReducer,
-    orders : ordersReducer,
+    orders  : ordersReducer,
+    shows   : showsReducer,
     browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
     ...asyncReducers,
   })
