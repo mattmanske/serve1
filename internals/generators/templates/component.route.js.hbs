@@ -1,0 +1,39 @@
+//-----------  Imports  -----------//
+
+import Block                from './styles'
+
+import React, { PropTypes } from 'react'
+
+import BoundsWrapper        from 'components/BoundsWrapper'
+
+//-----------  Definitions  -----------//
+
+const title       = ''
+const description = ''
+
+//-----------  Component  -----------//
+
+class {{ properCase name }} extends React.Component {
+
+  //-----------  HTML Render  -----------//
+
+  render(){
+    const { props, state } = this
+
+    return (
+      <Block.Page title={title} description={description}>
+        <BoundsWrapper>
+          <h1>{{ titleCase name }}</h1>
+        </BoundsWrapper>
+      </Block.Page>
+    )
+  }
+}
+
+//-----------  Prop Types  -----------//
+
+{{ properCase name }}.propTypes = {}
+
+//-----------  Exports  -----------//
+
+export default {{ properCase name }}
