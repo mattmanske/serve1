@@ -2,6 +2,9 @@
 
 import styled from 'styled-components'
 
+import vars   from 'styles/variables'
+import mixins from 'styles/mixins'
+
 //-----------  Bounds Wrapping  -----------//
 
 const Elem = styled.div`
@@ -15,6 +18,14 @@ const Elem = styled.div`
   min-height     : 100vh;
   position       : relative;
   z-index        : 1;
+
+  > header {
+    flex: 0 0 auto;
+
+    & + * {
+      flex: 1 0 auto;
+    }
+  }
 `
 
 //-----------  Exports  ----------- */

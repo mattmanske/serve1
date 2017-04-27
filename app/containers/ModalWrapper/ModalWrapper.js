@@ -12,12 +12,15 @@ import MaterialIcon         from 'components/MaterialIcon'
 
 import DemoForm             from 'containers/DemoForm'
 
+import LoginModal           from 'containers/LoginModal'
+
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  DEMO_FORM: DemoForm,
+  DEMO_FORM   : DemoForm,
+  LOGIN_MODAL : LoginModal,
 }
 
 //-----------  Helpers  -----------//

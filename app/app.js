@@ -2,7 +2,6 @@
 
 import 'babel-polyfill'
 
-import 'sanitize.css/sanitize.css'
 import './styles/globals'
 
 import 'file-loader?name=[name].[ext]!./static/.htaccess'
@@ -18,7 +17,6 @@ import { Router,
          applyRouterMiddleware } from 'react-router'
 import { syncHistoryWithStore }  from 'react-router-redux'
 import { useScroll }             from 'react-router-scroll'
-import FontFaceObserver          from 'fontfaceobserver'
 
 import configureStore            from './store'
 import createRoutes              from './routes'
@@ -29,16 +27,6 @@ import AppWrapper                from 'containers/AppWrapper'
 
 const isProd = ('production' == process.env.NODE_ENV)
 
-//-----------  Fonts  -----------//
-
-const openSansObserver = new FontFaceObserver('Nunito Sans', {})
-
-openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded')
-}, () => {
-  document.body.classList.remove('fontLoaded')
-})
-
 //-----------  Redux Setups  -----------//
 
 // this uses the singleton browserHistory provided by react-router
@@ -47,7 +35,7 @@ openSansObserver.load().then(() => {
 
 const initialState   = {}
 const browserHistory = useRouterHistory(createHistory)({
-  basename: (isProd) ? '/' : '/'
+  basename: (isProd) ? '/nnsb-admin' : '/'
 })
 
 const store = configureStore(initialState, browserHistory)

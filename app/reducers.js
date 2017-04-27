@@ -6,6 +6,7 @@ import { LOCATION_CHANGE }              from 'react-router-redux'
 import { createResponsiveStateReducer } from 'redux-responsive'
 import useragent                        from 'express-useragent'
 
+import authReducer                      from 'modules/auth/reducer'
 import modalReducer                     from 'modules/modal/reducer'
 
 //-----------  Definitions  -----------//
@@ -37,6 +38,7 @@ function initialMediaType(){
 export default function createReducer(asyncReducers){
   return combineReducers({
     form    : formReducer,
+    auth    : authReducer,
     route   : routeReducer,
     modal   : modalReducer,
     browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),

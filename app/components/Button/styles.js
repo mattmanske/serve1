@@ -213,7 +213,7 @@ const Inner = styled.span`
   text-transform : uppercase;
   transition     : ${vars.transition};
 
-  small, i {
+  small, i, img {
     ${ mixins.antiAliased() }
 
     color          : ${props => fontColor(props)};

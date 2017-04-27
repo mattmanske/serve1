@@ -15,9 +15,11 @@ const GlobalHeader = (props) => {
   return (
     <Block.Elem {...props}>
       <BoundsWrapper>
-        <Block.Logo>
-          <Link to={'/'}>Home</Link>
-        </Block.Logo>
+        {props.logo &&
+          <Block.Logo>
+            <Link to={'/'}>{props.logo}</Link>
+          </Block.Logo>
+        }
 
         <Block.Nav>
           {props.isMobile ? (
@@ -36,6 +38,7 @@ const GlobalHeader = (props) => {
 //-----------  Prop Types  -----------//
 
 GlobalHeader.propTypes = {
+  logo     : PropTypes.element,
   isMobile : PropTypes.bool,
   children : PropTypes.node,
 }

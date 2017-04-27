@@ -13,27 +13,27 @@ const Button = (props) => {
 
   return (!props.href) ? (
     <Block.Elem type={props.type} disabled={props.disabled || props.loading} onClick={props.onClick} { ...props }>
-      {props.icon &&
-        <MaterialIcon icon={props.icon} />
+      {props.icon && <MaterialIcon icon={props.icon} />}
+
+      {props.iconElem && props.iconElem}
+
+      {(props.text || props.children) &&
+        <Block.Inner outline={props.outline} color={props.color}>{props.text || props.children}</Block.Inner>
       }
-      {props.children &&
-        <Block.Inner outline={props.outline} color={props.color}>{props.children}</Block.Inner>
-      }
-      {props.loading &&
-        <LoadingSpinner />
-      }
+
+      {props.loading && <LoadingSpinner />}
     </Block.Elem>
   ) : (
     <Block.Link type={props.type} disabled={props.disabled || props.loading} onClick={props.onClick} { ...props }>
-      {props.icon &&
-        <MaterialIcon icon={props.icon} />
+      {props.icon && <MaterialIcon icon={props.icon} />}
+
+      {props.iconElem && props.iconElem}
+
+      {(props.text || props.children) &&
+        <Block.Inner outline={props.outline} color={props.color}>{props.text || props.children}</Block.Inner>
       }
-      {props.children &&
-        <Block.Inner outline={props.outline} color={props.color}>{props.children}</Block.Inner>
-      }
-      {props.loading &&
-        <LoadingSpinner />
-      }
+
+      {props.loading && <LoadingSpinner />}
     </Block.Link>
   )
 }
@@ -41,6 +41,7 @@ const Button = (props) => {
 //-----------  Prop Types  -----------//
 
 Button.propTypes = {
+  text     : PropTypes.node,
   type     : PropTypes.string,
   icon     : PropTypes.string,
   href     : PropTypes.string,
@@ -49,6 +50,7 @@ Button.propTypes = {
   target   : PropTypes.string,
   outline  : PropTypes.bool,
   loading  : PropTypes.bool,
+  iconElem : PropTypes.element,
   disabled : PropTypes.bool,
   onClick  : PropTypes.func,
 }

@@ -2,16 +2,22 @@
 
 import Block                from './styles'
 
+import isEmpty              from 'lodash/isEmpty'
+
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
 
 import Button               from 'components/Button'
+import SvgLogo              from 'components/SvgLogo'
+import PageShade            from 'components/PageShade'
 import MobileMenu           from 'components/MobileMenu'
 import ProgressBar          from 'components/ProgressBar'
 import GlobalHeader         from 'components/GlobalHeader'
 
 import ModalWrapper         from 'containers/ModalWrapper'
+
+import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
@@ -23,10 +29,14 @@ class AppWrapper extends React.Component {
   }
 
   componentWillMount(){
-    this.unsubscribeHistory = this.props.router && this.props.router.listenBefore((location) => {
+    const { router, authActions } = this.props
+
+    this.unsubscribeHistory = router && router.listenBefore((location) => {
       if (this.state.loadedRoutes.indexOf(location.pathname) === -1)
         this.updateProgress(0)
     })
+
+    authActions.sync()
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -37,6 +47,15 @@ class AppWrapper extends React.Component {
       this.updateProgress(100)
       this.setState({ loadedRoutes: loadedRoutes.concat([pathname]) })
     }
+
+    const isWatching  = (!this.props.auth.isWatching && nextProps.auth.isWatching)
+    const isLoggedIn  = (!this.props.auth.isLoggedIn && nextProps.auth.isLoggedIn)
+    const isLoggedOut = (this.props.auth.isLoggedIn && !nextProps.auth.isLoggedIn)
+
+    if (isWatching || isLoggedOut)
+      nextProps.modalActions.showModal('LOGIN_MODAL', {}, { size: 'sm', preventClose: true })
+    if (isLoggedIn)
+      nextProps.modalActions.hideModal()
   }
 
   componentWillUnmount(){
@@ -52,7 +71,7 @@ class AppWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { params, location, browser, children, modalActions } = this.props
+    const { auth, params, location, browser, children, authActions, modalActions } = this.props
     const { progress } = this.state
 
     const isMobile = browser.lessThan.small || false
@@ -60,20 +79,19 @@ class AppWrapper extends React.Component {
     return(
       <Block.Elem>
         <Helmet
-          titleTemplate="%s - mmReduxBaseplate"
-          defaultTitle="mmReduxBaseplate"
-          meta={[{ name: 'description', content: 'A React/Redux Project Baseplate' }]}
+          titleTemplate="%s - NNSB Admin"
+          defaultTitle="NNSB Admin"
+          meta={[{ name: 'description', content: 'NNSB Admin' }]}
         />
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
         <GlobalHeader isMobile={isMobile}>
-          <Link to={'/about'}>About Us</Link>
-          <a>Heres a Link</a>
-          <a>Another Link</a>
-          <Button size='sm' onClick={() => modalActions.showModal('DEMO_FORM', {}, { size: 'sm' })}>
-            Modal
-          </Button>
+          <Link to={'/users'}>Users</Link>
+          <Link to={'/fields'}>Fields</Link>
+          <Link to={'/sponsors'}>Sponsors</Link>
+          <Link to={'/sweepstakes'}>Sweepstakes</Link>
+          <Button size='sm' color='white' onClick={authActions.signOut} text='Logout' />
         </GlobalHeader>
 
         {React.Children.map(children, child => (
@@ -81,6 +99,8 @@ class AppWrapper extends React.Component {
         ))}
 
         <ModalWrapper />
+
+        <PageShade active={!auth.isLoggedIn} />
       </Block.Elem>
     )
   }
@@ -89,10 +109,12 @@ class AppWrapper extends React.Component {
 //-----------  Prop Types  -----------//
 
 AppWrapper.propTypes = {
+  auth         : PropTypes.object.isRequired,
   browser      : PropTypes.object.isRequired,
   router       : PropTypes.object,
   location     : PropTypes.object,
   children     : PropTypes.node.isRequired,
+  authActions  : PropTypes.object.isRequired,
   modalActions : PropTypes.object.isRequired,
 }
 

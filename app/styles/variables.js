@@ -11,7 +11,7 @@ export const gutter = 1.25
 export const baseColors = {
   gray   : ['#a9a9a9', 30, 30],
   blue   : ['#007ebc', 50, 15],
-  red    : ['#B83021', 50, 15],
+  red    : ['#DC3F2E', 50, 15],
   green  : ['#1BB518', 50, 20],
   yellow : ['#FFD700', 40, 20],
   orange : ['#ff6c00', 40, 20],
@@ -24,10 +24,10 @@ export const allColors = generateSpectrums(baseColors)
 
 export default Object.assign({}, allColors, {
   white            : '#ffffff',
-  black            : '#404040',
+  black            : '#303741',
 
-  bodyFont         : "'Nunito+Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  headerFont       : "'Nunito+Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  // bodyFont         : "'Nunito+Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  // headerFont       : "'Nunito+Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
   bodyFontWeight   : 'normal',
   headerFontWeight : 'bold',
 

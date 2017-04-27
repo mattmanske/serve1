@@ -1,26 +1,49 @@
 //-----------  Imports  -----------//
 
+import moment              from 'moment'
+
+import * as firebase       from 'firebase'
 import { SubmissionError } from 'redux-form'
+import { select }          from 'redux-saga/effects'
+import ReduxSagaFirebase   from 'redux-saga-firebase'
 
-//-----------  Remote Definitions  -----------//
+// ----------- Firebase Setup -----------//
 
-export const REQUEST = 'REQUEST'
-export const SUCCESS = 'SUCCESS'
-export const FAILURE = 'FAILURE'
+const firebaseApp = firebase.initializeApp({
+  apiKey      : process.env.FIREBASE_API_KEY,
+  authDomain  : `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  databaseURL : `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
+});
 
-//-----------  Remote Actions  -----------//
+export const RSF = new ReduxSagaFirebase(firebaseApp)
 
-export const action = (type, payload = {}) =>{
-  return { type, ...payload }
+//-----------  Remote Helpers  -----------//
+
+const SYNC    = 'SYNC'
+const SUCCESS = 'SUCCESS'
+const FAILURE = 'FAILURE'
+
+export const action = (type, payload = {}) => ({ type, ...payload })
+
+export const timestamp = (object, status = false) => {
+  const createdAt = moment.utc().toString()
+  const updatedAt = moment.utc().toString()
+
+  if (status)
+    return { createdAt, status: 'draft', ...object, updatedAt }
+  else
+    return { createdAt, ...object, updatedAt }
 }
 
-export const createRequestTypes = (base, ...types) => {
-  const typeArr = [REQUEST, SUCCESS, FAILURE, ...types]
+export const createActionConstants = (base, types = []) => {
+  const typeArr = [SYNC, SUCCESS, FAILURE, ...types]
   const res = {}
 
   typeArr.forEach(type => res[type] = `${base}_${type}`)
   return res
 }
+
+// TODO: Protect against duplicate channel syncing...
 
 //-----------  API Helpers  -----------//
 

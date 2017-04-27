@@ -1,6 +1,8 @@
 //-----------  Imports  -----------//
 
-import { fork, join }   from 'redux-saga/effects'
+import { fork, join } from 'redux-saga/effects'
+
+import authSagas      from 'modules/auth/sagas'
 
 //-----------  Wait All  -----------//
 
@@ -12,5 +14,7 @@ export const waitAll = (sagas) => function* genTasks(){
 //-----------  Exports  -----------//
 
 export default function* rootSaga(){
-  yield []
+  yield [
+    authSagas()
+  ]
 }

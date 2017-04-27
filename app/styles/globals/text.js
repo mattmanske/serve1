@@ -7,7 +7,6 @@ import mixins from 'styles/mixins'
 
 export default `
   h1, h2, h3, h4, h5, h6 {
-    font-family : ${vars.headerFont};
     font-size   : ${vars.headerFontWeight};
     margin      : 0 auto;
   }
@@ -42,8 +41,12 @@ export default `
     text-decoration : none;
     transition      : ${vars.transition};
 
+    img, svg {
+      vertical-align: bottom;
+    }
+
     &:hover, &.active {
-      color: ${vars.orangeLight} !important;
+      color: ${vars.blueLight} !important;
     }
 
     &:disabled {
@@ -58,7 +61,7 @@ export default `
     line-height    : 1.67;
 
     a {
-      color           : ${vars.orange};
+      color           : ${vars.blue};
       text-decoration : underline;
     }
   }
@@ -69,7 +72,7 @@ export default `
     letter-spacing : -0.02em;
 
     a {
-      color           : ${vars.orange};
+      color           : ${vars.blue};
       text-decoration : underline;
     }
   }
