@@ -2,6 +2,7 @@
 
 import moment    from 'moment'
 import sortBy    from 'lodash/sortBy'
+import flatMap   from 'lodash/flatMap'
 
 import { AUTH }  from 'modules/auth/actions'
 
@@ -22,6 +23,7 @@ function showsReducer(state = initialState, action){
   let isWatching = true, isLoading = true
   let { data, error } = action
 
+  data = flatMap(data, (show, key) => Object.assign({ key }, show))
   data = sortBy(data, show => +moment(show.date))
 
   switch (action.type){
@@ -30,10 +32,10 @@ function showsReducer(state = initialState, action){
       return { ...state, isLoading, isWatching }
 
     case SHOWS.SUCCESS:
-      return { ...initialState, data }
+      return { ...initialState, data, isWatching }
 
     case SHOWS.FAILURE:
-      return { ...initialState, error }
+      return { ...initialState, error, isWatching }
 
     default:
       return state

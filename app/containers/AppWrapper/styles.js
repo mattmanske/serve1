@@ -28,6 +28,14 @@ const Elem = styled.div`
   }
 `
 
+const Logo = styled.div`
+  background    : ${vars.red};
+  border-radius : 0 0 ${vars.radius} ${vars.radius};
+  box-shadow    : ${vars.shadow};
+  margin        : -1.5em ${vars.gutterSm} -${vars.gutterLg};
+  padding       : ${vars.gutter};
+`
+
 //-----------  Exports  ----------- */
 
-export default { Elem }
+export default { Elem, Logo }

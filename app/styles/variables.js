@@ -5,13 +5,13 @@ import { generateSpectrums } from 'utils/styles'
 
 //-----------  Definitions  -----------//
 
-export const emBase = 16
+export const emBase = 14
 export const gutter = 1.25
 
 export const baseColors = {
   gray   : ['#a9a9a9', 30, 30],
   blue   : ['#007ebc', 50, 15],
-  red    : ['#DC3F2E', 50, 15],
+  red    : ['#DC3F2E', 40, 15],
   green  : ['#1BB518', 50, 20],
   yellow : ['#FFD700', 40, 20],
   orange : ['#ff6c00', 40, 20],

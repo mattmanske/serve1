@@ -2,10 +2,20 @@
 
 import styled from 'styled-components'
 
+import vars   from 'styles/variables'
+
 //-----------  Page Wrapper  ----------- */
 
 const Elem = styled.main`
-  overflow-x: hidden;
+  opacity     : 1;
+  overflow-x  : hidden;
+  padding-top : ${vars.gutterLg};
+  transition  : ${vars.transition};
+
+  ${props => props.loading && `
+    opacity        : 0.5;
+    pointer-events : none;
+  `}
 
   ${props => props.fill && `
     align-content   : stretch;

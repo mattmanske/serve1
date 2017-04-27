@@ -20,7 +20,7 @@ const Elem = styled.header`
     display         : flex;
     justify-content : space-between;
     min-height      : 4.683em;
-    padding         : ${vars.gutterSm};
+    padding         : ${vars.gutterSm} ${vars.gutter};
   }
 `
 
@@ -38,7 +38,6 @@ const Nav = styled.div`
     ${ mixins.antiAliased() }
 
     color          : ${vars.grayDark};
-    font-size      : 0.85em;
     margin-right   : 1.5rem;
     text-transform : uppercase;
 

@@ -1,14 +1,14 @@
 //-----------  Imports  -----------//
 
-import Block                from './styles'
+import App                  from './styles'
 
 import isEmpty              from 'lodash/isEmpty'
 
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
+import { Button }           from 'antd'
 
-import Button               from 'components/Button'
 import SvgLogo              from 'components/SvgLogo'
 import PageShade            from 'components/PageShade'
 import MobileMenu           from 'components/MobileMenu'
@@ -16,8 +16,6 @@ import ProgressBar          from 'components/ProgressBar'
 import GlobalHeader         from 'components/GlobalHeader'
 
 import ModalWrapper         from 'containers/ModalWrapper'
-
-import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
@@ -74,10 +72,11 @@ class AppWrapper extends React.Component {
     const { auth, params, location, browser, children, authActions, modalActions } = this.props
     const { progress } = this.state
 
+    const NNSBlogo = (<App.Logo><SvgLogo fill='white' width={80} /></App.Logo>)
     const isMobile = browser.lessThan.small || false
 
     return(
-      <Block.Elem>
+      <App.Elem>
         <Helmet
           titleTemplate="%s - NNSB Admin"
           defaultTitle="NNSB Admin"
@@ -86,11 +85,11 @@ class AppWrapper extends React.Component {
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
-        <GlobalHeader isMobile={isMobile} logo={<SvgLogo fill={vars.black} width={80} />}>
+        <GlobalHeader isMobile={isMobile} logo={NNSBlogo}>
           <Link to={'/shows'}>Shows</Link>
           <Link to={'/orders'}>Orders</Link>
           <Link to={'/financials'}>Financials</Link>
-          <Button size='sm' onClick={authActions.signOut} text='Logout' />
+          <Button icon='logout' onClick={authActions.signOut}>Log Out</Button>
         </GlobalHeader>
 
         {React.Children.map(children, child => (
@@ -100,7 +99,7 @@ class AppWrapper extends React.Component {
         <ModalWrapper />
 
         <PageShade active={!auth.isLoggedIn} />
-      </Block.Elem>
+      </App.Elem>
     )
   }
 }
