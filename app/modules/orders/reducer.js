@@ -34,6 +34,7 @@ function ordersReducer(state = initialState, action){
     case ORDERS.SUCCESS:
       return { ...initialState, data, hasMore }
 
+    case AUTH.SIGNOUT:
     case ORDERS.FAILURE:
       return { ...initialState, error }
 

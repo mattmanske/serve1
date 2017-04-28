@@ -153,7 +153,7 @@ class ShowsRoute extends React.Component {
                 className='member-col'
                 dataIndex='participants'
                 title={member.name}
-                render={arr => includes(arr, member.id) ? check : minus}
+                render={arr => arr && includes(arr, member.id) ? check : minus}
               />
             ))}
           </Table>

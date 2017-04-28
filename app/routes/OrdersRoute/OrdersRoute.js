@@ -130,6 +130,7 @@ class OrdersRoute extends React.Component {
               key='status'
               title='Status'
               dataIndex='status'
+              className='status-col'
               render={(val, order) => ('paid' != val) ? (
                 <div>
                   <Icon type={getStatusIcon(val, false)} style={{ color: getStatusColor(val), fontSize: '1.5em' }} />
@@ -144,8 +145,9 @@ class OrdersRoute extends React.Component {
                   onConfirm={() => this.props.shipOrder(order.id, 'fulfilled')}
                 >
                   <a>
+                    <Badge status='processing' />
                     <Switch size='small' checked={('fulfilled' == val)} />
-                  <br /><small>mark shipped</small>
+                    <br /><small>mark shipped</small>
                   </a>
                 </Popconfirm>
               )}
@@ -162,9 +164,9 @@ class OrdersRoute extends React.Component {
               width={125}
               key='shipped_date'
               title='Date Shipped'
-              dataIndex='created'
+              dataIndex='status_transitions'
               className='data-col'
-              render={val => moment(val, 'X').format('MMM Do, YYYY')}
+              render={val => val.fulfiled ? moment(val.fulfiled, 'X').format('MMM Do, YYYY') : <small>–</small>}
             />
             <Table.Column
               key='customer'

@@ -34,6 +34,7 @@ function showsReducer(state = initialState, action){
     case SHOWS.SUCCESS:
       return { ...initialState, data, isWatching }
 
+    case AUTH.SIGNOUT:
     case SHOWS.FAILURE:
       return { ...initialState, error, isWatching }
 
