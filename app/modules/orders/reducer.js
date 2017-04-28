@@ -1,5 +1,8 @@
 //-----------  Imports  -----------//
 
+import orderBy    from 'lodash/orderBy'
+import groupBy    from 'lodash/groupBy'
+
 import { AUTH }   from 'modules/auth/actions'
 
 import { ORDERS } from './actions'
@@ -7,28 +10,31 @@ import { ORDERS } from './actions'
 //-----------  Definitions  -----------//
 
 const initialState = {
-  data       : {},
-  error      : null,
-  isLoading  : false,
-  isWatching : false,
+  data      : {},
+  error     : null,
+  hasMore   : false,
+  isLoading : false,
 }
 
 //-----------  Reducers  -----------//
 
 function ordersReducer(state = initialState, action){
-  let isWatching = true, isLoading = true
-  let { data, error } = action
+  let { data, hasMore, error } = action
+
+  data = orderBy(data, ['created'], ['desc'])
+  data = groupBy(data, 'status')
 
   switch (action.type){
 
     case AUTH.SYNC:
-      return { ...state, isLoading, isWatching }
+    case ORDERS.REQUEST:
+      return { ...state, isLoading: true }
 
     case ORDERS.SUCCESS:
-      return { ...initialState, data, isWatching }
+      return { ...initialState, data, hasMore }
 
     case ORDERS.FAILURE:
-      return { ...initialState, error, isWatching }
+      return { ...initialState, error }
 
     default:
       return state

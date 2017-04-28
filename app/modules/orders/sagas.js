@@ -1,31 +1,32 @@
 //-----------  Imports  -----------//
 
-import { takeEvery }               from 'redux-saga'
-import { put, take, call, select } from 'redux-saga/effects'
+import { takeEvery }           from 'redux-saga'
+import { put, call }           from 'redux-saga/effects'
 
-import { RSF_SITE }                from 'modules/helpers'
-import { AUTH }                    from 'modules/auth/actions'
+import { STRIPE }              from 'modules/helpers'
+import { AUTH }                from 'modules/auth/actions'
 
-import { ORDERS, sagaActions }     from './actions'
+import { ORDERS, sagaActions } from './actions'
+import { ordersAPI }           from './api'
 
 //-----------  Sagas  -----------//
 
-function* syncOrdersSaga(){
-  const channel = yield call(RSF_SITE.channel, 'customers')
-
-  while(true){
-    const data = yield take(channel)
-
-    if (data) yield put(sagaActions.success(data))
-    else yield put(sagaActions.failure())
+function* fetchOrdersSaga(){
+  try {
+    const { body: { data, has_more }} = yield call(ordersAPI)
+    yield put(sagaActions.success(data, has_more))
+  } catch (err) {
+    yield put(sagaActions.failure(err))
   }
 }
+
 
 
 //-----------  Watchers  -----------//
 
 export default function* ordersSagas(){
   yield [
-    takeEvery(AUTH.SYNC, syncOrdersSaga)
+    takeEvery(AUTH.SUCCESS, fetchOrdersSaga),
+    takeEvery(ORDERS.REQUEST, fetchOrdersSaga)
   ]
 }

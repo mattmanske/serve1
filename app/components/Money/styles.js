@@ -7,6 +7,7 @@ import vars   from 'styles/variables'
 //-----------  Money  ----------- */
 
 const Wrapper = styled.span`
+  font-size: 1.1em;
 `
 
 const Sign = styled.sup`

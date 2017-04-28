@@ -58,7 +58,7 @@ const Page = styled(PageWrapper)`
 `
 
 const Header = styled.header`
-  align-items     : center;nter;
+  align-items     : center;
   display         : flex;
   justify-content : space-between;
   margin-bottom   : ${vars.gutter};

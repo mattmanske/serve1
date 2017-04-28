@@ -23,8 +23,8 @@ import vars                 from 'styles/variables'
 //-----------  Definitions  -----------//
 
 const title = 'Shows'
-const check = <Icon type='check-circle' style={{ color: vars.green }} />
-const minus = <Icon type='minus-circle-o' style={{ color: vars.redLightest }} />
+const check = <Icon type='check-circle' style={{ color: vars.green, fontSize: '1.25em'  }} />
+const minus = <Icon type='minus-circle-o' style={{ color: vars.redLightest, fontSize: '1.25em'  }} />
 
 const members = [
   { id: '-JwTMosYwcz594OTzWNg', name: 'Brian', visible: true },
