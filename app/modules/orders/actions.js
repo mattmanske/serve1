@@ -14,8 +14,8 @@ export const ordersActions = {
 //-----------  Saga Actions  -----------//
 
 export const sagaActions = {
-  success: (orders) => {
-    return action(ORDERS.SUCCESS, { orders })
+  success: (data) => {
+    return action(ORDERS.SUCCESS, { data })
   },
   failure: (error = null) => {
     return action(ORDERS.FAILURE, { error })

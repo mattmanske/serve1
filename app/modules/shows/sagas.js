@@ -3,7 +3,7 @@
 import { takeLatest }         from 'redux-saga'
 import { put, take, call }    from 'redux-saga/effects'
 
-import { RSF }                from 'modules/helpers'
+import { RSF_ADMIN }          from 'modules/helpers'
 import { AUTH }               from 'modules/auth/actions'
 
 import { SHOWS, sagaActions } from './actions'
@@ -11,7 +11,7 @@ import { SHOWS, sagaActions } from './actions'
 //-----------  Sagas  -----------//
 
 function* syncShowsSaga(){
-  const channel = yield call(RSF.channel, 'shows')
+  const channel = yield call(RSF_ADMIN.channel, 'shows')
 
   while(true){
     const data = yield take(channel)

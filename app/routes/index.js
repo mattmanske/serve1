@@ -24,6 +24,12 @@ export default function createRoutes(store){
       import('routes/ShowsRoute').then(loadModule(cb)).catch(err)
     },
   },{
+    path : '/orders',
+    name : 'orders',
+    getComponent(nextState, cb){
+      import('routes/OrdersRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/',
     name : 'dashobard',
     getComponent(nextState, cb){

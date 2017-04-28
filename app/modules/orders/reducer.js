@@ -1,23 +1,34 @@
 //-----------  Imports  -----------//
 
+import { AUTH }   from 'modules/auth/actions'
+
 import { ORDERS } from './actions'
 
 //-----------  Definitions  -----------//
 
-const initialState = {}
+const initialState = {
+  data       : {},
+  error      : null,
+  isLoading  : false,
+  isWatching : false,
+}
 
 //-----------  Reducers  -----------//
 
 function ordersReducer(state = initialState, action){
-  const { orders, error } = action
+  let isWatching = true, isLoading = true
+  let { data, error } = action
 
   switch (action.type){
 
+    case AUTH.SYNC:
+      return { ...state, isLoading, isWatching }
+
     case ORDERS.SUCCESS:
-      return { ...initialState, orders }
+      return { ...initialState, data, isWatching }
 
     case ORDERS.FAILURE:
-      return { ...initialState, error }
+      return { ...initialState, error, isWatching }
 
     default:
       return state

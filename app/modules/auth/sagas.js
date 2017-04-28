@@ -4,7 +4,7 @@ import firebase                    from 'firebase'
 import { takeEvery }               from 'redux-saga'
 import { put, take, call, select } from 'redux-saga/effects'
 
-import { RSF }                     from 'modules/helpers'
+import { RSF_ADMIN }               from 'modules/helpers'
 
 import { AUTH, sagaActions }       from './actions'
 
@@ -15,7 +15,7 @@ const authProvider = new firebase.auth.GoogleAuthProvider()
 //-----------  Sagas  -----------//
 
 function* syncAuthSaga(){
-  const channel = yield call(RSF.authChannel)
+  const channel = yield call(RSF_ADMIN.authChannel)
 
   while(true){
     const { user, error } = yield take(channel)
@@ -29,7 +29,7 @@ function* syncAuthSaga(){
 
 function* signInSaga(){
   try {
-    yield call(RSF.login, authProvider)
+    yield call(RSF_ADMIN.login, authProvider)
   } catch(error){
     yield put(sagaActions.failure(error))
   }
@@ -37,7 +37,7 @@ function* signInSaga(){
 
 function* signOutSaga(){
   try {
-    yield call(RSF.logout)
+    yield call(RSF_ADMIN.logout)
   } catch(error){
     yield put(sagaActions.failure(error))
   }

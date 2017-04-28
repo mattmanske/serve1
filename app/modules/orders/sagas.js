@@ -3,14 +3,15 @@
 import { takeEvery }               from 'redux-saga'
 import { put, take, call, select } from 'redux-saga/effects'
 
-import { RSF }                     from 'modules/helpers'
+import { RSF_SITE }                from 'modules/helpers'
+import { AUTH }                    from 'modules/auth/actions'
 
-import { ORDERS, sagaActions }       from './actions'
+import { ORDERS, sagaActions }     from './actions'
 
 //-----------  Sagas  -----------//
 
 function* syncOrdersSaga(){
-  const channel = yield call(RSF.channel, 'orders')
+  const channel = yield call(RSF_SITE.channel, 'customers')
 
   while(true){
     const data = yield take(channel)
@@ -25,6 +26,6 @@ function* syncOrdersSaga(){
 
 export default function* ordersSagas(){
   yield [
-    takeEvery(ORDERS.SYNC, syncOrdersSaga)
+    takeEvery(AUTH.SYNC, syncOrdersSaga)
   ]
 }

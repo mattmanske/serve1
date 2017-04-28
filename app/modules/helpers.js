@@ -9,13 +9,17 @@ import ReduxSagaFirebase   from 'redux-saga-firebase'
 
 // ----------- Firebase Setup -----------//
 
-const firebaseApp = firebase.initializeApp({
-  apiKey      : process.env.FIREBASE_API_KEY,
-  authDomain  : `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL : `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
-});
+export const RSF_SITE  = new ReduxSagaFirebase(firebase.initializeApp({
+  apiKey      : process.env.SITE_FIREBASE_API_KEY,
+  authDomain  : `${process.env.SITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  databaseURL : `https://${process.env.SITE_FIREBASE_PROJECT_ID}.firebaseio.com`,
+}, 'site'))
 
-export const RSF = new ReduxSagaFirebase(firebaseApp)
+export const RSF_ADMIN = new ReduxSagaFirebase(firebase.initializeApp({
+  apiKey      : process.env.ADMIN_FIREBASE_API_KEY,
+  authDomain  : `${process.env.ADMIN_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  databaseURL : `https://${process.env.ADMIN_FIREBASE_PROJECT_ID}.firebaseio.com`,
+}, 'admin'))
 
 //-----------  Remote Helpers  -----------//
 
