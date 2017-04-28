@@ -45,6 +45,11 @@ const Nav = styled.div`
       color: ${vars.blueLight} !important;
     }
   }
+
+  .ant-badge {
+    position: absolute;
+    margin-top: -0.25em;
+  }
 `
 
 //-----------  Exports  ----------- */

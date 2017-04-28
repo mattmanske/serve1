@@ -8,6 +8,7 @@ const Stripe = require('stripe@4.14.0')
 
 module.exports = (ctx, cb) => {
 
+  const { status, orderID }   = ctx.body
   const { STRIPE_SECRET_KEY } = ctx.data
 
   //-----------  Definitions  -----------//
@@ -16,7 +17,9 @@ module.exports = (ctx, cb) => {
 
   //-----------  Processing  -----------//
 
-  return stripe.orders.list({}, (err, orders) => {
-    return (err) ? cb(err) : cb(null, orders)
+  return stripe.orders.update(orderID, { status }, (err, order) => {
+    return (err) ? cb(err) : stripe.orders.list({}, (err, orders) => {
+      return (err) ? cb(err) : cb(null, orders)
+    })
   })
 }

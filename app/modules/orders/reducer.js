@@ -27,6 +27,7 @@ function ordersReducer(state = initialState, action){
   switch (action.type){
 
     case AUTH.SYNC:
+    case ORDERS.SHIP:
     case ORDERS.REQUEST:
       return { ...state, isLoading: true }
 

@@ -7,7 +7,7 @@ import isEmpty              from 'lodash/isEmpty'
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
-import { Button }           from 'antd'
+import { Badge, Button }    from 'antd'
 
 import SvgLogo              from 'components/SvgLogo'
 import PageShade            from 'components/PageShade'
@@ -16,6 +16,8 @@ import ProgressBar          from 'components/ProgressBar'
 import GlobalHeader         from 'components/GlobalHeader'
 
 import ModalWrapper         from 'containers/ModalWrapper'
+
+import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
@@ -69,11 +71,12 @@ class AppWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { auth, params, location, browser, children, authActions, modalActions } = this.props
+    const { auth, orders, params, location, browser, children, authActions, modalActions } = this.props
     const { progress } = this.state
 
-    const NNSBlogo = (<App.Logo><SvgLogo fill='white' width={80} /></App.Logo>)
-    const isMobile = browser.lessThan.small || false
+    const NNSBlogo  = (<App.Logo><SvgLogo fill='white' width={80} /></App.Logo>)
+    const hasOrders = orders.data.paid ? !!orders.data.paid.length : false
+    const isMobile  = browser.lessThan.small || false
 
     return(
       <App.Elem>
@@ -87,7 +90,10 @@ class AppWrapper extends React.Component {
 
         <GlobalHeader isMobile={isMobile} logo={NNSBlogo}>
           <Link to={'/shows'}>Shows</Link>
-          <Link to={'/orders'}>Orders</Link>
+          <Link to={'/orders'}>
+            Orders
+            {hasOrders && <Badge status='processing' />}
+          </Link>
           <Link to={'/financials'}>Financials</Link>
           <Button icon='logout' onClick={authActions.signOut}>Log Out</Button>
         </GlobalHeader>
@@ -108,6 +114,7 @@ class AppWrapper extends React.Component {
 
 AppWrapper.propTypes = {
   auth         : PropTypes.object.isRequired,
+  orders       : PropTypes.object.isRequired,
   browser      : PropTypes.object.isRequired,
   router       : PropTypes.object,
   location     : PropTypes.object,

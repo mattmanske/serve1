@@ -16,7 +16,8 @@ import { Icon,
          Table,
          Badge,
          Switch,
-         Button }           from 'antd'
+         Button,
+         Popconfirm }       from 'antd'
 
 import Money                from 'components/Money'
 import BoundsWrapper        from 'components/BoundsWrapper'
@@ -37,7 +38,7 @@ function getStatusText(status){
     case 'fulfilled' : return 'Shipped'
     case 'canceled'  : return 'Canceled'
     case 'created'   : return 'Unpaid'
-    case 'paid'      : return 'Ready'
+    case 'paid'      : return 'Needs to be Shipped'
     default          : return ''
   }
 }
@@ -67,7 +68,7 @@ function getStatusIcon(status, open = true){
 class OrdersRoute extends React.Component {
 
   state = {
-    filters: ['paid']
+    filters: ['fulfilled', 'paid']
   }
 
   //-----------  Event Hadlers  -----------//
@@ -102,7 +103,7 @@ class OrdersRoute extends React.Component {
                     key={status}
                     showZero={true}
                     count={data[status] ? data[status].length : 0}
-                    style={{ backgroundColor: getStatusColor(status) }}
+                    style={{ backgroundColor: (data[status] && data[status].length) ? getStatusColor(status) : vars.gray }}
                   >
                     <Button
                       type={selected ? 'primary' : 'dashed'}
@@ -125,11 +126,29 @@ class OrdersRoute extends React.Component {
             // footer={(data) => <ShowsFooter shows={data} members={members} />}
           >
             <Table.Column
-              width={75}
+              width={85}
               key='status'
-              title='Paid'
+              title='Status'
               dataIndex='status'
-              render={val => <Icon type={getStatusIcon(val, false)} style={{ color: getStatusColor(val), fontSize: '1.25em' }} />}
+              render={(val, order) => ('paid' != val) ? (
+                <div>
+                  <Icon type={getStatusIcon(val, false)} style={{ color: getStatusColor(val), fontSize: '1.5em' }} />
+                  <br /><small style={{ color: getStatusColor(val) }}>{getStatusText(val)}</small>
+                </div>
+              ) : (
+                <Popconfirm
+                  okText='Yes'
+                  cancelText='No'
+                  placement='right'
+                  title='Mark this order as shipped?'
+                  onConfirm={() => this.props.shipOrder(order.id, 'fulfilled')}
+                >
+                  <a>
+                    <Switch size='small' checked={('fulfilled' == val)} />
+                  <br /><small>mark shipped</small>
+                  </a>
+                </Popconfirm>
+              )}
             />
             <Table.Column
               width={125}
@@ -181,21 +200,21 @@ class OrdersRoute extends React.Component {
               ))}
             />
             <Table.Column
-              width={75}
+              width={70}
               key='sales_tax'
               title='Tax'
               dataIndex='items'
               render={val => <Money value={find(val, { type: 'tax' }).amount/100} />}
             />
             <Table.Column
-              width={75}
+              width={70}
               key='shipping'
               title='Shipping'
               dataIndex='items'
               render={val => <Money value={find(val, { type: 'shipping' }).amount/100} />}
             />
             <Table.Column
-              width={75}
+              width={85}
               key='total'
               title='Total'
               dataIndex='amount'
@@ -211,7 +230,8 @@ class OrdersRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 OrdersRoute.propTypes = {
-  orders: PropTypes.object.isRequired,
+  orders    : PropTypes.object.isRequired,
+  shipOrder : PropTypes.func.isRequired,
 }
 
 //-----------  Exports  -----------//

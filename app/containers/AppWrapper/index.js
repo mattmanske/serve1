@@ -12,6 +12,7 @@ import { modalActions }       from 'modules/modal/actions'
 
 const mapState = (state) => ({
   auth    : state.auth,
+  orders  : state.orders,
   browser : state.browser,
 })
 
