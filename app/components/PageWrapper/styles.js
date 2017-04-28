@@ -7,10 +7,11 @@ import vars   from 'styles/variables'
 //-----------  Page Wrapper  ----------- */
 
 const Elem = styled.main`
-  opacity     : 1;
-  overflow-x  : hidden;
-  padding-top : ${vars.gutterLg};
-  transition  : ${vars.transition};
+  opacity        : 1;
+  overflow-x     : hidden;
+  padding-bottom : ${vars.gutterLg};
+  padding-top    : ${vars.gutterLg};
+  transition     : ${vars.transition};
 
   ${props => props.loading && `
     opacity        : 0.5;

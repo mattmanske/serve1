@@ -11,12 +11,21 @@ import mixins      from 'styles/mixins'
 
 const Page = styled(PageWrapper)`
 
-  th, td {
-    border-left : 1px solid ${vars.grayLightest};
-    text-align  : center !important;
+  table {
+    border-color : ${vars.grayLightest} !important;
+    border-right : 1px solid ${vars.grayLightest};
+    table-layout : fixed;
   }
 
-  td.venue-col {
+  th, td {
+    ${ mixins.ellipsis() }
+
+    border-color : ${vars.grayLightest} !important;
+    border-left  : 1px solid ${vars.grayLightest};
+    text-align   : center !important;
+  }
+
+  .venue-col {
     text-align: left !important;
 
     strong {
@@ -24,6 +33,27 @@ const Page = styled(PageWrapper)`
 
       display: block;
     }
+  }
+
+  .member-col {
+    position: relative;
+  }
+
+  .booked-col + .member-col::before {
+    background     : linear-gradient(left, rgba(0,0,0,0.033), rgba(0,0,0,0));
+    bottom         : 0;
+    content        : '';
+    left           : 0;
+    pointer-events : none;
+    position       : absolute;
+    top            : 0;
+    width          : 1em;
+  }
+
+  .ant-table-footer {
+    border-radius : 0 0 4px 4px;
+    overflow      : hidden;
+    padding       : 0;
   }
 `
 
@@ -34,13 +64,8 @@ const Header = styled.header`
   margin-bottom   : ${vars.gutter};
 
   > *:first-child {
-    flex: 1 0 auto;
-  }
-
-  > h4, > i {
-    flex       : 1 1 100%;
-    padding    : 0 1rem;
-    text-align : left;
+    display : inline-block;
+    flex    : 0 1 auto;
   }
 `
 

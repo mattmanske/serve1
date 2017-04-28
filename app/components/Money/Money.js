@@ -42,7 +42,7 @@ Money.propTypes = {
 }
 
 Money.defaultProps = {
-  showCents: false,
+  showCents: true,
 }
 
 //-----------  Export  -----------//

@@ -3,17 +3,19 @@
 import Route                from './styles'
 
 import moment               from 'moment'
+import find                 from 'lodash/find'
 import filter               from 'lodash/filter'
 import includes             from 'lodash/includes'
-import capitalize           from 'lodash/capitalize'
 
 import React, { PropTypes } from 'react'
 import { Icon,
          Table,
+         Input,
          Button,
          DatePicker }       from 'antd'
 
 import Money                from 'components/Money'
+import ShowsFooter          from 'components/ShowsFooter'
 import BoundsWrapper        from 'components/BoundsWrapper'
 
 import vars                 from 'styles/variables'
@@ -48,6 +50,22 @@ class ShowsRoute extends React.Component {
     this.setState({ month: month.startOf('month') })
   }
 
+  nextMonth = () => {
+    this.setState({ month: this.state.month.add(1, 'months').startOf('month') })
+  }
+
+  prevMonth = () => {
+    this.setState({ month: this.state.month.subtract(1, 'months').startOf('month') })
+  }
+
+  noBackwards = () => {
+    return this.state.month.isSameOrBefore('2015-05-01', 'month')
+  }
+
+  noForewards = () => {
+    return this.state.month.isSameOrAfter(moment(), 'month')
+  }
+
   disabledMonths = (current) => {
     return current && (current.isBefore('2015-04-30') || current.isAfter(moment()))
   }
@@ -66,18 +84,28 @@ class ShowsRoute extends React.Component {
       <Route.Page title={title} loading={!pageReady}>
         <BoundsWrapper>
           <Route.Header>
-            <DatePicker.MonthPicker
-              size='large'
-              format={'MMMM YYYY'}
-              defaultValue={month}
-              onChange={this.changeMonth}
-              disabledDate={this.disabledMonths}
-            />
-            {pageReady ? (
-              <h4>{shows.length} Show{(1 < shows.length) && 's'}</h4>
-            ) : (
-              <Icon type='loading' />
-            )}
+            <Input.Group compact>
+              <Button
+                size='large'
+                icon='left'
+                onClick={this.prevMonth}
+                disabled={this.noBackwards() || !pageReady}
+              />
+              <DatePicker.MonthPicker
+                size='large'
+                allowClear={false}
+                format={'MMMM YYYY'}
+                defaultValue={month}
+                onChange={this.changeMonth}
+                disabledDate={this.disabledMonths}
+              />
+              <Button
+                size='large'
+                icon='right'
+                onClick={this.nextMonth}
+                disabled={this.noForewards() || !pageReady}
+              />
+            </Input.Group>
 
             <Button icon='plus' type='primary'>
               Add New Show
@@ -85,16 +113,17 @@ class ShowsRoute extends React.Component {
           </Route.Header>
 
           <Table
-            loading={!pageReady}
             dataSource={shows}
             pagination={false}
+            loading={!pageReady}
+            footer={(data) => <ShowsFooter shows={data} members={members} />}
           >
             <Table.Column
               key='date'
-              width={75}
+              width={60}
               title='Date'
               dataIndex='date'
-              render={val => moment(val).format('MMM Do')}
+              render={val => moment(val).format('Do')}
             />
             <Table.Column
               key='name'
@@ -102,23 +131,28 @@ class ShowsRoute extends React.Component {
               title='Venue'
               dataIndex='name'
               className='venue-col'
-              render={val => <strong>{val}</strong>}
             />
             <Table.Column
               key='pay'
               width={75}
               title='Pay'
               dataIndex='payment'
-              className='pay-col'
-              render={val => <Money value={val} showCents={true} />}
+              render={val => <Money value={val} />}
+            />
+            <Table.Column
+              key='booker'
+              width={75}
+              title='Booker'
+              dataIndex='booked_by'
+              className='booked-col'
+              render={val => ('0' == val) ? <small>–</small> : find(members, ['id', val]).name}
             />
             {members.map(member => (
               <Table.Column
                 key={member.id}
-                width={75}
                 className='member-col'
                 dataIndex='participants'
-                title={capitalize(member.name)}
+                title={member.name}
                 render={arr => includes(arr, member.id) ? check : minus}
               />
             ))}
