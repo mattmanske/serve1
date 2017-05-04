@@ -1,10 +1,8 @@
 //-----------  Imports  -----------//
 
-import { connect }       from 'react-redux'
+import { connect } from 'react-redux'
 
-import OrdersRoute       from './OrdersRoute'
-
-import { ordersActions } from 'modules/orders/actions'
+import OrdersRoute from './OrdersRoute'
 
 //-----------  Redux Maps  -----------//
 
@@ -12,9 +10,7 @@ const mapState = (state) => ({
   orders: state.orders
 })
 
-const mapDispatch = (dispatch) => ({
-  shipOrder: (orderID, status) => dispatch(ordersActions.ship(orderID, status))
-})
+const mapDispatch = (dispatch) => ({})
 
 //-----------  Exports  -----------//
 
