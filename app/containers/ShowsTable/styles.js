@@ -20,9 +20,21 @@ const Wrapper = styled(Table)`
   th, td {
     ${ mixins.ellipsis() }
 
-    border-color   : ${vars.grayLightest} !important;
-    border-left    : 1px solid ${vars.grayLightest};
-    text-align     : center !important;
+    border-color : ${vars.grayLightest} !important;
+    border-left  : 1px solid ${vars.grayLightest};
+    position     : relative;
+    text-align   : center !important;
+
+    &:nth-child(5)::before {
+      background     : linear-gradient(left, rgba(0,0,0,0.033), rgba(0,0,0,0));
+      bottom         : 0;
+      content        : '';
+      left           : 0;
+      pointer-events : none;
+      position       : absolute;
+      top            : 0;
+      width          : 1em;
+    }
   }
 
   .ant-table-footer {
@@ -33,37 +45,6 @@ const Wrapper = styled(Table)`
 `
 
 const Column = styled(Table.Column)``
-
-const Item = styled.div`
-  align-items     : center;
-  display         : flex;
-  justify-content : space-between;
-  padding         : 0.33em;
-  position        : relative;
-
-  span {
-    font-size   : 0.8rem;
-    line-height : 1;
-    position    : relative;
-
-    &:first-child {
-      padding-right : 0.67em;
-      text-align    : left;
-    }
-
-    &:last-child {
-      padding-left : 0.67em;
-      text-align   : right;
-    }
-  }
-
-  hr {
-    border     : none;
-    border-top : 1px dotted ${vars.grayLighter};
-    flex       : 1 0 auto;
-    height     : 0;
-  }
-`
 
 const Footer = styled(Table)`
   border-color : ${vars.grayLightest} !important;
@@ -86,6 +67,17 @@ const Footer = styled(Table)`
   }
 `
 
+const Totals = styled.div`
+  small {
+    color   : ${vars.black};
+    display : block;
+
+    em {
+      color: ${vars.gray};
+    }
+  }
+`
+
 //-----------  Exports  ----------- */
 
-export default { Wrapper, Column, Item, Footer }
+export default { Wrapper, Column, Footer, Totals }

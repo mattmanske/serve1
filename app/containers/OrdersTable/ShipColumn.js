@@ -2,8 +2,7 @@
 
 import React, { PropTypes } from 'react'
 
-import { Badge,
-         Switch,
+import { Switch,
          Popconfirm }       from 'antd'
 
 //-----------  Component  -----------//
@@ -19,7 +18,6 @@ const ShipColumn = ({ status, orderID, shipOrder, ...props }) => {
       onConfirm={() => shipOrder(orderID, 'fulfilled')}
     >
       <a>
-        <Badge status='processing' />
         <Switch size='small' checked={('fulfilled' == status)} />
         <br />
         <small>mark shipped</small>

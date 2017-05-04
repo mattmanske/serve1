@@ -3,38 +3,20 @@
 import Route                from './styles'
 
 import moment               from 'moment'
-import find                 from 'lodash/find'
 import filter               from 'lodash/filter'
-import includes             from 'lodash/includes'
 
 import React, { PropTypes } from 'react'
-import { Icon,
-         Table,
-         Input,
+import { Input,
          Button,
          DatePicker }       from 'antd'
 
-import Money                from 'components/Money'
-import ShowsFooter          from 'components/ShowsFooter'
-import BoundsWrapper        from 'components/BoundsWrapper'
+import ShowsTable           from 'containers/ShowsTable'
 
-import vars                 from 'styles/variables'
+import BoundsWrapper        from 'components/BoundsWrapper'
 
 //-----------  Definitions  -----------//
 
 const title = 'Shows'
-const check = <Icon type='check-circle' style={{ color: vars.green, fontSize: '1.25em'  }} />
-const minus = <Icon type='minus-circle-o' style={{ color: vars.redLightest, fontSize: '1.25em'  }} />
-
-const members = [
-  { id: '-JwTMosYwcz594OTzWNg', name: 'Brian', visible: true },
-  { id: '-JwTMosjlnMYoUiec5Yn', name: 'Chris', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62m', name: 'Ela', visible: true },
-  { id: '-JwTMosap3SX4fNoawMT', name: 'Matt', visible: true },
-  { id: '-JwTMosjlnMYoUiec5Ym', name: 'Josh', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62n', name: 'Jeff', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62o', name: 'Hannah', visible: true },
-]
 
 //-----------  Component  -----------//
 
@@ -112,51 +94,10 @@ class ShowsRoute extends React.Component {
             </Button>
           </Route.Header>
 
-          <Table
-            dataSource={shows}
-            pagination={false}
+          <ShowsTable
             loading={!pageReady}
-            footer={(data) => <ShowsFooter shows={data} members={members} />}
-          >
-            <Table.Column
-              key='date'
-              width={60}
-              title='Date'
-              dataIndex='date'
-              render={val => moment(val).format('Do')}
-            />
-            <Table.Column
-              key='name'
-              width={150}
-              title='Venue'
-              dataIndex='name'
-              className='venue-col'
-            />
-            <Table.Column
-              key='pay'
-              width={75}
-              title='Pay'
-              dataIndex='payment'
-              render={val => <Money value={val} />}
-            />
-            <Table.Column
-              key='booker'
-              width={75}
-              title='Booker'
-              dataIndex='booked_by'
-              className='booked-col'
-              render={val => ('0' == val) ? <small>–</small> : find(members, ['id', val]).name}
-            />
-            {members.map(member => (
-              <Table.Column
-                key={member.id}
-                className='member-col'
-                dataIndex='participants'
-                title={member.name}
-                render={arr => arr && includes(arr, member.id) ? check : minus}
-              />
-            ))}
-          </Table>
+            dataSource={shows}
+          />
         </BoundsWrapper>
       </Route.Page>
     )

@@ -29,7 +29,7 @@ const OrdersTable = ({ rowKey, loading, pagination, dataSource, shipOrder, ...pr
         key='status'
         title='Status'
         dataIndex='status'
-        render={(val, record) => ('paid' == status)
+        render={(val, record) => ('paid' == val)
           ? <ShipColumn status={val} orderID={record.id} shipOrder={shipOrder} />
           : <StatusColumn status={val} />
         }
