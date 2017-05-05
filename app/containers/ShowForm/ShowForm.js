@@ -35,8 +35,6 @@ function validate(values){
   if (!isNumber(values.payment))
     errors.payment = 'Required'
 
-  console.log(values.date);
-
   return errors
 }
 
@@ -98,7 +96,7 @@ const ShowForm = (props) => {
         layout='horizontal'
         component={ReduxAntdWrapper}
       >
-        <Select defaultValue='0'>
+        <Select>
           <Select.Option value='0'>-none-</Select.Option>
           {MEMBERS.map(member => (
             <Select.Option key={member.id} value={member.id}>{member.name}</Select.Option>

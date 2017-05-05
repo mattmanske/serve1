@@ -28,8 +28,11 @@ const ReduxAntdWrapper = (field) => {
       onChange     = (val) => input.onChange(val ? val.toString() : null)
       defaultValue = value ? moment(value) : undefined
       break
+    case 'CheckboxGroup':
+      defaultValue = value ? value : []
+      break
     case 'Select':
-      defaultValue = value.toString()
+      defaultValue = value ? value.toString() : '0'
       break
   }
 

@@ -11,12 +11,14 @@ import '!file-loader?name=[name].[ext]!./static/manifest.json'
 import React                     from 'react'
 import ReactDOM                  from 'react-dom'
 import { Provider }              from 'react-redux'
+import { LocaleProvider }        from 'antd'
 import { createHistory }         from 'history'
 import { Router,
          useRouterHistory,
          applyRouterMiddleware } from 'react-router'
 import { syncHistoryWithStore }  from 'react-router-redux'
 import { useScroll }             from 'react-router-scroll'
+import enUS                      from 'antd/lib/locale-provider/en_US'
 
 import configureStore            from './store'
 import createRoutes              from './routes'
@@ -60,13 +62,15 @@ const rootRoute = {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router
-      history={history}
-      routes={rootRoute}
-      render={applyRouterMiddleware(useScroll())}
-    />
-  </Provider>,
+  <LocaleProvider locale={enUS}>
+    <Provider store={store}>
+      <Router
+        history={history}
+        routes={rootRoute}
+        render={applyRouterMiddleware(useScroll())}
+      />
+    </Provider>
+  </LocaleProvider>,
   document.getElementById('app')
 )
 
