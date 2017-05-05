@@ -127,7 +127,7 @@ ReduxAntdSubmit.propTypes = {
 
 ReduxAntdSubmit.defaultProps = {
   canReset       : true,
-  pristineSubmit : false,
+  pristineSubmit : true,
 }
 
 //-----------  Export  -----------//

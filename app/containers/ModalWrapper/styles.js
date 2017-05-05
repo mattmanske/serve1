@@ -65,7 +65,7 @@ const Content = styled.div`
   margin           : 0 auto;
   min-height       : 10em;
   opacity          : ${props => props.open ? '1' : '0'};
-  padding          : 3em 2.25em 2.25em;
+  padding          : 3.5em 2.25em 2.25em;
   position         : relative;
   transform        : ${props => props.open ? 'scale(1)' : 'scale(0.7)'};
   transform-origin : 50% 0;

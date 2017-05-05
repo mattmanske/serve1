@@ -9,7 +9,7 @@ import find                 from 'lodash/find'
 import includes             from 'lodash/includes'
 
 import React, { PropTypes } from 'react'
-import { Icon }             from 'antd'
+import { Icon, Button }     from 'antd'
 
 import Money                from 'components/Money'
 
@@ -19,16 +19,22 @@ import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
-const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, ...props }) => {
+const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showModal, ...props }) => {
 
   const tableProps = { rowKey, loading, pagination, dataSource }
 
-  dataSource.forEach(show => {
-    if ('Lake Edge Church' == show.name) console.log(show)
-  })
+  function editIcon(val, record){
+    return <Button shape='circle' size='small' icon='ellipsis' onClick={() => showModal('SHOW_FORM', { initialValues: record })} />
+  }
 
   return (
     <Table.Wrapper footer={data => <ShowsFooter shows={data} />} { ...tableProps }>
+      <Table.Column
+        key='key'
+        width={50}
+        dataIndex='key'
+        render={editIcon}
+      />
       <Table.Column
         key='date'
         width={60}
@@ -81,6 +87,7 @@ ShowsTable.propTypes = {
   loading    : PropTypes.bool,
   dataSource : PropTypes.array,
   pagination : PropTypes.bool,
+  showModal  : PropTypes.func.isRequired,
 }
 
 ShowsTable.defaultProps = {

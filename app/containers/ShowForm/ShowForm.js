@@ -35,6 +35,8 @@ function validate(values){
   if (!isNumber(values.payment))
     errors.payment = 'Required'
 
+  console.log(values.date);
+
   return errors
 }
 

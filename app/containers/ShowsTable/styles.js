@@ -25,7 +25,7 @@ const Wrapper = styled(Table)`
     position     : relative;
     text-align   : center !important;
 
-    &:nth-child(5)::before {
+    &:nth-child(6)::before {
       background     : linear-gradient(left, rgba(0,0,0,0.033), rgba(0,0,0,0));
       bottom         : 0;
       content        : '';

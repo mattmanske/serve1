@@ -28,6 +28,7 @@ const ShowsFooter = ({ shows, ...props }) => {
 
   return (
     <Table.Footer dataSource={[]} pagination={false} { ...props }>
+      <Table.Column key='key' width={50} />
       <Table.Column key='date' width={60} title={<small>Totals:</small>} />
       <Table.Column key='name' width={150} title={`${showCount} shows`} />
       <Table.Column key='pay' width={85} title={<Money value={showTotal} />} />

@@ -9,7 +9,7 @@ import React, { PropTypes, cloneElement } from 'react'
 //-----------  Component  -----------//
 
 const ReduxAntdWrapper = (field) => {
-  const { label, meta, layout, children, input: { value, onBlur, ...input }, ...props } = field
+  const { label, meta, layout, children, input: { value, checked, ...input }, ...props } = field
 
   const id       = (props.id || input.name)
   const invalid  = !!(meta.touched && meta.error)
@@ -18,12 +18,23 @@ const ReduxAntdWrapper = (field) => {
   const validateStatus = invalid ? 'error' : null
   const formLayout     = ('horizontal' == layout) ? { labelCol: { span: 6 }, wrapperCol: { span: 18 } } : {}
 
-  const onChange = ('PickerWrapper' == children.type.name)
-    ? (val) => input.onChange(val.toString())
-    : input.onChange
+  let onBlur         = () => input.onBlur()
+  let onChange       = input.onChange
+  let defaultValue   = value
+  let defaultChecked = !!value
+
+  switch (children.type.name){
+    case 'PickerWrapper':
+      onChange     = (val) => input.onChange(val ? val.toString() : null)
+      defaultValue = value ? moment(value) : undefined
+      break
+    case 'Select':
+      defaultValue = value.toString()
+      break
+  }
 
   const elState    = { id, label, disabled, validateStatus, ...formLayout }
-  const childProps = { id, disabled, ...input, onChange, onBlur: () => onBlur() }
+  const childProps = { ...input, id, disabled, onBlur, onChange, defaultValue, defaultChecked }
 
   return (
     <Field.Wrapper { ...elState }>
