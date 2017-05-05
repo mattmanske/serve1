@@ -124,7 +124,8 @@ const ShowForm = (props) => {
 //-----------  Prop Types  -----------//
 
 ShowForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit        : PropTypes.func.isRequired,
+  onSubmitSuccess : PropTypes.func.isRequired,
 }
 
 //-----------  Export  -----------//

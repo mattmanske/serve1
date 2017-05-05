@@ -37,6 +37,12 @@ const Wrapper = styled(Table)`
     }
   }
 
+  .ant-table-placeholder {
+    border-bottom : none;
+    border-left   : 1px solid ${vars.grayLightest};
+    border-right  : 1px solid ${vars.grayLightest};
+  }
+
   .ant-table-footer {
     border-radius : 0 0 4px 4px;
     overflow      : hidden;

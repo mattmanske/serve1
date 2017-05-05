@@ -60,7 +60,7 @@ const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showMo
         width={85}
         title='Booker'
         dataIndex='booked_by'
-        render={val => ('0' != val)
+        render={val => (val && '0' != val)
           ? find(MEMBERS, ['id', val]).name
           : <small>–</small>
         }
