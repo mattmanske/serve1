@@ -16,6 +16,17 @@ const Line = styled.hr`
   border-top: 1px dotted ${vars.grayLighter};
 `
 
+const Delete = styled.a`
+  color      : ${vars.redLighter};
+  font-size  : 0.8em;
+  font-style : italic;
+  padding    : 0 ${vars.gutter};
+
+  &:hover {
+    color: ${vars.red} !important;
+  }
+`
+
 const SideBySide = styled.div`
   position: relative;
 
@@ -49,4 +60,4 @@ const SideBySide = styled.div`
 
 //-----------  Exports  ----------- */
 
-export default { Wrapper, Line, SideBySide }
+export default { Wrapper, Line, Delete, SideBySide }

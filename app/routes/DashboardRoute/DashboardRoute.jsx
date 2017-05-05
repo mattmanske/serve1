@@ -4,7 +4,6 @@ import Dashboard            from './styles'
 
 import React, { PropTypes } from 'react'
 
-import ShowForm from 'containers/ShowForm'
 import BoundsWrapper        from 'components/BoundsWrapper'
 
 //-----------  Definitions  -----------//
@@ -19,7 +18,7 @@ class DashboardRoute extends React.Component {
     return (
       <Dashboard.Page title={title} fill={true}>
         <BoundsWrapper type='block'>
-          <ShowForm />
+          <h1>Dashboard</h1>
         </BoundsWrapper>
       </Dashboard.Page>
     )

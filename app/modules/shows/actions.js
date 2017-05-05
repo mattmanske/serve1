@@ -4,7 +4,7 @@ import { action, createActionConstants } from 'modules/helpers'
 
 //-----------  Definitions  -----------//
 
-export const SHOWS = createActionConstants('SHOWS', ['CREATE', 'UPDATE'])
+export const SHOWS = createActionConstants('SHOWS', ['CREATE', 'UPDATE', 'DELETE'])
 
 //-----------  Shows Actions  -----------//
 
@@ -15,6 +15,9 @@ export const showsActions = {
   update: (show, resolve, reject) => {
     return action(SHOWS.UPDATE, { show, resolve, reject })
   },
+  delete: (showID, resolve, reject) => {
+    return action(SHOWS.DELETE, { showID, resolve, reject })    
+  }
 }
 
 //-----------  Saga Actions  -----------//

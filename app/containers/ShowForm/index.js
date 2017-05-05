@@ -12,6 +12,10 @@ import { showsActions } from 'modules/shows/actions'
 const mapState = (state) => ({})
 
 const mapDispatch = (dispatch) => ({
+  deleteShow(showID){
+    dispatch(showsActions.delete(showID))
+    dispatch(modalActions.hideModal())
+  },
   onSubmit(formData){
     return new Promise((resolve, reject) => {
       return formData.key

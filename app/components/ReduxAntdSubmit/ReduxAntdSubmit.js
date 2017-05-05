@@ -97,10 +97,10 @@ class ReduxAntdSubmit extends React.Component {
     return(
       <Submit.Wrapper>
         <Submit.Column span={18} push={6}>
-          {props.other && props.other}
           <Button type='submit' htmlType='submit' type={btnType} onClick={this.onSubmit} loading={isLoading} disabled={isDisabled}>
             {text}
           </Button>
+          {props.other && props.other}
         </Submit.Column>
       </Submit.Wrapper>
     )

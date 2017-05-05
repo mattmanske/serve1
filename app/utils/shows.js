@@ -1,5 +1,6 @@
 //-----------  Imports  -----------//
 
+import moment   from 'moment'
 import reduce   from 'lodash/reduce'
 import mapKeys  from 'lodash/mapKeys'
 import includes from 'lodash/includes'
@@ -18,24 +19,31 @@ export const MEMBERS = [
 
 //-----------  Helpers  -----------//
 
-function llcCut(show){
-  return (show.payment * 0.15)
+function isLlc(id){
+  return (!id || 0 == id || '0' == id)
 }
 
-function didBook(show, memberID){
-  return (memberID == show.booked_by)
+function didBook(show, memberID = false){
+  return !memberID ? isLlc(show.booked_by) : (memberID == show.booked_by)
 }
 
 function didPlay(show, memberID){
   return includes(show.participants, memberID)
 }
 
-function bookingCut(show){
-  if (0 == show.booked_by) return 0
+function llcCut(show){
+  if (moment(show.date).isBefore('2017-04-01')) return (show.payment * 0.15)
 
-  if (show.payment <= 300)  return (show.payment * 0.05)
-  if (show.payment <= 1000) return (show.payment * 0.10)
-  if (show.payment > 1000)  return (show.payment * 0.15)
+  if (show.payment < 750)   return (show.payment * 0.15)
+  if (show.payment < 1250)  return (show.payment * 0.20)
+  if (show.payment >= 1250) return (show.payment * 0.25)
+}
+
+function bookingCut(show){
+  if (isLlc(show.booked_by)) return 0
+
+  if (show.payment < 750)  return (show.payment * 0.10)
+  if (show.payment >= 750) return (show.payment * 0.15)
 }
 
 function playingCut(show){
@@ -53,7 +61,7 @@ export function memberOptions(){
 }
 
 export function llcShowCount(shows){
-  return reduce(shows, (sum, show) => didBook(show, 0) ? sum + 1 : sum, 0)
+  return reduce(shows, (sum, show) => didBook(show) ? sum + 1 : sum, 0)
 }
 
 export function llcTotalIncome(shows){

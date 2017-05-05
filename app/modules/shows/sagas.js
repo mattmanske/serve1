@@ -24,7 +24,7 @@ function* syncShowsSaga(){
 function* createShowSaga({ show, resolve, reject }){
   try {
     const key = yield call(RSF_ADMIN.create, 'shows', timestamp(show))
-    yield resolve({ key, ...show })
+    if (resolve) yield resolve({ key, ...show })
   } catch(error){
     yield put(sagaActions.failure(error, reject))
   }
@@ -34,7 +34,16 @@ function* updateShowSaga({ show, resolve, reject }){
   try {
     const { key, ...attrs } = show
     yield call(RSF_ADMIN.patch, `shows/${key}`, timestamp(attrs))
-    yield resolve(show)
+    if (resolve) yield resolve(show)
+  } catch(error){
+    yield put(sagaActions.failure(error, reject))
+  }
+}
+
+function* deleteShowSaga({ showID, resolve, reject }){
+  try {
+    yield call(RSF_ADMIN.delete, `shows/${showID}`)
+    if (resolve) yield resolve(showID)
   } catch(error){
     yield put(sagaActions.failure(error, reject))
   }
@@ -47,5 +56,6 @@ export default function* showsSagas(){
     takeLatest(AUTH.SUCCESS, syncShowsSaga),
     takeEvery(SHOWS.CREATE, createShowSaga),
     takeEvery(SHOWS.UPDATE, updateShowSaga),
+    takeEvery(SHOWS.DELETE, deleteShowSaga),
   ]
 }

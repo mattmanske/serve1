@@ -31,6 +31,7 @@ function showsReducer(state = initialState, action){
     case AUTH.SYNC:
     case SHOWS.CREATE:
     case SHOWS.UPDATE:
+    case SHOWS.DELETE:
       return { ...state, isLoading, isWatching }
 
     case SHOWS.SUCCESS:

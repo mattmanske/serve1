@@ -9,6 +9,7 @@ import { Input,
          Switch,
          Checkbox,
          DatePicker,
+         Popconfirm,
          InputNumber }      from 'antd'
 
 import ReduxAntdSubmit      from 'components/ReduxAntdSubmit'
@@ -41,6 +42,16 @@ function validate(values){
 //-----------  Component  -----------//
 
 const ShowForm = (props) => {
+
+  const Delete = props.initialValues && !!props.initialValues.key && (
+    <Popconfirm
+      placement='right'
+      title='Are you sure you want to delete this show?'
+      onConfirm={() => props.deleteShow(props.initialValues.key)}
+    >
+      <Show.Delete>delete</Show.Delete>
+    </Popconfirm>
+  )
 
   return (
     <Show.Wrapper noValidate onSubmit={props.handleSubmit}>
@@ -116,7 +127,7 @@ const ShowForm = (props) => {
         <Checkbox.Group options={memberOptions()} />
       </Field>
 
-      <ReduxAntdSubmit text='Submit' {...props} />
+      <ReduxAntdSubmit text='Submit' other={Delete} {...props} />
     </Show.Wrapper>
   )
 }
@@ -124,6 +135,7 @@ const ShowForm = (props) => {
 //-----------  Prop Types  -----------//
 
 ShowForm.propTypes = {
+  deleteShow      : PropTypes.func.isRequired,
   onSubmit        : PropTypes.func.isRequired,
   onSubmitSuccess : PropTypes.func.isRequired,
 }
