@@ -89,7 +89,11 @@ class ShowsRoute extends React.Component {
               />
             </Input.Group>
 
-            <Button icon='plus' type='primary'>
+            <Button
+              icon='plus'
+              type='primary'
+              onClick={() => this.props.showModal('SHOW_FORM')}
+            >
               Add New Show
             </Button>
           </Route.Header>
@@ -107,7 +111,8 @@ class ShowsRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 ShowsRoute.propTypes = {
-  shows: PropTypes.object.isRequired
+  shows     : PropTypes.object.isRequired,
+  showModal : PropTypes.func.isRequired,
 }
 
 //-----------  Exports  -----------//

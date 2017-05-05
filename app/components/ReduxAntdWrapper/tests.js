@@ -3,11 +3,11 @@
 import React       from 'react'
 import { shallow } from 'enzyme'
 
-import DemoForm from '../index'
+import ReduxAntdWrapper from '../index'
 
 //-----------  Tests  -----------//
 
-describe('<DemoForm />', () => {
+describe('<ReduxAntdWrapper />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -1,8 +1,7 @@
 //-----------  Imports  -----------//
 
-import _        from 'lodash'
-import moment   from 'moment'
-import validaor from 'validator'
+import moment    from 'moment'
+import validator from 'validator'
 
 //-----------  Masks  -----------//
 
@@ -18,9 +17,11 @@ const pipeSubdomain = (confirmedValue, config) => {
 
 const isRequired = (val) => val && val.length
 
-const isEmail = (val) => val && validaor.isEmail(val)
+const isEmail = (val) => val && validator.isEmail(val)
 
 const isPhone = (val) => val && (val.replace(/[^\d]/g, '').length == 10)
+
+const isNumber = (val) => val && Number.isInteger(parseInt(val)) 
 
 const isPassword = (val) => val && val.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
 
@@ -37,6 +38,7 @@ export {
   pipeSubdomain,
   isRequired,
   isEmail,
+  isNumber,
   isPassword,
   passwordsMatch,
   isSubdomain,

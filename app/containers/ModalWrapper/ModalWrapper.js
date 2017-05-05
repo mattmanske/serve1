@@ -5,21 +5,19 @@ import Block                from './styles'
 import get                  from 'lodash/get'
 
 import React, { PropTypes } from 'react'
+import { Icon }             from 'antd'
 
 import Button               from 'components/Button'
 import PageShade            from 'components/PageShade'
-import MaterialIcon         from 'components/MaterialIcon'
-
-import DemoForm             from 'containers/DemoForm'
-
 import LoginModal           from 'containers/LoginModal'
+import ShowForm             from 'containers/ShowForm'
 
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  DEMO_FORM   : DemoForm,
+  SHOW_FORM   : ShowForm,
   LOGIN_MODAL : LoginModal,
 }
 
@@ -37,7 +35,7 @@ class ModalWrapper extends React.Component {
     open  : !!getModal(this.props.child),
     child : getModal(this.props.child),
     props : get(this.props, 'props', {}),
-    size  : get(this.props, 'options.size', 'rg'),
+    size  : get(this.props, 'options.size', 'sm'),
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -61,7 +59,7 @@ class ModalWrapper extends React.Component {
       return this.setState({
         open  : true,
         child : nextModal,
-        size  : get(nextProps, 'options.size', 'rg'),
+        size  : get(nextProps, 'options.size', 'sm'),
         props : get(nextProps, 'props', {}),
       })
     }
@@ -73,7 +71,7 @@ class ModalWrapper extends React.Component {
       }, () => setTimeout(() => this.setState({
         open  : false,
         child : null,
-        size  : 'rg',
+        size  : 'sm',
         props : {},
       }), delay))
     }
@@ -85,7 +83,7 @@ class ModalWrapper extends React.Component {
       }, () => setTimeout(() => this.setState({
         open  : true,
         child : nextModal,
-        size  : get(nextProps, 'options.size', 'rg'),
+        size  : get(nextProps, 'options.size', 'sm'),
         props : get(nextProps, 'props', {}),
       }), delay))
     }
@@ -123,7 +121,7 @@ class ModalWrapper extends React.Component {
 
             {!preventClose &&
               <Block.Close>
-                <MaterialIcon icon='close' onClick={this.closeModal} />
+                <Icon type='close' onClick={this.closeModal} />
               </Block.Close>
             }
           </Block.Content>

@@ -65,7 +65,7 @@ const Content = styled.div`
   margin           : 0 auto;
   min-height       : 10em;
   opacity          : ${props => props.open ? '1' : '0'};
-  padding          : 2em 2.25em 2.25em;
+  padding          : 3em 2.25em 2.25em;
   position         : relative;
   transform        : ${props => props.open ? 'scale(1)' : 'scale(0.7)'};
   transform-origin : 50% 0;
@@ -75,11 +75,11 @@ const Content = styled.div`
 const Close = styled.a`
   color      : ${vars.grayDark};
   font-style : normal;
+  padding    : 0.5em;
   position   : absolute;
   right      : 0.75em;
   top        : 0.75em;
   z-index    : 100;
-  padding: 0.25em;
 
   i {
     font-size: 1.25em;

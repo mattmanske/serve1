@@ -46,5 +46,5 @@ export default Object.assign({}, allColors, {
   maxWidth         : '75rem',
   blockWidth       : '54rem',
   compactWidth     : '34rem',
-  smallWidth       : '26rem',
+  smallWidth       : '22rem',
 })

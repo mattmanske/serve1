@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import reduce   from 'lodash/reduce'
+import mapKeys  from 'lodash/mapKeys'
 import includes from 'lodash/includes'
 
 //-----------  Constants  -----------//
@@ -46,6 +47,10 @@ function playingCut(show){
 }
 
 //-----------  Exports  -----------//
+
+export function memberOptions(){
+  return MEMBERS.map(member => mapKeys(member, (val, key) => ('id' == key) ? 'value' : ('name' == key) ? 'label' : key))
+}
 
 export function llcShowCount(shows){
   return reduce(shows, (sum, show) => didBook(show, 0) ? sum + 1 : sum, 0)
