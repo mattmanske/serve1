@@ -13,13 +13,11 @@ import { Icon, Button }     from 'antd'
 
 import Money                from 'components/Money'
 
-import { MEMBERS }          from 'utils/shows'
-
 import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
-const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showModal, ...props }) => {
+const ShowsTable = ({ rowKey, loading, members, pagination, dataSource, shipOrder, showModal, ...props }) => {
 
   const tableProps = { rowKey, loading, pagination, dataSource }
 
@@ -28,7 +26,7 @@ const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showMo
   }
 
   return (
-    <Table.Wrapper footer={data => <ShowsFooter shows={data} />} { ...tableProps }>
+    <Table.Wrapper footer={data => <ShowsFooter shows={data} members={members} />} { ...tableProps }>
       <Table.Column
         key='key'
         width={50}
@@ -61,16 +59,16 @@ const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showMo
         title='Booker'
         dataIndex='booked_by'
         render={val => (val && '0' != val)
-          ? find(MEMBERS, ['id', val]).name
+          ? find(members, ['key', val]).name
           : <small>–</small>
         }
       />
-      {MEMBERS.map(member => (
+      {members.map(member => (
         <Table.Column
-          key={member.id}
+          key={member.key}
           title={member.name}
           dataIndex='participants'
-          render={val => val && includes(val, member.id)
+          render={val => val && includes(val, member.key)
             ? <Icon type='check-circle' style={{ color: vars.green, fontSize: '1.25em'  }} />
             : <Icon type='minus-circle-o' style={{ color: vars.redLightest, fontSize: '1.25em'  }} />
           }
@@ -83,6 +81,7 @@ const ShowsTable = ({ rowKey, loading, pagination, dataSource, shipOrder, showMo
 //-----------  Prop Types  -----------//
 
 ShowsTable.propTypes = {
+  members    : PropTypes.array.isRequired,
   rowKey     : PropTypes.string,
   loading    : PropTypes.bool,
   dataSource : PropTypes.array,

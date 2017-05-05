@@ -23,6 +23,15 @@ const Header = styled.header`
   }
 `
 
+const Members = styled.a`
+  ${ mixins.antiAliased() }
+
+  color        : ${vars.gray};
+  font-size    : 0.8em;
+  font-style   : italic;
+  margin-right : ${vars.gutter};
+`
+
 //-----------  Exports  ----------- */
 
-export default { Page, Header }
+export default { Page, Header, Members }

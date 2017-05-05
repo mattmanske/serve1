@@ -9,7 +9,9 @@ import { showsActions } from 'modules/shows/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+  members: state.members
+})
 
 const mapDispatch = (dispatch) => ({
   deleteShow(showID){

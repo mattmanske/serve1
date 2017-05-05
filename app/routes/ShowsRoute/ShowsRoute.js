@@ -14,6 +14,8 @@ import ShowsTable           from 'containers/ShowsTable'
 
 import BoundsWrapper        from 'components/BoundsWrapper'
 
+import { visibleMembers }   from 'utils/members'
+
 //-----------  Definitions  -----------//
 
 const title = 'Shows'
@@ -58,7 +60,8 @@ class ShowsRoute extends React.Component {
     const { data, error, isLoading, isWatching } = this.props.shows
     const { month } = this.state
 
-    const shows = filter(data, show => moment(show.date).isSame(month, 'month'))
+    const shows   = filter(data, show => moment(show.date).isSame(month, 'month'))
+    const members = visibleMembers(shows, this.props.members)
 
     const pageReady = (isWatching && !isLoading)
 
@@ -89,6 +92,10 @@ class ShowsRoute extends React.Component {
               />
             </Input.Group>
 
+            <Route.Members onClick={() => this.props.showModal('MEMBERS_FORM', {}, { size: 'rg' })}>
+              members
+            </Route.Members>
+
             <Button
               icon='plus'
               type='primary'
@@ -99,6 +106,7 @@ class ShowsRoute extends React.Component {
           </Route.Header>
 
           <ShowsTable
+            members={members}
             loading={!pageReady}
             dataSource={shows}
           />
@@ -112,6 +120,7 @@ class ShowsRoute extends React.Component {
 
 ShowsRoute.propTypes = {
   shows     : PropTypes.object.isRequired,
+  members   : PropTypes.array.isRequired,
   showModal : PropTypes.func.isRequired,
 }
 

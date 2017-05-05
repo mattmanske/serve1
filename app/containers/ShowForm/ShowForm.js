@@ -19,8 +19,7 @@ import { isMoment,
          isNumber,
          isRequired }       from 'utils/forms'
 
-import { MEMBERS,
-         memberOptions }    from 'utils/shows'
+import { memberOptions }    from 'utils/members'
 
 //-----------  Validation  -----------//
 
@@ -42,6 +41,8 @@ function validate(values){
 //-----------  Component  -----------//
 
 const ShowForm = (props) => {
+  const { data, error, isLoading, isWatching } = this.members
+  const membersReady = (isWatching && !isLoading)
 
   const Delete = props.initialValues && !!props.initialValues.key && (
     <Popconfirm
@@ -105,12 +106,13 @@ const ShowForm = (props) => {
         label='Booker'
         required={true}
         layout='horizontal'
+        loading={!membersReady}
         component={ReduxAntdWrapper}
       >
         <Select>
           <Select.Option value='0'>-none-</Select.Option>
-          {MEMBERS.map(member => (
-            <Select.Option key={member.id} value={member.id}>{member.name}</Select.Option>
+          {data.map(member => (
+            <Select.Option key={member.key} value={member.key}>{member.name}</Select.Option>
           ))}
         </Select>
       </Field>
@@ -122,9 +124,10 @@ const ShowForm = (props) => {
         label='Players'
         required={true}
         layout='horizontal'
+        loading={!membersReady}
         component={ReduxAntdWrapper}
       >
-        <Checkbox.Group options={memberOptions()} />
+        <Checkbox.Group options={memberOptions(data)} />
       </Field>
 
       <ReduxAntdSubmit text='Submit' other={Delete} {...props} />
@@ -135,6 +138,7 @@ const ShowForm = (props) => {
 //-----------  Prop Types  -----------//
 
 ShowForm.propTypes = {
+  members         : PropTypes.object.isRequired,
   deleteShow      : PropTypes.func.isRequired,
   onSubmit        : PropTypes.func.isRequired,
   onSubmitSuccess : PropTypes.func.isRequired,

@@ -9,12 +9,12 @@ const initialState = {}
 //-----------  Reducers  -----------//
 
 function {{ lowerCase name }}Reducer(state = initialState, action){
-  const { {{ lowerCase name }}, error } = action
+  const { data, error } = action
 
   switch (action.type){
 
     case {{ constantCase name }}.SUCCESS:
-      return { ...initialState, {{ lowerCase name }} }
+      return { ...initialState, data }
 
     case {{ constantCase name }}.FAILURE:
       return { ...initialState, error }

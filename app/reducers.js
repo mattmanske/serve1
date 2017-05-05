@@ -10,6 +10,7 @@ import authReducer                      from 'modules/auth/reducer'
 import modalReducer                     from 'modules/modal/reducer'
 import showsReducer                     from 'modules/shows/reducer'
 import ordersReducer                    from 'modules/orders/reducer'
+import membersReducer                   from 'modules/members/reducer'
 
 //-----------  Definitions  -----------//
 
@@ -45,6 +46,7 @@ export default function createReducer(asyncReducers){
     modal   : modalReducer,
     orders  : ordersReducer,
     shows   : showsReducer,
+    members : membersReducer,
     browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
     ...asyncReducers,
   })

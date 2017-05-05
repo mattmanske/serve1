@@ -5,18 +5,6 @@ import reduce   from 'lodash/reduce'
 import mapKeys  from 'lodash/mapKeys'
 import includes from 'lodash/includes'
 
-//-----------  Constants  -----------//
-
-export const MEMBERS = [
-  { id: '-JwTMosYwcz594OTzWNg', name: 'Brian', visible: true },
-  { id: '-JwTMosjlnMYoUiec5Yn', name: 'Chris', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62m', name: 'Ela', visible: true },
-  { id: '-JwTMosap3SX4fNoawMT', name: 'Matt', visible: true },
-  { id: '-JwTMosjlnMYoUiec5Ym', name: 'Josh', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62n', name: 'Jeff', visible: true },
-  { id: '-JwTMosi7tF7I-nIk62o', name: 'Hannah', visible: true },
-]
-
 //-----------  Helpers  -----------//
 
 function isLlc(id){
@@ -55,10 +43,6 @@ function playingCut(show){
 }
 
 //-----------  Exports  -----------//
-
-export function memberOptions(){
-  return MEMBERS.map(member => mapKeys(member, (val, key) => ('id' == key) ? 'value' : ('name' == key) ? 'label' : key))
-}
 
 export function llcShowCount(shows){
   return reduce(shows, (sum, show) => didBook(show) ? sum + 1 : sum, 0)

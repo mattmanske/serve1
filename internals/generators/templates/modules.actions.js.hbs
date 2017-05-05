@@ -14,8 +14,8 @@ export const {{ lowerCase name }}Actions = {
 //-----------  Saga Actions  -----------//
 
 export const sagaActions = {
-  success: ({{ lowerCase name }}) => {
-    return action({{ constantCase name }}.SUCCESS, { {{ lowerCase name }} })
+  success: (data) => {
+    return action({{ constantCase name }}.SUCCESS, { data })
   },
   failure: (error = null) => {
     return action({{ constantCase name }}.FAILURE, { error })

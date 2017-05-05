@@ -10,15 +10,14 @@ import React, { PropTypes }  from 'react'
 
 import Money                 from 'components/Money'
 
-import { MEMBERS,
-         llcShowCount,
+import { llcShowCount,
          llcTotalIncome,
          memberShowCount,
          memberTotalIncome } from 'utils/shows'
 
 //-----------  Component  -----------//
 
-const ShowsFooter = ({ shows, ...props }) => {
+const ShowsFooter = ({ shows, members, ...props }) => {
 
   const llcCount = llcShowCount(shows)
   const llcTotal = llcTotalIncome(shows)
@@ -35,12 +34,12 @@ const ShowsFooter = ({ shows, ...props }) => {
       <Table.Column key='booker' width={85} title={
         <TotalsColumn title={'LLC'} count={llcCount} total={llcTotal} />
       } />
-      {MEMBERS.map(member => {
-        const count = memberShowCount(member.id, shows)
-        const total = memberTotalIncome(member.id, shows)
+      {members.map(member => {
+        const count = memberShowCount(member.key, shows)
+        const total = memberTotalIncome(member.key, shows)
         return (
           <Table.Column
-            key={member.id}
+            key={member.key}
             title={<TotalsColumn title={member.name} count={count} total={total} />}
           />
         )
@@ -52,7 +51,8 @@ const ShowsFooter = ({ shows, ...props }) => {
 //-----------  Prop Types  -----------//
 
 ShowsFooter.propTypes = {
-  shows: PropTypes.array.isRequired,
+  shows   : PropTypes.array.isRequired,
+  members : PropTypes.array.isRequired
 }
 
 //-----------  Export  -----------//

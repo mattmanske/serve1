@@ -5,6 +5,7 @@ import { fork, join } from 'redux-saga/effects'
 import authSagas      from 'modules/auth/sagas'
 import showsSagas     from 'modules/shows/sagas'
 import ordersSagas    from 'modules/orders/sagas'
+import membersSagas   from 'modules/members/sagas'
 
 //-----------  Wait All  -----------//
 
@@ -20,5 +21,6 @@ export default function* rootSaga(){
     authSagas(),
     showsSagas(),
     ordersSagas(),
+    membersSagas(),
   ]
 }

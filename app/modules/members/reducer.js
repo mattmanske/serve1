@@ -1,12 +1,10 @@
 //-----------  Imports  -----------//
 
-import moment    from 'moment'
-import sortBy    from 'lodash/sortBy'
-import flatMap   from 'lodash/flatMap'
+import flatMap     from 'lodash/flatMap'
 
-import { AUTH }  from 'modules/auth/actions'
+import { AUTH }    from 'modules/auth/actions'
 
-import { SHOWS } from './actions'
+import { MEMBERS } from './actions'
 
 //-----------  Definitions  -----------//
 
@@ -19,26 +17,24 @@ const initialState = {
 
 //-----------  Reducers  -----------//
 
-function showsReducer(state = initialState, action){
+function membersReducer(state = initialState, action){
   let isWatching = true, isLoading = true
   let { data, error } = action
 
   data = flatMap(data, (show, key) => Object.assign({ key }, show))
-  data = sortBy(data, show => +moment(show.date))
 
   switch (action.type){
 
     case AUTH.SYNC:
-    case SHOWS.CREATE:
-    case SHOWS.UPDATE:
-    case SHOWS.DELETE:
+    case MEMBERS.CREATE:
+    case MEMBERS.UPDATE:
       return { ...state, isLoading, isWatching }
 
-    case SHOWS.SUCCESS:
+    case MEMBERS.SUCCESS:
       return { ...initialState, data, isWatching }
 
     case AUTH.SIGNOUT:
-    case SHOWS.FAILURE:
+    case MEMBERS.FAILURE:
       return { ...initialState, error, isWatching }
 
     default:
@@ -48,4 +44,4 @@ function showsReducer(state = initialState, action){
 
 //-----------  Exports  -----------//
 
-export default showsReducer
+export default membersReducer
