@@ -6,6 +6,7 @@ import authSagas      from 'modules/auth/sagas'
 import showsSagas     from 'modules/shows/sagas'
 import ordersSagas    from 'modules/orders/sagas'
 import membersSagas   from 'modules/members/sagas'
+import customersSagas from 'modules/customers/sagas'
 
 //-----------  Wait All  -----------//
 
@@ -22,5 +23,6 @@ export default function* rootSaga(){
     showsSagas(),
     ordersSagas(),
     membersSagas(),
+    customersSagas(),
   ]
 }

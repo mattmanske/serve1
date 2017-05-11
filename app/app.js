@@ -37,7 +37,7 @@ const isProd = ('production' == process.env.NODE_ENV)
 
 const initialState   = {}
 const browserHistory = useRouterHistory(createHistory)({
-  basename: (isProd) ? '/nnsb-admin' : '/'
+  basename: (isProd) ? '/nnsb-admin' : ''
 })
 
 const store = configureStore(initialState, browserHistory)

@@ -11,6 +11,7 @@ import modalReducer                     from 'modules/modal/reducer'
 import showsReducer                     from 'modules/shows/reducer'
 import ordersReducer                    from 'modules/orders/reducer'
 import membersReducer                   from 'modules/members/reducer'
+import customersReducer from 'modules/customers/reducer'
 
 //-----------  Definitions  -----------//
 
@@ -40,14 +41,15 @@ function initialMediaType(){
 
 export default function createReducer(asyncReducers){
   return combineReducers({
-    form    : formReducer,
-    auth    : authReducer,
-    route   : routeReducer,
-    modal   : modalReducer,
-    orders  : ordersReducer,
-    shows   : showsReducer,
-    members : membersReducer,
-    browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
+    form      : formReducer,
+    auth      : authReducer,
+    route     : routeReducer,
+    modal     : modalReducer,
+    orders    : ordersReducer,
+    shows     : showsReducer,
+    members   : membersReducer,
+    customers : customersReducer,
+    browser   : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
     ...asyncReducers,
   })
 }

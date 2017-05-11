@@ -94,7 +94,7 @@ class AppWrapper extends React.Component {
             Orders
             {hasOrders && <Badge status='processing' />}
           </Link>
-          <Link to={'/financials'}>Financials</Link>
+          <a disabled>Financials</a>
           <Button icon='logout' onClick={authActions.signOut}>Log Out</Button>
         </GlobalHeader>
 
