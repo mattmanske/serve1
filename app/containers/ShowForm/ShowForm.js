@@ -2,6 +2,8 @@
 
 import Show                 from './styles'
 
+import sortBy               from 'lodash/sortBy'
+
 import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Input,
@@ -41,8 +43,10 @@ function validate(values){
 //-----------  Component  -----------//
 
 const ShowForm = (props) => {
-  const { data, error, isLoading, isWatching } = this.members
+  const { data, error, isLoading, isWatching } = props.members
   const membersReady = (isWatching && !isLoading)
+
+  const members = sortBy(data, ['primary', 'name'])
 
   const Delete = props.initialValues && !!props.initialValues.key && (
     <Popconfirm
@@ -111,7 +115,7 @@ const ShowForm = (props) => {
       >
         <Select>
           <Select.Option value='0'>-none-</Select.Option>
-          {data.map(member => (
+          {members.map(member => (
             <Select.Option key={member.key} value={member.key}>{member.name}</Select.Option>
           ))}
         </Select>
@@ -127,7 +131,7 @@ const ShowForm = (props) => {
         loading={!membersReady}
         component={ReduxAntdWrapper}
       >
-        <Checkbox.Group options={memberOptions(data)} />
+        <Checkbox.Group options={memberOptions(members)} />
       </Field>
 
       <ReduxAntdSubmit text='Submit' other={Delete} {...props} />

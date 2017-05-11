@@ -9,18 +9,21 @@ import { Icon }             from 'antd'
 
 import Button               from 'components/Button'
 import PageShade            from 'components/PageShade'
-import LoginModal           from 'containers/LoginModal'
-import MembersForm          from 'containers/MembersForm'
+
 import ShowForm             from 'containers/ShowForm'
+import MemberForm           from 'containers/MemberForm'
+import LoginModal           from 'containers/LoginModal'
+import MembersTable         from 'containers/MembersTable'
 
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  SHOW_FORM    : ShowForm,
-  LOGIN_MODAL  : LoginModal,
-  MEMBERS_FORM : MembersForm,
+  SHOW_FORM     : ShowForm,
+  LOGIN_MODAL   : LoginModal,
+  MEMBER_FORM   : MemberForm,
+  MEMBERS_TABLE : MembersTable,
 }
 
 //-----------  Helpers  -----------//

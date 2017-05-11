@@ -3,6 +3,7 @@
 import uniq     from 'lodash/uniq'
 import filter   from 'lodash/filter'
 import sortBy   from 'lodash/sortBy'
+import mapKeys  from 'lodash/mapKeys'
 import includes from 'lodash/includes'
 
 //-----------  Exports  -----------//
@@ -16,5 +17,4 @@ export function visibleMembers(shows, members){
   shows.forEach(show => participants = uniq(participants.concat(show.participants)))
   const visible = filter(members, member => includes(participants, member.key))
   return sortBy(visible, ['name'])
-
 }

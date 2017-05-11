@@ -11,7 +11,7 @@ import { modalActions } from 'modules/modal/actions'
 const mapState = (state) => ({})
 
 const mapDispatch = (dispatch) => ({
-  showModal: (type, props, opts) => dispatch(modalActions.showModal(type, props, opts)),
+  showModal: (show) => dispatch(modalActions.showModal('SHOW_FORM', { initialValues: show })),
 })
 
 //-----------  Exports  -----------//

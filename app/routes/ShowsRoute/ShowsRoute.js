@@ -92,7 +92,7 @@ class ShowsRoute extends React.Component {
               />
             </Input.Group>
 
-            <Route.Members onClick={() => this.props.showModal('MEMBERS_FORM', {}, { size: 'rg' })}>
+            <Route.Members onClick={() => this.props.showModal('MEMBERS_TABLE', {}, { size: 'rg' })}>
               members
             </Route.Members>
 

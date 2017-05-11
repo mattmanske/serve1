@@ -11,7 +11,7 @@ import vars      from 'styles/variables'
 const Elem = styled.div``
 
 const List = styled(Table)`
-  margin-top : 1em;
+  margin: 1em 0;
 `
 
 const Column = styled(Table.Column)``

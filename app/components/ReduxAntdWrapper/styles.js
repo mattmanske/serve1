@@ -15,6 +15,17 @@ const Wrapper = styled(Form.Item)`
   .ant-calendar-picker {
     width: 100% !important;
   }
+
+  .ant-checkbox-group {
+    display         : flex;
+    flex-wrap       : wrap;
+    justify-content : space-between;
+
+    .ant-checkbox-wrapper {
+      flex   : 0 0 50%;
+      margin : 0;
+    }
+  }
 `
 
 const Errors = styled(Tooltip)`

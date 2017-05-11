@@ -22,7 +22,7 @@ const ShowsTable = ({ rowKey, loading, members, pagination, dataSource, shipOrde
   const tableProps = { rowKey, loading, pagination, dataSource }
 
   function editIcon(val, record){
-    return <Button shape='circle' size='small' icon='ellipsis' onClick={() => showModal('SHOW_FORM', { initialValues: record })} />
+    return <Button shape='circle' size='small' icon='ellipsis' onClick={() => showModal(record)} />
   }
 
   return (
