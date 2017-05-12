@@ -35,7 +35,7 @@ class DashboardRoute extends React.Component {
       <Dashboard.Page title={title}>
         <BoundsWrapper>
           <Dashboard.Albums>
-            <h3>Albums</h3>
+            {/* <h3>Albums</h3>
             {albums.map(album => (
               <Dashboard.Album key={album.title}>
                 <img src={album.cover} />
@@ -53,7 +53,7 @@ class DashboardRoute extends React.Component {
                   12
                 </div>
               </Dashboard.Album>
-            ))}
+            ))} */}
           </Dashboard.Albums>
 
           <Dashboard.Customers>

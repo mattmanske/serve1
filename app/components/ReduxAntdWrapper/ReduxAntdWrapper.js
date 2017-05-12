@@ -23,15 +23,15 @@ const ReduxAntdWrapper = (field) => {
   let defaultValue   = value
   let defaultChecked = !!value
 
-  switch (children.type.name){
-    case 'PickerWrapper':
-      onChange     = (val) => input.onChange(val ? val.toString() : null)
-      defaultValue = value ? moment(value) : undefined
+  switch (children.props.prefixCls){
+    case 'ant-calendar':
+      onChange     = (val) => input.onChange(val ? val.toISOString() : null)
+      defaultValue = (value && moment(value).isValid()) ? moment(value) : undefined
       break
-    case 'CheckboxGroup':
+    case 'ant-checkbox-group':
       defaultValue = value ? value : []
       break
-    case 'Select':
+    case 'ant-select':
       defaultValue = value ? value.toString() : '0'
       break
   }

@@ -23,6 +23,10 @@ import { isMoment,
 
 import { memberOptions }    from 'utils/members'
 
+//-----------  Definitions  -----------//
+
+const Option = Select.Option
+
 //-----------  Validation  -----------//
 
 function validate(values){
@@ -114,9 +118,9 @@ const ShowForm = (props) => {
         component={ReduxAntdWrapper}
       >
         <Select>
-          <Select.Option value='0'>-none-</Select.Option>
+          <Option value='0'>-none-</Option>
           {members.map(member => (
-            <Select.Option key={member.key} value={member.key}>{member.name}</Select.Option>
+            <Option key={member.key} value={member.key}>{member.name}</Option>
           ))}
         </Select>
       </Field>

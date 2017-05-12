@@ -19,6 +19,7 @@ import { visibleMembers }   from 'utils/members'
 //-----------  Definitions  -----------//
 
 const title = 'Shows'
+const Group = Input.Group
 
 //-----------  Component  -----------//
 
@@ -69,7 +70,7 @@ class ShowsRoute extends React.Component {
       <Route.Page title={title} loading={!pageReady}>
         <BoundsWrapper>
           <Route.Header>
-            <Input.Group compact>
+            <Group compact>
               <Button
                 size='large'
                 icon='left'
@@ -90,7 +91,7 @@ class ShowsRoute extends React.Component {
                 onClick={this.nextMonth}
                 disabled={this.noForewards() || !pageReady}
               />
-            </Input.Group>
+            </Group>
 
             <Route.Members onClick={() => this.props.showModal('MEMBERS_TABLE', {}, { size: 'rg' })}>
               members
