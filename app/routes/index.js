@@ -14,26 +14,38 @@ const loadModule = (cb) => (componentModule) => {
 
 //-----------  Exports  -----------//
 
-export default function createRoutes(store){
+export default function createRoutes(store, subdomain){
   const { injectReducer, injectSagas } = getAsyncInjectors(store)
 
-  return [{
-    path : '/shows',
-    name : 'shows',
-    getComponent(nextState, cb){
-      import('routes/ShowsRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/orders',
-    name : 'orders',
-    getComponent(nextState, cb){
-      import('routes/OrdersRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
+  const routes = subdomain ? [{
     path : '/',
-    name : 'dashobard',
+    name : 'dashboard',
     getComponent(nextState, cb){
       import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
     },
+  }] : [{
+    path : '/register',
+    name : 'registration',
+    getComponent(nextState, cb){
+      import('routes/RegistrationRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/',
+    name : 'home',
+    getComponent(nextState, cb){
+      import('routes/HomeRoute').then(loadModule(cb)).catch(err)
+    },
+  }]
+
+  return [ ...routes, {
+    path : '/about',
+    name : 'about',
+    getComponent(nextState, cb){
+      import('routes/AboutRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '*',
+    name : '404-redirect',
+    onEnter: (nextState, replace) => replace('/')
   }]
 }

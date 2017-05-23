@@ -21,7 +21,7 @@ const modalWidth = ({ size, open }) => {
 
 //-----------  Modal Wrapper  ----------- */
 
-const Elem = styled.div`
+const Wrapper = styled.div`
   -webkit-overflow-scrolling : touch;
   height                     : 100vh;
   left                       : 0;
@@ -92,4 +92,4 @@ const Close = styled.a`
 
 //-----------  Exports  ----------- */
 
-export default { Elem, Popup, Content, Close }
+export default { Wrapper, Popup, Content, Close }

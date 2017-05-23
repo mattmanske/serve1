@@ -10,9 +10,10 @@ export const gutter = 1.25
 
 export const baseColors = {
   gray   : ['#a9a9a9', 30, 30],
-  blue   : ['#108ee9', 50, 15],
+  blue   : ['#4264fb', 50, 15],
   red    : ['#DC3F2E', 40, 15],
   green  : ['#1BB518', 50, 20],
+  purple : ['#7753eb', 50, 15],
   yellow : ['#ffbf00', 40, 20],
   orange : ['#ff6c00', 40, 20],
   brown  : ['#C77826', 40, 15],

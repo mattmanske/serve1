@@ -1,35 +1,33 @@
 //-----------  Imports  -----------//
 
-import firebase                    from 'firebase'
-import { takeEvery }               from 'redux-saga'
-import { put, take, call, select } from 'redux-saga/effects'
+import firebase              from 'firebase'
+import { takeEvery }         from 'redux-saga'
+import { put, take, call }   from 'redux-saga/effects'
 
-import { RSF_ADMIN }               from 'modules/helpers'
+import { RSF }               from 'modules/helpers'
 
-import { AUTH, sagaActions }       from './actions'
+import { AUTH, sagaActions } from './actions'
 
 //-----------  Definitions  -----------//
 
-const authProvider = new firebase.auth.GoogleAuthProvider()
+const gaProvider = new firebase.auth.GoogleAuthProvider()
 
 //-----------  Sagas  -----------//
 
 function* syncAuthSaga(){
-  const channel = yield call(RSF_ADMIN.authChannel)
+  const channel = yield call(RSF.authChannel)
 
   while(true){
     const { user, error } = yield take(channel)
 
-    if (user && user.uid)
-      yield put(sagaActions.success(user))
-    else
-      yield put(sagaActions.failure())
+    if (user && user.uid) yield put(sagaActions.success(user))
+    else yield put(sagaActions.failure(error))
   }
 }
 
 function* signInSaga(){
   try {
-    yield call(RSF_ADMIN.login, authProvider)
+    yield call(RSF.login, gaProvider)
   } catch(error){
     yield put(sagaActions.failure(error))
   }
@@ -37,7 +35,7 @@ function* signInSaga(){
 
 function* signOutSaga(){
   try {
-    yield call(RSF_ADMIN.logout)
+    yield call(RSF.logout)
   } catch(error){
     yield put(sagaActions.failure(error))
   }

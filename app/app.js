@@ -29,6 +29,15 @@ import AppWrapper                from 'containers/AppWrapper'
 
 const isProd = ('production' == process.env.NODE_ENV)
 
+//-----------  Subdomain & Oragnizations  -----------//
+
+const { port, protocol, hostname } = window.location
+const hasOrg = ((hostname.split('.').length >= 3) && ('www' != hostname.split('.')[0]))
+
+const subdomain = (hasOrg) ? hostname.split('.')[0] : false
+const domainUrl = (hasOrg) ? hostname.substring(hostname.indexOf('.') + 1) : hostname
+const domain    = port ? `${protocol}//${domainUrl}:${port}` : `${protocol}//${domainUrl}`
+
 //-----------  Redux Setups  -----------//
 
 // this uses the singleton browserHistory provided by react-router
@@ -37,10 +46,10 @@ const isProd = ('production' == process.env.NODE_ENV)
 
 const initialState   = {}
 const browserHistory = useRouterHistory(createHistory)({
-  basename: (isProd) ? '/nnsb-admin' : ''
+  basename: (isProd) ? '/serve1' : ''
 })
 
-const store = configureStore(initialState, browserHistory)
+const store = configureStore(initialState, browserHistory, domain, subdomain)
 
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState
@@ -58,7 +67,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 
 const rootRoute = {
   component   : AppWrapper,
-  childRoutes : createRoutes(store),
+  childRoutes : createRoutes(store, subdomain),
 }
 
 ReactDOM.render(

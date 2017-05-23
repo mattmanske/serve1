@@ -6,19 +6,17 @@ import { connect }            from 'react-redux'
 import AppWrapper             from './AppWrapper'
 
 import { authActions }        from 'modules/auth/actions'
-import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
 const mapState = (state) => ({
+  org     : state.org,
   auth    : state.auth,
-  orders  : state.orders,
   browser : state.browser,
 })
 
 const mapDispatch = (dispatch) => ({
-  authActions  : bindActionCreators(authActions, dispatch),
-  modalActions : bindActionCreators(modalActions, dispatch),
+  authActions: bindActionCreators(authActions, dispatch),
 })
 
 //-----------  Exports  -----------//

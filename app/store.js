@@ -16,7 +16,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 //-----------  Exports  -----------//
 
-export default function configureStore(initialState = {}, history){
+export default function configureStore(initialState = {}, history, domain, subdomain){
   const middlewares = [sagaMiddleware, routerMiddleware(history)]
   const enhancers   = [responsiveStoreEnhancer, applyMiddleware(...middlewares)]
 
@@ -28,7 +28,7 @@ export default function configureStore(initialState = {}, history){
       : compose
 
   const store = createStore(
-    createReducer(),
+    createReducer(domain, subdomain),
     initialState,
     composeEnhancers(...enhancers)
   )

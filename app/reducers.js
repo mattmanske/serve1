@@ -8,10 +8,7 @@ import useragent                        from 'express-useragent'
 
 import authReducer                      from 'modules/auth/reducer'
 import modalReducer                     from 'modules/modal/reducer'
-import showsReducer                     from 'modules/shows/reducer'
-import ordersReducer                    from 'modules/orders/reducer'
-import membersReducer                   from 'modules/members/reducer'
-import customersReducer from 'modules/customers/reducer'
+import organizationReducer              from 'modules/organization/reducer'
 
 //-----------  Definitions  -----------//
 
@@ -39,17 +36,15 @@ function initialMediaType(){
 
 //-----------  Exports  -----------//
 
-export default function createReducer(asyncReducers){
+export default function createReducer(domain, subdomain){
   return combineReducers({
-    form      : formReducer,
-    auth      : authReducer,
-    route     : routeReducer,
-    modal     : modalReducer,
-    orders    : ordersReducer,
-    shows     : showsReducer,
-    members   : membersReducer,
-    customers : customersReducer,
-    browser   : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
-    ...asyncReducers,
+    org          : () => subdomain,
+    site         : () => domain,
+    form         : formReducer,
+    auth         : authReducer,
+    route        : routeReducer,
+    modal        : modalReducer,
+    organization : organizationReducer,
+    browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
   })
 }

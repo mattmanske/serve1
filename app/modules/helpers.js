@@ -3,23 +3,17 @@
 import moment              from 'moment'
 
 import * as firebase       from 'firebase'
-import { SubmissionError } from 'redux-form'
-import { select }          from 'redux-saga/effects'
 import ReduxSagaFirebase   from 'redux-saga-firebase'
 
-// -----------  Firebase  -----------//
+// ----------- Firebase Setup -----------//
 
-export const RSF_SITE  = new ReduxSagaFirebase(firebase.initializeApp({
-  apiKey      : process.env.SITE_FIREBASE_API_KEY,
-  authDomain  : `${process.env.SITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL : `https://${process.env.SITE_FIREBASE_PROJECT_ID}.firebaseio.com`,
-}, 'site'))
+const firebaseApp = firebase.initializeApp({
+  apiKey      : process.env.FIREBASE_API_KEY,
+  authDomain  : `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  databaseURL : `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
+});
 
-export const RSF_ADMIN = new ReduxSagaFirebase(firebase.initializeApp({
-  apiKey      : process.env.ADMIN_FIREBASE_API_KEY,
-  authDomain  : `${process.env.ADMIN_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL : `https://${process.env.ADMIN_FIREBASE_PROJECT_ID}.firebaseio.com`,
-}, 'admin'))
+export const RSF = new ReduxSagaFirebase(firebaseApp)
 
 //-----------  Remote Helpers  -----------//
 
@@ -28,16 +22,12 @@ const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
-export const action = (type, payload = {}) => ({ type, ...payload })
+export function timestamp(){
+  return moment.utc().toISOString()
+}
 
-export const timestamp = (object, status = false) => {
-  const createdAt = moment.utc().toString()
-  const updatedAt = moment.utc().toString()
-
-  if (status)
-    return { createdAt, status: 'draft', ...object, updatedAt }
-  else
-    return { createdAt, ...object, updatedAt }
+export function action(type, payload = {}){
+  return { type, ...payload }
 }
 
 export const createActionConstants = (base, types = []) => {
@@ -48,27 +38,21 @@ export const createActionConstants = (base, types = []) => {
   return res
 }
 
-// TODO: Protect against duplicate channel syncing...
+//-----------  API Helpers  -----------//
 
-//-----------  Webtasks  -----------//
-
-export const prodQuery = () => {
+export function prodQuery(){
   return ('production' == process.env.NODE_ENV) ? { prod: true } : {}
 }
 
-export const webtaskUrl = (taskName) => {
-  return `https://${process.env.WEBTASKS_SUBDOMAIN}.run.webtask.io/${taskName}/`
-}
+// export function functionsUrl(functionName){
+//   return `https://us-central1-sweepster-1f5e0.cloudfunctions.net/sweepster/${functionName}`
+// }
 
-//-----------  Redux API  -----------//
-
-export const reduxStatus = (lower = 200, upper = 399) => {
+export function errorHandler(){
   return function (req, next){
     return next().then(res => {
-      if (res.status >= lower && res.status <= upper)
-        return res
-      else
-        throw new SubmissionError({ _error: res.body })
+      if (res.status >= 200 && res.status <= 399) return res
+      else throw { status: res.status, error: res.body }
     })
   }
 }

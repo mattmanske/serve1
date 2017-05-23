@@ -2,32 +2,39 @@
 
 import Block                from './styles'
 
+import capitalize           from 'lodash/capitalize'
+
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 
+import SvgLogo              from 'components/SvgLogo'
 import MobileMenu           from 'components/MobileMenu'
 import BoundsWrapper        from 'components/BoundsWrapper'
 
 //-----------  Component  -----------//
 
-const GlobalHeader = (props) => {
+const GlobalHeader = ({ org, children, isMobile }) => {
 
   return (
-    <Block.Elem {...props}>
+    <Block.Elem isMobile={isMobile}>
       <BoundsWrapper>
-        {props.logo &&
+        {org ? (
           <Block.Logo>
-            <Link to={'/'}>{props.logo}</Link>
+            <Link to={'/'}><h1>{capitalize(org)}</h1></Link>
           </Block.Logo>
-        }
+        ) : (
+          <Block.Logo>
+            <Link to={'/'}><SvgLogo /></Link>
+          </Block.Logo>
+        )}
 
         <Block.Nav>
-          {props.isMobile ? (
+          {isMobile ? (
             <MobileMenu>
-              {props.children}
+              {children}
             </MobileMenu>
           ) : (
-            props.children
+            children
           )}
         </Block.Nav>
       </BoundsWrapper>
@@ -38,7 +45,7 @@ const GlobalHeader = (props) => {
 //-----------  Prop Types  -----------//
 
 GlobalHeader.propTypes = {
-  logo     : PropTypes.element,
+  org      : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
   isMobile : PropTypes.bool,
   children : PropTypes.node,
 }

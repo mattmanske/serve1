@@ -6,10 +6,9 @@ import PageWrapper from 'components/PageWrapper'
 
 import vars        from 'styles/variables'
 
-//-----------  Dashboard Route  ----------- */
+//-----------  Sponsors Route  ----------- */
 
-const Page = styled(PageWrapper)`
-`
+const Page = styled(PageWrapper)``
 
 //-----------  Exports  ----------- */
 

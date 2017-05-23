@@ -19,13 +19,11 @@ const LoginModal = ({ auth, authActions }) => {
 
   return (
     <Login.Modal>
-      {notAllowed ? (
+      {notAllowed &&
         <Login.Unauthorized>
           <h4>You're not authorized to access this application.</h4>
         </Login.Unauthorized>
-      ) : (
-        <h5>Login:</h5>
-      )}
+      }
 
       <Button
         size='lg'

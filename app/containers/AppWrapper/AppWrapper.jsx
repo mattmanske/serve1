@@ -7,17 +7,15 @@ import isEmpty              from 'lodash/isEmpty'
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
-import { Badge, Button }    from 'antd'
+import { Button }           from 'antd'
 
-import SvgLogo              from 'components/SvgLogo'
 import PageShade            from 'components/PageShade'
 import MobileMenu           from 'components/MobileMenu'
 import ProgressBar          from 'components/ProgressBar'
 import GlobalHeader         from 'components/GlobalHeader'
+import LoadingScreen        from 'components/LoadingScreen'
 
 import ModalWrapper         from 'containers/ModalWrapper'
-
-import vars                 from 'styles/variables'
 
 //-----------  Component  -----------//
 
@@ -29,7 +27,7 @@ class AppWrapper extends React.Component {
   }
 
   componentWillMount(){
-    const { router, authActions } = this.props
+    const { site, router, authActions } = this.props
 
     this.unsubscribeHistory = router && router.listenBefore((location) => {
       if (this.state.loadedRoutes.indexOf(location.pathname) === -1)
@@ -37,6 +35,7 @@ class AppWrapper extends React.Component {
     })
 
     authActions.sync()
+    // if (site) organizationActions.sync()
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -47,15 +46,6 @@ class AppWrapper extends React.Component {
       this.updateProgress(100)
       this.setState({ loadedRoutes: loadedRoutes.concat([pathname]) })
     }
-
-    const isWatching  = (!this.props.auth.isWatching && nextProps.auth.isWatching)
-    const isLoggedIn  = (!this.props.auth.isLoggedIn && nextProps.auth.isLoggedIn)
-    const isLoggedOut = (this.props.auth.isLoggedIn && !nextProps.auth.isLoggedIn)
-
-    if (isWatching || isLoggedOut)
-      nextProps.modalActions.showModal('LOGIN_MODAL', {}, { size: 'sm', preventClose: true })
-    if (isLoggedIn)
-      nextProps.modalActions.hideModal()
   }
 
   componentWillUnmount(){
@@ -71,31 +61,29 @@ class AppWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { auth, orders, params, location, browser, children, authActions, modalActions } = this.props
+    const { org, site, auth, params, location, browser, children, authActions } = this.props
     const { progress } = this.state
 
-    const NNSBlogo  = (<App.Logo><SvgLogo fill='white' width={80} /></App.Logo>)
-    const hasOrders = orders.data.paid ? !!orders.data.paid.length : false
-    const isMobile  = browser.lessThan.small || false
+    const isMobile = browser.lessThan.small || false
 
     return(
-      <App.Elem>
+      <App.Wrapper>
         <Helmet
-          titleTemplate="%s - NNSB Admin"
-          defaultTitle="NNSB Admin"
-          meta={[{ name: 'description', content: 'NNSB Admin' }]}
+          defaultTitle="Serve1"
+          titleTemplate="%s - Serve1"
+          meta={[{ name: 'description', content: 'Process Serving Made Easy' }]}
         />
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
-        <GlobalHeader isMobile={isMobile} logo={NNSBlogo}>
-          <Link to={'/shows'}>Shows</Link>
-          <Link to={'/orders'}>
-            Orders
-            {hasOrders && <Badge status='processing' />}
-          </Link>
-          <a disabled>Financials</a>
-          <Button icon='logout' onClick={authActions.signOut}>Log Out</Button>
+        <GlobalHeader org={org} isMobile={isMobile}>
+          {auth.isLoggedIn &&
+            <a icon='logout' onClick={authActions.signOut}>Log Out</a>
+          }
+
+          {!org &&
+            <Link to='/register'><Button icon='login'>Get Started</Button></Link>
+          }
         </GlobalHeader>
 
         {React.Children.map(children, child => (
@@ -104,8 +92,8 @@ class AppWrapper extends React.Component {
 
         <ModalWrapper />
 
-        <PageShade active={!auth.isLoggedIn} />
-      </App.Elem>
+        <LoadingScreen trigger={auth.isWatching} />
+      </App.Wrapper>
     )
   }
 }
@@ -113,14 +101,13 @@ class AppWrapper extends React.Component {
 //-----------  Prop Types  -----------//
 
 AppWrapper.propTypes = {
-  auth         : PropTypes.object.isRequired,
-  orders       : PropTypes.object.isRequired,
-  browser      : PropTypes.object.isRequired,
-  router       : PropTypes.object,
-  location     : PropTypes.object,
-  children     : PropTypes.node.isRequired,
-  authActions  : PropTypes.object.isRequired,
-  modalActions : PropTypes.object.isRequired,
+  org         : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
+  auth        : PropTypes.object.isRequired,
+  browser     : PropTypes.object.isRequired,
+  router      : PropTypes.object,
+  location    : PropTypes.object,
+  children    : PropTypes.node.isRequired,
+  authActions : PropTypes.object.isRequired,
 }
 
 //-----------  Exports  -----------//

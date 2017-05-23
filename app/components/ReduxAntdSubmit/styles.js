@@ -10,7 +10,9 @@ import vars         from 'styles/variables'
 
 const Wrapper = styled(Row)``
 
-const Column = styled(Col)``
+const Column = styled(Col)`
+  text-align: left;
+`
 
 //-----------  Exports  ----------- */
 

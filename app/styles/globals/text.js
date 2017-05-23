@@ -39,7 +39,7 @@ export default `
     color           : inherit;
     cursor          : pointer;
     text-decoration : none;
-    transition      : ${vars.transition};
+    transition      : all ${vars.transition};
 
     img, svg {
       vertical-align: bottom;

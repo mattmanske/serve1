@@ -7,10 +7,10 @@ import mixins from 'styles/mixins'
 
 //-----------  Bounds Wrapping  -----------//
 
-const Elem = styled.div`
+const Wrapper = styled.div`
   align-items    : stretch;
-  background     : white;
-  color          : black;
+  background     : linear-gradient(45deg, ${vars.purple}, ${vars.blueLight})
+  color          : ${vars.white};
   display        : flex;
   flex-direction : column;
   font-size      : $emBase;
@@ -28,14 +28,6 @@ const Elem = styled.div`
   }
 `
 
-const Logo = styled.div`
-  background    : ${vars.red};
-  border-radius : 0 0 ${vars.radius} ${vars.radius};
-  box-shadow    : ${vars.shadow};
-  margin        : -1.5em ${vars.gutterSm} -${vars.gutterLg};
-  padding       : ${vars.gutter};
-`
-
 //-----------  Exports  ----------- */
 
-export default { Elem, Logo }
+export default { Wrapper }

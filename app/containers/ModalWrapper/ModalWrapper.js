@@ -10,20 +10,14 @@ import { Icon }             from 'antd'
 import Button               from 'components/Button'
 import PageShade            from 'components/PageShade'
 
-import ShowForm             from 'containers/ShowForm'
-import MemberForm           from 'containers/MemberForm'
 import LoginModal           from 'containers/LoginModal'
-import MembersTable         from 'containers/MembersTable'
 
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  SHOW_FORM     : ShowForm,
-  LOGIN_MODAL   : LoginModal,
-  MEMBER_FORM   : MemberForm,
-  MEMBERS_TABLE : MembersTable,
+  LOGIN_MODAL: LoginModal,
 }
 
 //-----------  Helpers  -----------//
@@ -117,7 +111,7 @@ class ModalWrapper extends React.Component {
     const shadeClick = preventClose ? null : this.closeModal
 
     return (
-      <Block.Elem open={open} size={size}>
+      <Block.Wrapper open={open} size={size}>
         <PageShade active={open || hasModal} onClick={shadeClick} />
 
         <Block.Popup open={open} size={size}>
@@ -131,7 +125,7 @@ class ModalWrapper extends React.Component {
             }
           </Block.Content>
         </Block.Popup>
-      </Block.Elem>
+      </Block.Wrapper>
     )
   }
 }

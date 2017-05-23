@@ -1,16 +1,16 @@
 {
-  "name": "mmReduxBoilerplate",
+  "name": "serve1",
   "version": "1.0.0",
-  "description": "Customized React/Redux project starter kit built off https://github.com/react-boilerplate/react-boilerplate",
+  "description": "Process Serving Web Application (React)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mattmanske/mmReduxBoilerplate"
+    "url": "git://github.com/mattmanske/serve1"
   },
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Max Stoiber",
+  "author": "Matt Manske (matt@manske.me)",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",

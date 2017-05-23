@@ -88,7 +88,7 @@ class ReduxAntdSubmit extends React.Component {
   render(){
     const { props, state } = this
 
-    const btnType    = ('error' == state.btnState) ? 'danger' : 'primary'
+    const btnType    = ('error' == state.btnState) ? 'danger' : props.type
     const isLoading  = ('loading' == state.btnState)
     const isDisabled = ((!props.canReset && props.submitSucceeded) || (!props.pristineSubmit && props.pristine))
 
@@ -97,7 +97,7 @@ class ReduxAntdSubmit extends React.Component {
     return(
       <Submit.Wrapper>
         <Submit.Column span={18} push={6}>
-          <Button type='submit' htmlType='submit' type={btnType} onClick={this.onSubmit} loading={isLoading} disabled={isDisabled}>
+          <Button type='submit' size={props.size} htmlType='submit' type={btnType} onClick={this.onSubmit} loading={isLoading} disabled={isDisabled}>
             {text}
           </Button>
           {props.other && props.other}
@@ -112,6 +112,7 @@ class ReduxAntdSubmit extends React.Component {
 ReduxAntdSubmit.propTypes = {
   icon            : PropTypes.string,
   text            : PropTypes.string,
+  type            : PropTypes.oneOf(['primary', 'default', 'dashed']),
   size            : PropTypes.oneOf(['small', 'large']),
   reset           : PropTypes.func.isRequired,
   other           : PropTypes.element,
@@ -126,6 +127,8 @@ ReduxAntdSubmit.propTypes = {
 }
 
 ReduxAntdSubmit.defaultProps = {
+  size           : 'large',
+  type           : 'primary',
   canReset       : true,
   pristineSubmit : true,
 }

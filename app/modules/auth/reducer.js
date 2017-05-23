@@ -1,7 +1,5 @@
 //-----------  Imports  -----------//
 
-import includes from 'lodash/includes'
-
 import { AUTH } from './actions'
 
 //-----------  Definitions  -----------//
@@ -9,33 +7,31 @@ import { AUTH } from './actions'
 const initialState = {
   user       : {},
   error      : null,
-  isLoading  : false,
+  isLoading  : true,
   isWatching : false,
   isLoggedIn : false
 }
 
-const adminIds = ['i5scPve7cAZRLtPmv4XzMUgtnC83', '']
-
 //-----------  Reducers  -----------//
 
 function authReducer(state = initialState, action){
-  const isWatching = true, isLoading = true
-  const { user, error } = action
+  let isWatching = true, isLoading = false
+  let { user, error } = action
 
-  const isLoggedIn = (user && user.uid) // && includes(adminIds, user.uid))
+  const isLoggedIn = !!(user && user.uid)
 
   switch (action.type){
 
     case AUTH.SYNC:
     case AUTH.SIGNIN:
     case AUTH.SIGNOUT:
-      return { ...state, isLoading, isWatching }
+      return { ...state, isLoading: true }
 
     case AUTH.SUCCESS:
-      return { ...initialState, user, isLoggedIn, isWatching }
+      return { ...initialState, user, isLoading, isWatching, isLoggedIn }
 
     case AUTH.FAILURE:
-      return { ...initialState, error, isWatching }
+      return { ...initialState, error, isLoading, isWatching }
 
     default:
       return state
