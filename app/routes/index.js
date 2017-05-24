@@ -17,13 +17,7 @@ const loadModule = (cb) => (componentModule) => {
 export default function createRoutes(store, subdomain){
   const { injectReducer, injectSagas } = getAsyncInjectors(store)
 
-  const routes = subdomain ? [{
-    path : '/',
-    name : 'dashboard',
-    getComponent(nextState, cb){
-      import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
-    },
-  }] : [{
+  const routes = !subdomain ? [{
     path : '/register',
     name : 'registration',
     getComponent(nextState, cb){
@@ -34,6 +28,30 @@ export default function createRoutes(store, subdomain){
     name : 'home',
     getComponent(nextState, cb){
       import('routes/HomeRoute').then(loadModule(cb)).catch(err)
+    },
+  }] : [{
+    path : '/',
+    name : 'dashboard',
+    getComponent(nextState, cb){
+      import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases',
+    name : 'cases',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases/new(/:step)',
+    name : 'new-case',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute/NewCaseRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases/:caseID',
+    name : 'case-details',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute/CaseDetailsRoute').then(loadModule(cb)).catch(err)
     },
   }]
 
@@ -46,6 +64,6 @@ export default function createRoutes(store, subdomain){
   },{
     path : '*',
     name : '404-redirect',
-    onEnter: (nextState, replace) => replace('/')
+    onEnter: (nextState, replace) => { console.log('yo'); replace('/') }
   }]
 }

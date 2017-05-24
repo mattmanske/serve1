@@ -3,13 +3,12 @@
 import Block                from './styles'
 
 import React, { PropTypes } from 'react'
-
-import BoundsWrapper        from 'components/BoundsWrapper'
+import { Link }             from 'react-router'
+import { Button }           from 'antd'
 
 //-----------  Definitions  -----------//
 
-const title       = ''
-const description = ''
+const title = 'Dashboard'
 
 //-----------  Component  -----------//
 
@@ -21,10 +20,11 @@ class DashboardRoute extends React.Component {
     const { props, state } = this
 
     return (
-      <Block.Page title={title} description={description}>
-        <BoundsWrapper>
-          <h1>Dashboard Route</h1>
-        </BoundsWrapper>
+      <Block.Page title={title}>
+        <h1>Dashboard Route</h1>
+        <Link to={'/cases/new'}>
+          <Button size='large'>Start New Case</Button>
+        </Link>
       </Block.Page>
     )
   }

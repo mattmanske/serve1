@@ -3,14 +3,16 @@
 import Route                from './styles'
 
 import React, { PropTypes } from 'react'
+import { Link }             from 'react-router'
+import { Button }           from 'antd'
 
 //-----------  Definitions  -----------//
 
-const title = '{{ titleCase name }}'
+const title = 'Cases'
 
 //-----------  Component  -----------//
 
-class {{ properCase name }} extends React.Component {
+class CasesRoute extends React.Component {
 
   //-----------  HTML Render  -----------//
 
@@ -19,7 +21,10 @@ class {{ properCase name }} extends React.Component {
 
     return (
       <Route.Page title={title}>
-        <h1>{{ titleCase name }}</h1>
+        <h1>Cases Route</h1>
+        <Link to={'/cases/new'}>
+          <Button size='large'>Start New Case</Button>
+        </Link>
       </Route.Page>
     )
   }
@@ -27,8 +32,8 @@ class {{ properCase name }} extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-{{ properCase name }}.propTypes = {}
+CasesRoute.propTypes = {}
 
 //-----------  Exports  -----------//
 
-export default {{ properCase name }}
+export default CasesRoute

@@ -60,13 +60,13 @@ const actions = ({ type, name }) => {
     path         : '../../app/routes/{{properCase name}}/styles.js',
     templateFile : styleTemplate,
     abortOnFail  : true,
-	},{
-    // Add to App Routes
-		type         : 'modify',
-		path         : '../../app/routes/index.js',
-		pattern      : /\s\s}]\n}/gi,
-    template     : insertTemplate,
-    abortOnFail  : true,
+	// },{
+  //   // Add to App Routes
+	// 	type         : 'modify',
+	// 	path         : '../../app/routes/index.js',
+	// 	pattern      : /\s\s}]\n}/gi,
+  //   template     : insertTemplate,
+  //   abortOnFail  : true,
   }]
 }
 

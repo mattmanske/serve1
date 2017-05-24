@@ -9,6 +9,7 @@ import { Link }             from 'react-router'
 import { Button }           from 'antd'
 
 import LoadingScreen        from 'components/LoadingScreen'
+import DashboardSidebar     from 'components/DashboardSidebar'
 
 import LoginForm            from 'containers/LoginForm'
 
@@ -81,9 +82,12 @@ class OrganizationApp extends React.Component {
     return(
       <Organization.App>
         {auth.isLoggedIn ? (
-          React.Children.map(children, child => (
-            React.cloneElement(child, { params, location })
-          ))
+          <Organization.Sheet show={ready}>
+            <DashboardSidebar />
+            {React.Children.map(children, child => (
+              React.cloneElement(child, { params, location })
+            ))}
+          </Organization.Sheet>
         ) : (
           <Organization.Login>
             <h2>Login</h2>

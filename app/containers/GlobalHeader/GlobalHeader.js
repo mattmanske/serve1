@@ -24,7 +24,10 @@ const GlobalHeader = ({ org, auth, isMobile, organization, authActions }) => {
         <Global.Logo>
           <Link to={'/'}>
             {orgName ? (
-              <h1>{orgName}</h1>
+              <div>
+                <h3>{orgName}</h3>
+                <h6>Serve1 Dashboard</h6>
+              </div>
             ) : (
               <SvgLogo />
             )}

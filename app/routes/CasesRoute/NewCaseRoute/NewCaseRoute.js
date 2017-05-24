@@ -6,11 +6,11 @@ import React, { PropTypes } from 'react'
 
 //-----------  Definitions  -----------//
 
-const title = '{{ titleCase name }}'
+const title = 'Create New Case'
 
 //-----------  Component  -----------//
 
-class {{ properCase name }} extends React.Component {
+class NewCaseRoute extends React.Component {
 
   //-----------  HTML Render  -----------//
 
@@ -19,7 +19,7 @@ class {{ properCase name }} extends React.Component {
 
     return (
       <Route.Page title={title}>
-        <h1>{{ titleCase name }}</h1>
+        <h1>New Case Route</h1>
       </Route.Page>
     )
   }
@@ -27,8 +27,8 @@ class {{ properCase name }} extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-{{ properCase name }}.propTypes = {}
+NewCaseRoute.propTypes = {}
 
 //-----------  Exports  -----------//
 
-export default {{ properCase name }}
+export default NewCaseRoute

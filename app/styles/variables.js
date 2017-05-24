@@ -9,7 +9,7 @@ export const emBase = 14
 export const gutter = 1.25
 
 export const baseColors = {
-  gray   : ['#a9a9a9', 30, 30],
+  gray   : ['#a9a9a9', 30, 35],
   blue   : ['#4264fb', 50, 15],
   red    : ['#DC3F2E', 40, 15],
   green  : ['#1BB518', 50, 20],

@@ -72,13 +72,15 @@ class AppWrapper extends React.Component {
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
-        <GlobalHeader isMobile={isMobile} />
+        <App.Page>
+          <GlobalHeader isMobile={isMobile} />
 
-        {org ? (
-          <OrganizationApp { ...props } />
-        ) : (
-          <StaticApp { ...props } />
-        )}
+          {org ? (
+            <OrganizationApp { ...props } />
+          ) : (
+            <StaticApp { ...props } />
+          )}
+        </App.Page>
 
         <ModalWrapper />
       </App.Wrapper>

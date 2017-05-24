@@ -38,7 +38,7 @@ const Screen = styled.div`
   pointer-events : none;
   position       : fixed;
   top            : 0;
-  transition     : all 0.5s ease-out;
+  transition     : all 0.5s ease-out, width 0, height 0;
   width          : 100vw;
   z-index        : 999999;
 `
