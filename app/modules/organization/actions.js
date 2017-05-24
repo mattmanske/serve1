@@ -12,8 +12,8 @@ export const organizationActions = {
   request: (organizationID) => {
     return action(ORGANIZATION.REQUEST, { organizationID })
   },
-  create: (attrs, resolve, reject) => {
-    return action(ORGANIZATION.CREATE, { attrs, resolve, reject })
+  create: (organization, resolve, reject) => {
+    return action(ORGANIZATION.CREATE, { organization, resolve, reject })
   }
 }
 

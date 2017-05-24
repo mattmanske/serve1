@@ -22,6 +22,8 @@ const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
+export const _empty = { _empty: false }
+
 export function timestamp(){
   return moment.utc().toISOString()
 }

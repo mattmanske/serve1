@@ -2,8 +2,6 @@
 
 import Block                from './styles'
 
-import capitalize           from 'lodash/capitalize'
-
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 
@@ -13,14 +11,14 @@ import BoundsWrapper        from 'components/BoundsWrapper'
 
 //-----------  Component  -----------//
 
-const GlobalHeader = ({ org, children, isMobile }) => {
+const GlobalHeader = ({ name, children, isMobile }) => {
 
   return (
     <Block.Elem isMobile={isMobile}>
       <BoundsWrapper>
-        {org ? (
+        {name ? (
           <Block.Logo>
-            <Link to={'/'}><h1>{capitalize(org)}</h1></Link>
+            <Link to={'/'}><h1>{name}</h1></Link>
           </Block.Logo>
         ) : (
           <Block.Logo>
@@ -45,7 +43,7 @@ const GlobalHeader = ({ org, children, isMobile }) => {
 //-----------  Prop Types  -----------//
 
 GlobalHeader.propTypes = {
-  org      : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
+  name     : PropTypes.string,
   isMobile : PropTypes.bool,
   children : PropTypes.node,
 }

@@ -7,9 +7,10 @@ import isEmpty              from 'lodash/isEmpty'
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
-import { Button }           from 'antd'
+import { Button, Popover }  from 'antd'
 
 import PageShade            from 'components/PageShade'
+import UserAvatar           from 'components/UserAvatar'
 import MobileMenu           from 'components/MobileMenu'
 import ProgressBar          from 'components/ProgressBar'
 import GlobalHeader         from 'components/GlobalHeader'
@@ -27,15 +28,15 @@ class AppWrapper extends React.Component {
   }
 
   componentWillMount(){
-    const { site, router, authActions } = this.props
+    const { org, router, authActions, organizationActions } = this.props
 
     this.unsubscribeHistory = router && router.listenBefore((location) => {
       if (this.state.loadedRoutes.indexOf(location.pathname) === -1)
         this.updateProgress(0)
     })
 
+    if (org) organizationActions.request(org)
     authActions.sync()
-    // if (site) organizationActions.sync()
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -61,10 +62,11 @@ class AppWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { org, site, auth, params, location, browser, children, authActions } = this.props
+    const { org, site, auth, params, location, browser, children, organization, authActions } = this.props
     const { progress } = this.state
 
     const isMobile = browser.lessThan.small || false
+    const trigger  = org ? (!!organization.data && auth.isWatching) : auth.isWatching
 
     return(
       <App.Wrapper>
@@ -76,15 +78,24 @@ class AppWrapper extends React.Component {
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
-        <GlobalHeader org={org} isMobile={isMobile}>
-          {auth.isLoggedIn &&
-            <a icon='logout' onClick={authActions.signOut}>Log Out</a>
-          }
-
-          {!org &&
+        {org ? (
+          <GlobalHeader organization={organization.name} isMobile={isMobile}>
+            {auth.isLoggedIn ? (
+              <Popover content={<a icon='logout' onClick={authActions.signOut}>Log Out</a>} trigger='hover' placement='bottomRight'>
+                <UserAvatar url={auth.user.photoURL} />
+              </Popover>
+            ) : (
+              <Button icon='login' onClick={authActions.signIn}>Log In</Button>
+            )}
+          </GlobalHeader>
+        ) : (
+          <GlobalHeader isMobile={isMobile}>
+            {auth.isLoggedIn &&
+              <a icon='logout' onClick={authActions.signOut}>Log Out</a>
+            }
             <Link to='/register'><Button icon='login'>Get Started</Button></Link>
-          }
-        </GlobalHeader>
+          </GlobalHeader>
+        )}
 
         {React.Children.map(children, child => (
           React.cloneElement(child, { params, location })
@@ -92,7 +103,7 @@ class AppWrapper extends React.Component {
 
         <ModalWrapper />
 
-        <LoadingScreen trigger={auth.isWatching} />
+        <LoadingScreen trigger={trigger} />
       </App.Wrapper>
     )
   }
@@ -101,13 +112,14 @@ class AppWrapper extends React.Component {
 //-----------  Prop Types  -----------//
 
 AppWrapper.propTypes = {
-  org         : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
-  auth        : PropTypes.object.isRequired,
-  browser     : PropTypes.object.isRequired,
-  router      : PropTypes.object,
-  location    : PropTypes.object,
-  children    : PropTypes.node.isRequired,
-  authActions : PropTypes.object.isRequired,
+  org                 : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
+  auth                : PropTypes.object.isRequired,
+  browser             : PropTypes.object.isRequired,
+  router              : PropTypes.object,
+  location            : PropTypes.object,
+  children            : PropTypes.node.isRequired,
+  authActions         : PropTypes.object.isRequired,
+  organizationActions : PropTypes.object.isRequired,
 }
 
 //-----------  Exports  -----------//

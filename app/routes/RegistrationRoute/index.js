@@ -16,13 +16,13 @@ const mapState = (state) => {
 
   return {
     auth                    : state.auth,
-    initialValues           : {
+    enableReinitialize      : true,
+    keepDirtyOnReinitialize : true,
+    initialValues: {
       id     : name && toSlug(name),
       state  : 'WI',
       county : 'Dane',
     },
-    enableReinitialize      : true,
-    keepDirtyOnReinitialize : true,
   }
 }
 
@@ -32,8 +32,14 @@ const mapDispatch = (dispatch) => ({
       dispatch(organizationActions.create(attrs, resolve, reject))
     })
   },
-  onSubmitSuccess: (attrs) => {
-    return console.log('made it')
+  onSubmitSuccess: (organizationID) => {
+    const { port, protocol, hostname } = window.location
+
+    const hasOrg    = ((hostname.split('.').length >= 3) && ('www' != hostname.split('.')[0]))
+    const domainUrl = (hasOrg) ? hostname.substring(hostname.indexOf('.') + 1) : hostname
+    const redirect  = port ? `${protocol}//${organizationID}.${domainUrl}:${port}#welcome` : `${protocol}//${organizationID}.${domainUrl}#welcome`
+
+    return window.location = redirect
   }
 })
 

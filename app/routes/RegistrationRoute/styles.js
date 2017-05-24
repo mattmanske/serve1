@@ -8,15 +8,7 @@ import vars        from 'styles/variables'
 
 //-----------  Registration Route  ----------- */
 
-const Page = styled(PageWrapper)`
-  p {
-    margin     : 0 auto ${vars.gutterLg};
-    max-width  : ${vars.smallWidth};
-    text-align : center;
-  }
-`
-
-const Login = styled.div``
+const Page = styled(PageWrapper)``
 
 const Split = styled.div`
   align-items     : center;
@@ -48,18 +40,6 @@ const Form = styled.form`
 
 const User = styled.aside``
 
-const Avatar = styled.div`
-  background          : ${vars.white};
-  background-image    : ${p => `url(${p.src})`};
-  background-position : center center;
-  background-size     : cover;
-  border-radius       : 50%;
-  box-shadow          : ${vars.shadow};
-  height              : 10em;
-  margin              : 1em auto;
-  width               : 10em;
-`
-
 //-----------  Exports  ----------- */
 
-export default { Page, Login, Split, Form, User, Avatar }
+export default { Page, Split, Form, User }

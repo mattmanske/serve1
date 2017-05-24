@@ -7,6 +7,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Input,
          Select }           from 'antd'
 
+import UserAvatar           from 'components/UserAvatar'
 import BoundsWrapper        from 'components/BoundsWrapper'
 import ReduxAntdSubmit      from 'components/ReduxAntdSubmit'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
@@ -27,7 +28,21 @@ const Option      = Select.Option
 //-----------  Validation  -----------//
 
 function validate(values){
-  return {}
+  const errors = {}
+
+  if (!isRequired(values.name))
+    errors.name = 'Required'
+
+  if (!isRequired(values.id))
+    errors.id = 'Required'
+
+  if (!isRequired(values.state))
+    errors.state = 'Required'
+
+  if (!isRequired(values.county))
+    errors.county = 'Required'
+
+  return errors
 }
 
 //-----------  Component  -----------//
@@ -41,7 +56,10 @@ class RegistrationRoute extends React.Component {
 
     return (
       <Route.Page title={title} description={description} loading={isLoading}>
-        <p>Create your Serve1 oragnization.<br />You'll be registered as the organization admin so you can add and manage additional user after creation.</p>
+        <BoundsWrapper type='small'>
+          <h4>Create your oragnization</h4>
+          <p>You'll be registered as the organization admin so you can add and manage additional user after creation.</p>
+        </BoundsWrapper>
 
         <BoundsWrapper type={isLoggedIn ? 'compact' : 'small'}>
           {!isLoggedIn &&
@@ -51,7 +69,7 @@ class RegistrationRoute extends React.Component {
           {isLoggedIn &&
             <Route.Split>
               <Route.User>
-                <Route.Avatar src={user.photoURL} />
+                <UserAvatar url={user.photoURL} size='10em' />
                 <h3>{user.displayName}</h3>
                 <h6>{user.email}</h6>
               </Route.User>
