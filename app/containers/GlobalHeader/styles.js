@@ -7,10 +7,11 @@ import mixins  from 'styles/mixins'
 
 //-----------  Global Header  ----------- */
 
-const Elem = styled.header`
+const Header = styled.header`
   background : transparent;
   font-size  : 1em;
   position   : relative;
+  padding    : ${vars.gutter} 0;
   width      : 100%;
   z-index    : 100;
 
@@ -27,10 +28,10 @@ const Logo = styled.div`
   flex     : 0 0 auto;
   position : relative;
   z-index  : 10;
-`
 
-const Root = styled.a`
-  position: absolute;
+  * {
+    color: ${vars.white};
+  }
 `
 
 const Nav = styled.div`
@@ -64,6 +65,11 @@ const Nav = styled.div`
   }
 `
 
+const Username = styled.span`
+  margin-right   : ${vars.gutter};
+  text-transform : uppercase;
+`
+
 //-----------  Exports  ----------- */
 
-export default { Elem, Logo, Root, Nav }
+export default { Header, Logo, Nav, Username }

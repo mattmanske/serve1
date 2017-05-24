@@ -4,7 +4,7 @@ import { action, createActionConstants } from 'modules/helpers'
 
 //-----------  Definitions  -----------//
 
-export const AUTH = createActionConstants('AUTH', ['SIGNIN', 'SIGNOUT'])
+export const AUTH = createActionConstants('AUTH', ['SIGNIN', 'SIGNOUT', 'TOKEN'])
 
 //-----------  Actions  -----------//
 
@@ -17,6 +17,9 @@ export const authActions = {
   },
   signOut: () => {
     return action(AUTH.SIGNOUT)
+  },
+  token: (token) => {
+    return action(AUTH.TOKEN, { token })
   },
 }
 

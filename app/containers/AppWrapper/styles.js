@@ -28,6 +28,15 @@ const Wrapper = styled.div`
   }
 `
 
+const App = styled.div``
+
+const Login = styled.div`
+  ${ mixins.centerAlign() }
+
+  max-width  : ${vars.compactWidth};
+  text-align : center;
+`
+
 //-----------  Exports  ----------- */
 
-export default { Wrapper }
+export default { Wrapper, App, Login }

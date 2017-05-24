@@ -25,6 +25,8 @@ class LoadingScreen extends React.Component {
 
   render(){
     const { timeTrigger, propsTrigger } = this.state
+    const { message } = this.props
+    
     const visible = !timeTrigger || !propsTrigger
 
     return (
@@ -33,7 +35,8 @@ class LoadingScreen extends React.Component {
           <Loading.Spinner>
             {[0,1,3,2].map(index => <Loading.Cube key={index} index={index} />)}
           </Loading.Spinner>
-          <SvgLogo width={80} />
+          <SvgLogo width={80} fill='black' />
+          {message && <Loading.Message>{message}</Loading.Message>}
         </Loading.Center>
       </Loading.Screen>
     )
@@ -44,6 +47,7 @@ class LoadingScreen extends React.Component {
 
 LoadingScreen.propTypes = {
   trigger: PropTypes.bool,
+  message: PropTypes.string,
 }
 
 LoadingScreen.defaultProps = {

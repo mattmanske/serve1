@@ -3,14 +3,16 @@
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
-import LoginModal             from './LoginModal'
+import GlobalHeader           from './GlobalHeader'
 
 import { authActions }        from 'modules/auth/actions'
 
 //-----------  Redux Maps  -----------//
 
 const mapState = (state) => ({
-  auth: state.auth
+  org          : state.org,
+  auth         : state.auth,
+  organization : state.organization
 })
 
 const mapDispatch = (dispatch) => ({
@@ -19,4 +21,4 @@ const mapDispatch = (dispatch) => ({
 
 //-----------  Exports  -----------//
 
-export default connect(mapState, mapDispatch)(LoginModal)
+export default connect(mapState, mapDispatch)(GlobalHeader)

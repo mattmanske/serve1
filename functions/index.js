@@ -1,18 +1,24 @@
 //-----------  Imports  -----------//
 
-const express    = require('express')
-const admin      = require('firebase-admin')
-const functions  = require('firebase-functions')
+const express            = require('express')
+const admin              = require('firebase-admin')
+const functions          = require('firebase-functions')
 
-const createUser = require('./createUser')
+var serviceAccount       = require('./serviceAccountKey.json')
+
+const createUser         = require('./createUser')
+const createOrganization = require('./createOrganization')
 
 //-----------  Definitions  -----------//
 
-admin.initializeApp(functions.config().firebase)
+admin.initializeApp({
+  credential  : admin.credential.cert(serviceAccount),
+  databaseURL : 'https://serve1-4145f.firebaseio.com'
+})
 
 const cors = require('cors')({
   origin               : true,
-  methods              : 'GET,POST',
+  methods              : 'POST',
   optionsSuccessStatus : 204,
 })
 
@@ -46,8 +52,10 @@ app.use(cors)
 app.use(errorOut)
 app.use(validateToken)
 
+app.post('/createOrganization', (req, res) => createOrganization(req, res, admin))
+
 //-----------  Exports  -----------//
 
-// exports.serve1 = functions.https.onRequest(app)
+exports.serve1 = functions.https.onRequest(app)
 
 exports.createUser = functions.auth.user().onCreate(event => createUser(event, admin))

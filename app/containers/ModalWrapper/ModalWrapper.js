@@ -7,17 +7,16 @@ import get                  from 'lodash/get'
 import React, { PropTypes } from 'react'
 import { Icon }             from 'antd'
 
-import Button               from 'components/Button'
 import PageShade            from 'components/PageShade'
 
-import LoginModal           from 'containers/LoginModal'
+import LoginForm            from 'containers/LoginForm'
 
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  LOGIN_MODAL: LoginModal,
+  LOGIN_FORM: LoginForm,
 }
 
 //-----------  Helpers  -----------//

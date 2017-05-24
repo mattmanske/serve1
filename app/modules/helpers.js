@@ -46,9 +46,9 @@ export function prodQuery(){
   return ('production' == process.env.NODE_ENV) ? { prod: true } : {}
 }
 
-// export function functionsUrl(functionName){
-//   return `https://us-central1-sweepster-1f5e0.cloudfunctions.net/sweepster/${functionName}`
-// }
+export function functionsUrl(functionName){
+  return `${process.env.FIREBASE_FUNCTIONS_DOMAIN}/serve1/${functionName}`
+}
 
 export function errorHandler(){
   return function (req, next){

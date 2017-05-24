@@ -11,7 +11,7 @@ import Button               from 'components/Button'
 
 //-----------  Component  -----------//
 
-const LoginModal = ({ auth, authActions }) => {
+const LoginForm = ({ auth, authActions }) => {
 
   const notAllowed = (!auth.isLoggedIn && !isEmpty(auth.user))
   const isLoading  = (auth.isLoading || !auth.isWatching)
@@ -39,11 +39,11 @@ const LoginModal = ({ auth, authActions }) => {
 
 //-----------  Prop Types  -----------//
 
-LoginModal.propTypes = {
+LoginForm.propTypes = {
   auth        : PropTypes.object.isRequired,
   authActions : PropTypes.object.isRequired,
 }
 
 //-----------  Export  -----------//
 
-export default LoginModal
+export default LoginForm

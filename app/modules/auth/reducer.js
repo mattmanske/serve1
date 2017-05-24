@@ -23,6 +23,7 @@ function authReducer(state = initialState, action){
   switch (action.type){
 
     case AUTH.SYNC:
+    case AUTH.TOKEN:
     case AUTH.SIGNIN:
     case AUTH.SIGNOUT:
       return { ...state, isLoading: true }

@@ -80,7 +80,12 @@ const Cube = styled.div`
   }
 `
 
+const Message = styled.p`
+  color      : ${vars.black};
+  max-width  : ${vars.smallWidth};
+  text-align : center;
+`
 
 //-----------  Exports  ----------- */
 
-export default { Screen, Center, Spinner, Cube }
+export default { Screen, Center, Spinner, Cube, Message }

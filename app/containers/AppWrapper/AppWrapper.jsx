@@ -2,20 +2,16 @@
 
 import App                  from './styles'
 
-import isEmpty              from 'lodash/isEmpty'
+import StaticApp            from './StaticApp'
+import OrganizationApp      from './OrganizationApp'
 
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
 import Helmet               from 'react-helmet'
-import { Button, Popover }  from 'antd'
 
-import PageShade            from 'components/PageShade'
-import UserAvatar           from 'components/UserAvatar'
-import MobileMenu           from 'components/MobileMenu'
 import ProgressBar          from 'components/ProgressBar'
-import GlobalHeader         from 'components/GlobalHeader'
-import LoadingScreen        from 'components/LoadingScreen'
 
+import GlobalHeader         from 'containers/GlobalHeader'
 import ModalWrapper         from 'containers/ModalWrapper'
 
 //-----------  Component  -----------//
@@ -28,14 +24,13 @@ class AppWrapper extends React.Component {
   }
 
   componentWillMount(){
-    const { org, router, authActions, organizationActions } = this.props
+    const { router, location, authActions } = this.props
 
     this.unsubscribeHistory = router && router.listenBefore((location) => {
       if (this.state.loadedRoutes.indexOf(location.pathname) === -1)
         this.updateProgress(0)
     })
 
-    if (org) organizationActions.request(org)
     authActions.sync()
   }
 
@@ -62,11 +57,10 @@ class AppWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { org, site, auth, params, location, browser, children, organization, authActions } = this.props
+    const { org, browser, ...props } = this.props
     const { progress } = this.state
 
     const isMobile = browser.lessThan.small || false
-    const trigger  = org ? (!!organization.data && auth.isWatching) : auth.isWatching
 
     return(
       <App.Wrapper>
@@ -78,32 +72,15 @@ class AppWrapper extends React.Component {
 
         <ProgressBar percent={progress} updateProgress={this.updateProgress} />
 
+        <GlobalHeader isMobile={isMobile} />
+
         {org ? (
-          <GlobalHeader organization={organization.name} isMobile={isMobile}>
-            {auth.isLoggedIn ? (
-              <Popover content={<a icon='logout' onClick={authActions.signOut}>Log Out</a>} trigger='hover' placement='bottomRight'>
-                <UserAvatar url={auth.user.photoURL} />
-              </Popover>
-            ) : (
-              <Button icon='login' onClick={authActions.signIn}>Log In</Button>
-            )}
-          </GlobalHeader>
+          <OrganizationApp { ...props } />
         ) : (
-          <GlobalHeader isMobile={isMobile}>
-            {auth.isLoggedIn &&
-              <a icon='logout' onClick={authActions.signOut}>Log Out</a>
-            }
-            <Link to='/register'><Button icon='login'>Get Started</Button></Link>
-          </GlobalHeader>
+          <StaticApp { ...props } />
         )}
 
-        {React.Children.map(children, child => (
-          React.cloneElement(child, { params, location })
-        ))}
-
         <ModalWrapper />
-
-        <LoadingScreen trigger={trigger} />
       </App.Wrapper>
     )
   }

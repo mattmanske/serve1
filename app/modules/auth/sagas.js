@@ -3,6 +3,7 @@
 import firebase              from 'firebase'
 import { takeEvery }         from 'redux-saga'
 import { put, take, call }   from 'redux-saga/effects'
+import { replace }           from 'react-router-redux'
 
 import { RSF }               from 'modules/helpers'
 
@@ -41,6 +42,16 @@ function* signOutSaga(){
   }
 }
 
+function* tokenSaga({ token }){
+  try {
+    const auth = firebase.auth()
+    yield call([auth, auth.signInWithCustomToken], token)
+    yield put(replace({ pathname: '/', state: { welcome: true }}))
+  } catch(error){
+    yield put(sagaActions.failure(error))
+  }
+}
+
 //-----------  Watchers  -----------//
 
 export default function* authSagas(){
@@ -48,5 +59,6 @@ export default function* authSagas(){
     takeEvery(AUTH.SYNC, syncAuthSaga),
     takeEvery(AUTH.SIGNIN, signInSaga),
     takeEvery(AUTH.SIGNOUT, signOutSaga),
+    takeEvery(AUTH.TOKEN, tokenSaga),
   ]
 }

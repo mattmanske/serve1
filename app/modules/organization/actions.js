@@ -9,8 +9,8 @@ export const ORGANIZATION = createActionConstants('ORGANIZATION', ['CREATE'])
 //-----------  Organization Actions  -----------//
 
 export const organizationActions = {
-  request: (organizationID) => {
-    return action(ORGANIZATION.REQUEST, { organizationID })
+  request: () => {
+    return action(ORGANIZATION.REQUEST)
   },
   create: (organization, resolve, reject) => {
     return action(ORGANIZATION.CREATE, { organization, resolve, reject })

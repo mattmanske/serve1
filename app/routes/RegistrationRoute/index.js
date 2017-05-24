@@ -32,12 +32,13 @@ const mapDispatch = (dispatch) => ({
       dispatch(organizationActions.create(attrs, resolve, reject))
     })
   },
-  onSubmitSuccess: (organizationID) => {
+  onSubmitSuccess: ({ id, token }) => {
     const { port, protocol, hostname } = window.location
 
+    const query     = `?token=${token}`
     const hasOrg    = ((hostname.split('.').length >= 3) && ('www' != hostname.split('.')[0]))
     const domainUrl = (hasOrg) ? hostname.substring(hostname.indexOf('.') + 1) : hostname
-    const redirect  = port ? `${protocol}//${organizationID}.${domainUrl}:${port}#welcome` : `${protocol}//${organizationID}.${domainUrl}#welcome`
+    const redirect  = port ? `${protocol}//${id}.${domainUrl}:${port}${query}` : `${protocol}//${id}.${domainUrl}${query}`
 
     return window.location = redirect
   }

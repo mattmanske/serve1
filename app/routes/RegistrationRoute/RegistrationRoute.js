@@ -16,7 +16,7 @@ import { isMoment,
          isNumber,
          isRequired }       from 'utils/forms'
 
-import LoginModal           from 'containers/LoginModal'
+import LoginForm            from 'containers/LoginForm'
 
 //-----------  Definitions  -----------//
 
@@ -63,7 +63,7 @@ class RegistrationRoute extends React.Component {
 
         <BoundsWrapper type={isLoggedIn ? 'compact' : 'small'}>
           {!isLoggedIn &&
-            <LoginModal />
+            <LoginForm />
           }
 
           {isLoggedIn &&

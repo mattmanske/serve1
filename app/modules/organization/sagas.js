@@ -3,15 +3,17 @@
 import { takeEvery }                 from 'redux-saga'
 import { put, take, call, select }   from 'redux-saga/effects'
 
-import { RSF, _empty, timestamp }    from 'modules/helpers'
+import { RSF }                       from 'modules/helpers'
 
 import { ORGANIZATION, sagaActions } from './actions'
+import { createOrganization }        from './api'
 
 //-----------  Sagas  -----------//
 
-function* requestOrganizationSaga({ organizationID }){
+function* requestOrganizationSaga(){
   try {
-    const organization = yield call(RSF.get, `organizations/${organizationID}`)
+    const id = yield select(state => state.org)
+    const organization = yield call(RSF.get, `organizations/${id}`)
     yield put(sagaActions.success(organization))
   } catch(error){
     yield put(sagaActions.failure(error))
@@ -19,33 +21,12 @@ function* requestOrganizationSaga({ organizationID }){
 }
 
 function* createOrganizationSaga({ organization, resolve, reject }){
-  const { id, ...attrs } = organization
-
-  if (!id || 'www' == id) return reject('Invalid Organization ID')
-
   try {
-    const { uid } = yield select(state => state.auth.user)
+    const currentUser = yield select(state => state.auth.user)
+    const userToken   = yield currentUser.getToken()
 
-    const newOrganization = {
-      ...attrs,
-      jobs              : _empty,
-      cases             : _empty,
-      clients           : _empty,
-      parties           : _empty,
-      services          : _empty,
-      attempts          : _empty,
-      documents         : _empty,
-      affidavits        : _empty,
-      client_contacts   : _empty,
-      service_documents : _empty,
-      created_by        : uid,
-      created_at        : timestamp(),
-      updated_at        : timestamp(),
-    }
-
-    yield call(RSF.patch, `organizations/${id}`, newOrganization)
-    yield call(RSF.patch, `permissions/${id}`, { [uid]: 'admin' })
-    if (resolve) resolve(id)
+    const { body } = yield call(createOrganization, userToken, organization)
+    if (resolve) resolve(body)
   } catch(error){
     if (reject) reject(error)
   }
