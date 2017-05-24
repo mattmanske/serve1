@@ -41,19 +41,9 @@ module.exports = function(req, res, admin){
     delete req.body.organization.id
 
     const newOrganization = Object.assign(req.body.organization, {
-      created_by        : req.user.uid,
-      created_at        : timestamp(),
-      updated_at        : timestamp(),
-      jobs              : _empty,
-      cases             : _empty,
-      clients           : _empty,
-      parties           : _empty,
-      services          : _empty,
-      attempts          : _empty,
-      documents         : _empty,
-      affidavits        : _empty,
-      client_contacts   : _empty,
-      service_documents : _empty,
+      created_by : req.user.uid,
+      created_at : timestamp(),
+      updated_at : timestamp(),
     })
 
     //-----------  Data Validations  -----------//
@@ -62,24 +52,70 @@ module.exports = function(req, res, admin){
       return res.error(400, 'validation', 'Invalid organization ID', { slug: toSlug(id), id })
 
     //-----------  Write to Database  -----------//
-
+      
     const databaseWrites = [
       // Create Organization Object
-      admin.database().ref(`/organizations/${id}`).transaction(value => {
-        return newOrganization
-      }),
+      admin.database().ref(`/organizations/${id}`).transaction(value => newOrganization),
       // Create User Permissions
-      admin.database().ref(`/permissions/${id}`).transaction(value => {
-        return { [req.user.uid]: 'admin' }
-      }),
+      admin.database().ref(`/permissions/${id}`).transaction(value => ({ [req.user.uid]: 'admin' })),
+      // Create Jobs Object
+      admin.database().ref(`/jobs/${id}`).transaction(value => _empty),
+      // Create Cases Object
+      admin.database().ref(`/cases/${id}`).transaction(value => _empty),
+      // Create Clients Object
+      admin.database().ref(`/clients/${id}`).transaction(value => _empty),
+      // Create Parties Object
+      admin.database().ref(`/parties/${id}`).transaction(value => _empty),
+      // Create Services Object
+      admin.database().ref(`/services/${id}`).transaction(value => _empty),
+      // Create Attempts Object
+      admin.database().ref(`/attempts/${id}`).transaction(value => _empty),
+      // Create Documents Object
+      admin.database().ref(`/documents/${id}`).transaction(value => _empty),
+      // Create Affidavits Object
+      admin.database().ref(`/affidavits/${id}`).transaction(value => _empty),
+      // Create Client Contacts Object
+      admin.database().ref(`/client_contacts/${id}`).transaction(value => _empty),
+      // Create Service Documents Object
+      admin.database().ref(`/service_documents/${id}`).transaction(value => _empty),
     ]
 
     Promise.all(databaseWrites).then(values => {
       if (!values[0].committed)
-        return res.error(400, 'database', 'Error saving organization data', { snapshot: values[0].snapshot.val() })
+        return res.error(400, 'database', 'Error creating organization data', { snapshot: values[0].snapshot.val() })
 
       if (!values[1].committed)
-        return res.error(400, 'database', 'Error saving user permissions data', { snapshot: values[1].snapshot.val() })
+        return res.error(400, 'database', 'Error creating user permissions', { snapshot: values[1].snapshot.val() })
+
+      if (!values[2].committed)
+        return res.error(400, 'database', 'Error creating jobs object', { snapshot: values[2].snapshot.val() })
+
+      if (!values[3].committed)
+        return res.error(400, 'database', 'Error creating cases object', { snapshot: values[3].snapshot.val() })
+
+      if (!values[4].committed)
+        return res.error(400, 'database', 'Error creating clients object', { snapshot: values[4].snapshot.val() })
+
+      if (!values[5].committed)
+        return res.error(400, 'database', 'Error creating parties object', { snapshot: values[5].snapshot.val() })
+
+      if (!values[6].committed)
+        return res.error(400, 'database', 'Error creating services object', { snapshot: values[6].snapshot.val() })
+
+      if (!values[7].committed)
+        return res.error(400, 'database', 'Error creating attempts object', { snapshot: values[7].snapshot.val() })
+
+      if (!values[8].committed)
+        return res.error(400, 'database', 'Error creating documents object', { snapshot: values[8].snapshot.val() })
+
+      if (!values[9].committed)
+        return res.error(400, 'database', 'Error creating affidavits object', { snapshot: values[9].snapshot.val() })
+
+      if (!values[10].committed)
+        return res.error(400, 'database', 'Error creating client contacts object', { snapshot: values[10].snapshot.val() })
+
+      if (!values[11].committed)
+        return res.error(400, 'database', 'Error creating service documents object', { snapshot: values[11].snapshot.val() })
 
       //-----------  Successful Return  -----------//
 

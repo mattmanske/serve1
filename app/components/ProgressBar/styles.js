@@ -18,8 +18,8 @@ const Elem = styled.div`
 `
 
 const Percent = styled.div`
-  background : ${vars.blueLight};
-  height     : 2px;
+  background : ${vars.yellowLight};
+  height     : 3px;
   transition : all 300ms ease;
 `
 

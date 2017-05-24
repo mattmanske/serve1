@@ -2,6 +2,8 @@
 
 import App                  from './styles'
 
+import get                  from 'lodash/get'
+
 import StaticApp            from './StaticApp'
 import OrganizationApp      from './OrganizationApp'
 
@@ -61,12 +63,13 @@ class AppWrapper extends React.Component {
     const { progress } = this.state
 
     const isMobile = browser.lessThan.small || false
+    const appTitle = org ? get(props, 'organization.data.name', 'Serve1') : 'Serve1'
 
     return(
       <App.Wrapper>
         <Helmet
-          defaultTitle="Serve1"
-          titleTemplate="%s - Serve1"
+          defaultTitle={appTitle}
+          titleTemplate={`%s - ${appTitle}`}
           meta={[{ name: 'description', content: 'Process Serving Made Easy' }]}
         />
 
@@ -97,6 +100,7 @@ AppWrapper.propTypes = {
   router              : PropTypes.object,
   location            : PropTypes.object,
   children            : PropTypes.node.isRequired,
+  organization        : PropTypes.object.isRequired,
   authActions         : PropTypes.object.isRequired,
   organizationActions : PropTypes.object.isRequired,
 }

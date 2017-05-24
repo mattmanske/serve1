@@ -8,12 +8,16 @@ import { RSF }                       from 'modules/helpers'
 import { ORGANIZATION, sagaActions } from './actions'
 import { createOrganization }        from './api'
 
+//-----------  Definitions  -----------//
+
+const dbKey = 'organizations'
+
 //-----------  Sagas  -----------//
 
 function* requestOrganizationSaga(){
   try {
     const id = yield select(state => state.org)
-    const organization = yield call(RSF.get, `organizations/${id}`)
+    const organization = yield call(RSF.get, `${dbKey}/${id}`)
     yield put(sagaActions.success(organization))
   } catch(error){
     yield put(sagaActions.failure(error))
@@ -23,7 +27,7 @@ function* requestOrganizationSaga(){
 function* createOrganizationSaga({ organization, resolve, reject }){
   try {
     const currentUser = yield select(state => state.auth.user)
-    const userToken   = yield currentUser.getToken()
+    const userToken = yield currentUser.getToken()
 
     const { body } = yield call(createOrganization, userToken, organization)
     if (resolve) resolve(body)

@@ -20,10 +20,10 @@ import LoginForm            from 'containers/LoginForm'
 
 //-----------  Definitions  -----------//
 
-const title       = 'Register'
+const title = 'Register'
 const description = 'Create a new organization'
 
-const Option      = Select.Option
+const Option = Select.Option
 
 //-----------  Validation  -----------//
 

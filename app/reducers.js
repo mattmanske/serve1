@@ -8,6 +8,9 @@ import useragent                        from 'express-useragent'
 
 import authReducer                      from 'modules/auth/reducer'
 import modalReducer                     from 'modules/modal/reducer'
+import casesReducer                     from 'modules/cases/reducer'
+import clientsReducer                   from 'modules/clients/reducer'
+import contactsReducer                  from 'modules/contacts/reducer'
 import organizationReducer              from 'modules/organization/reducer'
 
 //-----------  Definitions  -----------//
@@ -44,7 +47,10 @@ export default function createReducer(domain, subdomain){
     auth         : authReducer,
     route        : routeReducer,
     modal        : modalReducer,
+    cases        : casesReducer,
+    clients      : clientsReducer,
+    contacts     : contactsReducer,
     organization : organizationReducer,
-    browser : createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
+    browser: createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
   })
 }

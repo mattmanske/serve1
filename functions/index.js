@@ -6,7 +6,7 @@ const functions          = require('firebase-functions')
 
 var serviceAccount       = require('./serviceAccountKey.json')
 
-const createUser         = require('./createUser')
+const newUser            = require('./newUser')
 const createOrganization = require('./createOrganization')
 
 //-----------  Definitions  -----------//
@@ -54,8 +54,10 @@ app.use(validateToken)
 
 app.post('/createOrganization', (req, res) => createOrganization(req, res, admin))
 
-//-----------  Exports  -----------//
+//-----------  API Export  -----------//
 
 exports.serve1 = functions.https.onRequest(app)
 
-exports.createUser = functions.auth.user().onCreate(event => createUser(event, admin))
+//-----------  Database Triggers  -----------//
+
+exports.newUser = functions.auth.user().onCreate(event => newUser(event, admin))
