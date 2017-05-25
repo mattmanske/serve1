@@ -63,9 +63,9 @@ class NewCaseRoute extends React.Component {
     return new Promise((res, rej) => this.props.clientsActions.update(values.client, res, rej))
   }
 
-  onClientSuccess = (values) => {
-    console.log('client', values)
-    // return this.next()
+  onClientSuccess = (clientID) => {
+    console.log('client ID:', clientID)
+    // if (clientID) this.next()
   }
 
   onContactSubmit = (values) => {
@@ -129,13 +129,25 @@ class NewCaseRoute extends React.Component {
         </Steps>
 
         <Route.Content>
-          <ClientForm
-            select={true}
-            otherBtn={BackBtn}
-            title={thisStep.title}
-            onSubmitFail={thisStep.onFailure}
-            onSubmitSuccess={thisStep.onSuccess}
-          />
+          {(0 == current) &&
+            <ClientForm
+              title={thisStep.title}
+              otherBtn={BackBtn}
+              canSelect={true}
+              onSubmitFail={thisStep.onFailure}
+              onSubmitSuccess={thisStep.onSuccess}
+            />
+          }
+
+          {(1 == current) &&
+            <StepForm
+              backButton={BackBtn}
+              title={thisStep.title}
+              onSubmit={thisStep.onSubmit}
+              onSubmitFail={thisStep.onFailure}
+              onSubmitSuccess={thisStep.onSuccess}
+            />
+          }
         </Route.Content>
       </Route.Page>
     )

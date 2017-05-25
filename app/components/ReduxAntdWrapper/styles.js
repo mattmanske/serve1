@@ -28,9 +28,7 @@ const Wrapper = styled(Form.Item)`
   }
 `
 
-const Errors = styled(Tooltip)`
-
-`
+const Errors = styled(Tooltip)``
 
 //-----------  Exports  ----------- */
 

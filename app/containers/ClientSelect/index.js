@@ -1,8 +1,10 @@
 //-----------  Imports  -----------//
 
-import { connect }  from 'react-redux'
+import { connect }        from 'react-redux'
 
-import ClientSelect from './ClientSelect'
+import ClientSelect       from './ClientSelect'
+
+import { clientsActions } from 'modules/clients/actions'
 
 //-----------  Redux Maps  -----------//
 
@@ -11,7 +13,15 @@ const mapState = (state) => ({
   isLoading : state.clients.isLoading,
 })
 
-const mapDispatch = (dispatch) => ({})
+const mapDispatch = (dispatch, ownProps) => ({
+  onChange: (option) => {
+    return new Promise((res, rej) => {
+      return dispatch(clientsActions.select((option && option.value), res, rej))
+    }).then(clientID => {
+      return ownProps.afterSelect && ownProps.afterSelect(clientID)
+    })
+  },
+})
 
 //-----------  Exports  -----------//
 

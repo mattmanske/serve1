@@ -10,8 +10,7 @@ import vars   from 'styles/variables'
 
 //-----------  Select Record  ----------- */
 
-const Selector = styled(Select)`
-`
+const Selector = styled(Select)``
 
 //-----------  Exports  ----------- */
 

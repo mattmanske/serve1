@@ -17,7 +17,7 @@ const SelectClient = ({ clients, ...props }) => {
   }))
 
   return (
-    <RecordSelector options={options} { ...props } />
+    <RecordSelector options={options} placeholder='Search Clients...' { ...props } />
   )
 }
 
@@ -26,7 +26,7 @@ const SelectClient = ({ clients, ...props }) => {
 SelectClient.propTypes = {
   value     : PropTypes.string,
   clients   : PropTypes.object.isRequired,
-  onChange  : PropTypes.func,
+  onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 

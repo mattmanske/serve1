@@ -3,93 +3,75 @@
 import validate             from './validate'
 
 import React, { PropTypes } from 'react'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm }        from 'redux-form'
 import { Input }            from 'antd'
 
-import ReduxAntdSubmit      from 'components/ReduxAntdSubmit'
+import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
-import { Form,
-         Title,
-         Selector }         from 'components/FormHelpers'
 
 import ClientSelect         from 'containers/ClientSelect'
 
 //-----------  Definitions  -----------//
 
-const Fields = [{
-  name     : 'id',
-  label    : 'Internal ID',
-  required : true,
-  input    : <Input />
+const selector = ClientSelect
+
+const fieldAttrs = {
+  field     : <Input />,
+  component : ReduxAntdWrapper
+}
+
+const fields = [{
+  name      : 'id',
+  label     : 'Internal ID',
+  required  : true,
 },{
-  name     : 'name',
-  label    : 'Name',
-  required : true,
-  input    : <Input />
+  name      : 'name',
+  label     : 'Name',
+  required  : true,
 },{
-  name     : 'email',
-  label    : 'Email',
-  required : true,
-  input    : <Input />
+  name      : 'email',
+  label     : 'Email',
+  required  : true,
 },{
-  name     : 'address',
-  label    : 'Address',
-  input    : <Input />
+  name      : 'address',
+  label     : 'Address',
 },{
-  name     : 'phone',
-  label    : 'Phone',
-  input    : <Input />
+  name      : 'phone',
+  label     : 'Phone',
 }]
 
 //-----------  Component  -----------//
 
-const ClientForm = ({ id, title, select, otherBtn, onSelect, ...props }) => {
+const ClientForm = (props) => {
 
-  const field = {
-    layout    : 'horizontal',
-    disabled  : !!id && select,
-    component : ReduxAntdWrapper,
-  }
+  const formProps = { ...props, fields, fieldAttrs, selector }
 
   return (
-    <Form noValidate onSubmit={props.handleSubmit}>
-      {title && <Title>{title}</Title>}
-
-      {select &&
-        <Selector>
-          <ClientSelect autofocus value={id} onChange={onSelect} />
-        </Selector>
-      }
-
-      {Fields.map(({ input, ...attrs }) => (
-        <Field key={attrs.name} { ...attrs }{ ...field }>
-          {input}
-        </Field>
-      ))}
-
-      <ReduxAntdSubmit text='Next' other={otherBtn} { ...props } />
-    </Form>
+    <form noValidate onSubmit={props.handleSubmit}>
+      <FormWrapper { ...formProps } />
+    </form>
   )
 }
-
 
 //-----------  Prop Types  -----------//
 
 ClientForm.propTypes = {
-  id              : PropTypes.string,
-  text            : PropTypes.string,
-  title           : PropTypes.string.isRequired,
-  select          : PropTypes.bool,
+  title           : PropTypes.string,
+  canSelect       : PropTypes.bool,
+  selectedID      : PropTypes.string,
+  btnText         : PropTypes.string,
   otherBtn        : PropTypes.node,
-  onSelect        : PropTypes.func.isRequired,
+  isLoading       : PropTypes.bool,
   onSubmit        : PropTypes.func.isRequired,
-  onSubmitFail    : PropTypes.func.isRequired,
+  onSubmitFail    : PropTypes.func,
   onSubmitSuccess : PropTypes.func.isRequired,
 }
 
 ClientForm.defaultProps = {
-  text   : 'Save',
-  select : false
+  btnText   : 'Save',
+  title     : 'Client',
+  canSelect : false,
+  isLoading : false
 }
 
 //-----------  Exports  -----------//

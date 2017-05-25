@@ -11,19 +11,16 @@ import { clientsActions } from 'modules/clients/actions'
 //-----------  Redux Maps  -----------//
 
 const mapState = (state) => ({
-  id: get(state, 'form.client.initial.id', null)
+  isLoading  : state.clients.isLoading,
+  selectedID : get(state, 'form.client.initial.id', null),
 })
 
 const mapDispatch = (dispatch) => ({
-  onSelect: (selection) => {
-    const clientID = selection && selection.value
-    return dispatch(clientsActions.select(clientID))
-  },
-  onSubmit: (formValue) => {
+  onSubmit: (values) => {
     return new Promise((res, rej) => {
-      return dispatch(clientsActions.update(formValue, res, rej))
+      return dispatch(clientsActions.update(values, res, rej))
     })
-  },
+  }
 })
 
 //-----------  Exports  -----------//

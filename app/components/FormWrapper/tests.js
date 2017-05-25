@@ -3,11 +3,11 @@
 import React       from 'react'
 import { shallow } from 'enzyme'
 
-import RecordOption from '../index'
+import FormWrapper from '../index'
 
 //-----------  Tests  -----------//
 
-describe('<RecordOption />', () => {
+describe('<FormWrapper />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

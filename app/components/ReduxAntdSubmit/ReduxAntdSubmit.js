@@ -1,7 +1,5 @@
 //-----------  Imports  -----------//
 
-import Submit               from './styles'
-
 import $                    from 'jquery'
 
 import React, { PropTypes } from 'react'
@@ -95,14 +93,16 @@ class ReduxAntdSubmit extends React.Component {
     const text = props.children || props.text || 'Submit'
 
     return(
-      <Submit.Wrapper>
-        <Submit.Column span={18} push={6}>
-          <Button htmlType='submit' type={btnType} size={props.size} onClick={this.onSubmit} loading={isLoading} disabled={isDisabled}>
-            {text}
-          </Button>
-          {props.other && props.other}
-        </Submit.Column>
-      </Submit.Wrapper>
+      <Button
+        type={btnType}
+        htmlType='submit'
+        size={props.size}
+        loading={isLoading}
+        disabled={isDisabled}
+        onClick={this.onSubmit}
+      >
+        {text}
+      </Button>
     )
   }
 }
@@ -115,7 +115,6 @@ ReduxAntdSubmit.propTypes = {
   type            : PropTypes.oneOf(['primary', 'default', 'dashed']),
   size            : PropTypes.oneOf(['small', 'large']),
   reset           : PropTypes.func.isRequired,
-  other           : PropTypes.element,
   pristine        : PropTypes.bool.isRequired,
   submitSucceeded : PropTypes.bool.isRequired,
   canReset        : PropTypes.bool,

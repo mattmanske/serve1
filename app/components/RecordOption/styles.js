@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import vars   from 'styles/variables'
 
-//-----------  Record Select  ----------- */
+//-----------  Select Record  ----------- */
 
 const Option = styled.span`
   color: ${vars.grayDarkest};

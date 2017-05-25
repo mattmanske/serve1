@@ -9,7 +9,7 @@ import React, { PropTypes, cloneElement } from 'react'
 //-----------  Component  -----------//
 
 const ReduxAntdWrapper = (field) => {
-  const { label, meta, layout, children, input: { value, checked, ...input }, ...props } = field
+  const { label, meta, layout, required, children, input: { value, checked, ...input }, ...props } = field
 
   const id       = (props.id || input.name)
   const invalid  = !!(meta.touched && meta.error)
@@ -42,7 +42,7 @@ const ReduxAntdWrapper = (field) => {
   }
 
   const size       = 'large'
-  const elState    = { id, label, disabled, validateStatus, ...formLayout }
+  const elState    = { id, label, required, disabled, validateStatus, ...formLayout }
   const childProps = { ...input, id, size, disabled, onBlur, onChange, defaultValue, defaultChecked }
 
   return (
