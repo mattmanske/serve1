@@ -6,7 +6,7 @@ import RecordSelector       from 'components/RecordSelector'
 
 //-----------  Component  -----------//
 
-const SelectContact = ({ contacts, ...props }) => {
+const ContactSelect = ({ contacts, ...props }) => {
 
   console.log('contacts', contacts);
 
@@ -17,7 +17,7 @@ const SelectContact = ({ contacts, ...props }) => {
 
 //-----------  Prop Types  -----------//
 
-SelectContact.propTypes = {
+ContactSelect.propTypes = {
   contacts  : PropTypes.object.isRequired,
   onChange  : PropTypes.func,
   isLoading : PropTypes.bool.isRequired,
@@ -25,4 +25,4 @@ SelectContact.propTypes = {
 
 //-----------  Export  -----------//
 
-export default SelectContact
+export default ContactSelect

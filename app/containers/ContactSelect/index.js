@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux'
 
-import SelectContact from './SelectContact'
+import ContactSelect from './ContactSelect'
 
 //-----------  Redux Maps  -----------//
 
@@ -15,4 +15,4 @@ const mapDispatch = (dispatch) => ({})
 
 //-----------  Exports  -----------//
 
-export default connect(mapState, mapDispatch)(SelectContact)
+export default connect(mapState, mapDispatch)(ContactSelect)

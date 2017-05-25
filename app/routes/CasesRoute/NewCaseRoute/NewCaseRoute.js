@@ -12,6 +12,8 @@ import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
 import { Steps, Button }    from 'antd'
 
+import ClientForm           from 'containers/ClientForm'
+
 //-----------  Definitions  -----------//
 
 const Step = Steps.Step
@@ -62,9 +64,8 @@ class NewCaseRoute extends React.Component {
   }
 
   onClientSuccess = (values) => {
-    // TODO: Set Client ID
     console.log('client', values)
-    return this.next()
+    // return this.next()
   }
 
   onContactSubmit = (values) => {
@@ -128,10 +129,10 @@ class NewCaseRoute extends React.Component {
         </Steps>
 
         <Route.Content>
-          <StepForm
-            backButton={BackBtn}
+          <ClientForm
+            select={true}
+            otherBtn={BackBtn}
             title={thisStep.title}
-            onSubmit={thisStep.onSubmit}
             onSubmitFail={thisStep.onFailure}
             onSubmitSuccess={thisStep.onSuccess}
           />

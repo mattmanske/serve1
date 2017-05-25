@@ -3,11 +3,11 @@
 import React       from 'react'
 import { shallow } from 'enzyme'
 
-import SelectContact from '../index'
+import ContactForm from '../index'
 
 //-----------  Tests  -----------//
 
-describe('<SelectContact />', () => {
+describe('<ContactForm />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

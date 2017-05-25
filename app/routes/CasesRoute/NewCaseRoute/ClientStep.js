@@ -9,26 +9,34 @@ import { Input }            from 'antd'
 import ReduxAntdSubmit      from 'components/ReduxAntdSubmit'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
-import SelectClient         from 'containers/SelectClient'
+import ClientSelect         from 'containers/ClientSelect'
 
 //-----------  Component  -----------//
 
 class ClientStep extends React.Component {
 
+  state = {
+    clientID: null
+  }
+
+  //-----------  Event Handlers  -----------//
+
   onSelect = (selection) => {
-    console.log(selection)
+    this.setState({ clientID: selection && selection.value })
+    if (selection) this.props.onSubmitSuccess(selection.value)
   }
 
   //-----------  HTML Render  -----------//
 
   render(){
     const { title, backButton, ...props } = this.props
+    const { clientID } = this.state
 
     return (
       <Route.Form noValidate onSubmit={props.handleSubmit}>
         <Route.Title>{title}</Route.Title>
 
-        <SelectClient value={'CL-234'} onChange={this.onSelect} />
+        <ClientSelect autofocus value={clientID} onChange={this.onSelect} />
 
         <em>or</em>
 
@@ -37,6 +45,7 @@ class ClientStep extends React.Component {
           label='Internal ID'
           required={true}
           layout='horizontal'
+          disabled={!!clientID}
           component={ReduxAntdWrapper}
         >
           <Input />
@@ -47,6 +56,7 @@ class ClientStep extends React.Component {
           label='Name'
           required={true}
           layout='horizontal'
+          disabled={!!clientID}
           component={ReduxAntdWrapper}
         >
           <Input />
@@ -57,6 +67,7 @@ class ClientStep extends React.Component {
           label='Email'
           required={true}
           layout='horizontal'
+          disabled={!!clientID}
           component={ReduxAntdWrapper}
         >
           <Input />
@@ -66,6 +77,7 @@ class ClientStep extends React.Component {
           name='client.address'
           label='Address'
           layout='horizontal'
+          disabled={!!clientID}
           component={ReduxAntdWrapper}
         >
           <Input />
@@ -75,6 +87,7 @@ class ClientStep extends React.Component {
           name='client.phone'
           label='Phone'
           layout='horizontal'
+          disabled={!!clientID}
           component={ReduxAntdWrapper}
         >
           <Input />

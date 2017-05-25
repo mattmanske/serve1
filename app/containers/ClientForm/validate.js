@@ -1,0 +1,20 @@
+//-----------  Imports  -----------//
+
+import { isRequired } from 'utils/forms'
+
+//-----------  Validation  -----------//
+
+export default function(values){
+  const errors = {}
+
+  if (!isRequired(values.id))
+    errors.key = 'Required'
+
+  if (!isRequired(values.name))
+    errors.name = 'Required'
+
+  if (!isRequired(values.email))
+    errors.email = 'Required'
+
+  return errors
+}

@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
+import { initialize }              from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
@@ -41,11 +42,17 @@ function* updateClientSaga({ client, resolve, reject }){
   }
 }
 
+function* selectClientSaga({ clientID }){
+  const client = yield select(state => state.clients.data[clientID])
+  yield put(initialize('client', { ...client, id: clientID }))
+}
+
 //-----------  Watchers  -----------//
 
 export default function* clientsSagas(){
   yield [
     takeEvery(ORGANIZATION.SUCCESS, syncClientsSaga),
     takeEvery(CLIENTS.UPDATE, updateClientSaga),
+    takeEvery(CLIENTS.SELECT, selectClientSaga),
   ]
 }
