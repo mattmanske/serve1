@@ -8,7 +8,7 @@ export default function(values){
   const errors = {}
 
   if (!isRequired(values.id))
-    errors.key = 'Required'
+    errors.id = 'Required'
 
   if (!isRequired(values.name))
     errors.name = 'Required'

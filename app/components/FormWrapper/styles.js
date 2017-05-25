@@ -6,7 +6,7 @@ import vars   from 'styles/variables'
 
 //-----------  Model Form  ----------- */
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   margin    : 0 auto;
   max-width : ${vars.smallWidth};
 `
@@ -24,6 +24,12 @@ const Small = styled.small`
   text-align : center;
 `
 
+const Submit = styled.div`
+  button + button {
+    margin-left: ${vars.gutterSm};
+  }
+`
+
 //-----------  Exports  ----------- */
 
-export default { Wrapper, Title, Small }
+export default { Wrapper, Title, Small, Submit }

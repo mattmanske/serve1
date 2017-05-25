@@ -1,30 +1,35 @@
 //-----------  Imports  -----------//
 
-import Block                from './styles'
-
 import React, { PropTypes } from 'react'
+
+import flatMap              from 'lodash/flatMap'
+
+import RecordOption         from 'components/RecordOption'
+import RecordSelector       from 'components/RecordSelector'
 
 //-----------  Component  -----------//
 
-class CaseSelect extends React.Component {
+const CaseSelect = ({ cases, ...props }) => {
 
-  //-----------  HTML Render  -----------//
+  const options = flatMap(cases, (kase, id) => ({
+    value : id,
+    label : <RecordOption id={id} name={kase.name} />
+  }))
 
-  render(){
-    const { props, state } = this
-
-    return (
-      <Block.Elem>
-      </Block.Elem>
-    )
-  }
+  return (
+    <RecordSelector options={options} placeholder='Search Cases...' { ...props } />
+  )
 }
 
 //-----------  Prop Types  -----------//
 
-CaseSelect.propTypes = {}
+CaseSelect.propTypes = {
+  value     : PropTypes.string,
+  cases     : PropTypes.object.isRequired,
+  onChange  : PropTypes.func.isRequired,
+  isLoading : PropTypes.bool.isRequired,
+}
 
-CaseSelect.defaultProps = {}
 
 //-----------  Export  -----------//
 

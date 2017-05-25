@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
+import { destroy, initialize }     from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
@@ -26,14 +27,14 @@ function* syncContactsSaga(){
   }
 }
 
-function* updateContactSaga({ clientID, contact, resolve, reject }){
+function* updateContactSaga({ contact, resolve, reject }){
   try {
-    let { id, ...attrs } = contact
+    let { id, client, ...attrs } = contact
     const org = yield select(state => state.org)
     const record = { created_at: timestamp(), ...attrs, updated_at: timestamp() }
 
-    if (id) yield call(RSF.patch, `${dbKey}/${org}/${clientID}/${id}`, record)
-    else id = yield call(RSF.create, `${dbKey}/${org}/${clientID}`, record)
+    if (id) yield call(RSF.patch, `${dbKey}/${org}/${client}/${id}`, record)
+    else id = yield call(RSF.create, `${dbKey}/${org}/${client}`, record)
 
     if (resolve) resolve(id)
   } catch(error){
@@ -42,11 +43,24 @@ function* updateContactSaga({ clientID, contact, resolve, reject }){
   }
 }
 
+function* selectContactSaga({ clientID, contactID, resolve, reject }){
+  if (!clientID || !contactID){
+    yield put(destory('contact'))
+  } else {
+    const contact = yield select(state => state.contacts.data[clientID][contactID])
+    if (!contact && reject) return reject('No Record Found')
+    yield put(initialize('contact', { ...contact, id: contactID, client: clientID }))
+  }
+
+  resolve(contactID)
+}
+
 //-----------  Watchers  -----------//
 
 export default function* contactsSagas(){
   yield [
     takeEvery(ORGANIZATION.SUCCESS, syncContactsSaga),
     takeEvery(CONTACTS.UPDATE, updateContactSaga),
+    takeEvery(CONTACTS.SELECT, selectContactSaga),
   ]
 }

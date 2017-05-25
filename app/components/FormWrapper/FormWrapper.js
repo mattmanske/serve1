@@ -15,6 +15,7 @@ const FormWrapper = (props) => {
 
   const {
     title,
+    filter,
     disabled,
     horizontal,
     isLoading,
@@ -31,7 +32,7 @@ const FormWrapper = (props) => {
   const isDisabled = (!!selectedID && !!selector) || disabled
 
   return (
-    <Form.Wrapper>
+    <Form.Wrapper noValidate onSubmit={formProps.handleSubmit}>
       {title &&
         <FormTitle
           title={title}
@@ -42,10 +43,11 @@ const FormWrapper = (props) => {
       {canSelect &&
         <FormSelector
           value={selectedID}
+          filter={filter}
           selector={selector}
           isLoading={isLoading}
           horizontal={horizontal}
-          afterSelect={onSubmitSuccess}
+          afterSelect={props.onSubmitSuccess}
         />
       }
 
@@ -76,6 +78,7 @@ const FormWrapper = (props) => {
 
 FormWrapper.propTypes = {
   title           : PropTypes.node,
+  filter          : PropTypes.string,
   disabled        : PropTypes.bool,
   horizontal      : PropTypes.bool,
   isLoading       : PropTypes.bool,

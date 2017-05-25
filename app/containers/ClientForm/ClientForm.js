@@ -47,9 +47,7 @@ const ClientForm = (props) => {
   const formProps = { ...props, fields, fieldAttrs, selector }
 
   return (
-    <form noValidate onSubmit={props.handleSubmit}>
-      <FormWrapper { ...formProps } />
-    </form>
+    <FormWrapper { ...formProps } />
   )
 }
 
@@ -68,10 +66,7 @@ ClientForm.propTypes = {
 }
 
 ClientForm.defaultProps = {
-  btnText   : 'Save',
-  title     : 'Client',
-  canSelect : false,
-  isLoading : false
+  title: 'Client',
 }
 
 //-----------  Exports  -----------//

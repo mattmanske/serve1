@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
+import { destroy, initialize }     from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
@@ -41,11 +42,24 @@ function* updateCaseSaga({ kase, resolve, reject }){
   }
 }
 
+function* selectCaseSaga({ kaseID, resolve, reject }){
+  if (!kaseID){
+    yield put(destroy('case'))
+  } else {
+    const kase = yield select(state => state.cases.data[kaseID])
+    if (!kase && reject) return reject('No Record Found')
+    yield put(initialize('case', { ...kase, id: kaseID }))
+  }
+
+  return resolve(clientID)
+}
+
 //-----------  Watchers  -----------//
 
 export default function* casesSagas(){
   yield [
     takeEvery(ORGANIZATION.SUCCESS, syncCasesSaga),
     takeEvery(CASES.UPDATE, updateCaseSaga),
+    takeEvery(CASES.SELECT, selectCaseSaga),
   ]
 }

@@ -9,7 +9,7 @@ import RecordSelector       from 'components/RecordSelector'
 
 //-----------  Component  -----------//
 
-const SelectClient = ({ clients, ...props }) => {
+const ClientSelect = ({ clients, ...props }) => {
 
   const options = flatMap(clients, (client, id) => ({
     value : id,
@@ -23,7 +23,7 @@ const SelectClient = ({ clients, ...props }) => {
 
 //-----------  Prop Types  -----------//
 
-SelectClient.propTypes = {
+ClientSelect.propTypes = {
   value     : PropTypes.string,
   clients   : PropTypes.object.isRequired,
   onChange  : PropTypes.func.isRequired,
@@ -32,4 +32,4 @@ SelectClient.propTypes = {
 
 //-----------  Export  -----------//
 
-export default SelectClient
+export default ClientSelect

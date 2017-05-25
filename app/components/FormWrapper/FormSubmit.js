@@ -1,5 +1,7 @@
 //-----------  Imports  -----------//
 
+import Form                 from './styles'
+
 import React, { PropTypes } from 'react'
 
 import ReduxAntdSubmit      from 'components/ReduxAntdSubmit'
@@ -11,14 +13,16 @@ const FormSubmit = ({ btnText, otherBtn, horizontal, ...props }) => {
 
   return horizontal ? (
     <HorizontalWrapper>
-      {otherBtn && otherBtn}
-      <ReduxAntdSubmit text={btnText} { ...props } />
+      <Form.Submit>
+        <ReduxAntdSubmit text={btnText} { ...props } />
+        {otherBtn && otherBtn}
+      </Form.Submit>
     </HorizontalWrapper>
   ) : (
-    <div>
-      {otherBtn && otherBtn}
+    <Form.Submit>
       <ReduxAntdSubmit text={btnText} { ...props } />
-    </div>
+      {otherBtn && otherBtn}
+    </Form.Submit>
   )
 }
 

@@ -1,23 +1,16 @@
 //-----------  Imports  -----------//
 
-import { bindActionCreators } from 'redux'
-import { connect }            from 'react-redux'
+import { connect }  from 'react-redux'
 
-import NewCaseRoute           from './NewCaseRoute'
-
-import { casesActions }       from 'modules/cases/actions'
-import { clientsActions }     from 'modules/clients/actions'
-import { contactsActions }    from 'modules/contacts/actions'
+import NewCaseRoute from './NewCaseRoute'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({})
-
-const mapDispatch = (dispatch) => ({
-  casesActions    : bindActionCreators(casesActions, dispatch),
-  clientsActions  : bindActionCreators(clientsActions, dispatch),
-  contactsActions : bindActionCreators(contactsActions, dispatch),
+const mapState = (state) => ({
+  isLoading: (state.clients.isLoading || state.contacts.isLoading)
 })
+
+const mapDispatch = (dispatch) => ({})
 
 //-----------  Exports  -----------//
 

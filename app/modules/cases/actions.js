@@ -4,7 +4,7 @@ import { action, createActionConstants } from 'modules/helpers'
 
 //-----------  Definitions  -----------//
 
-export const CASES = createActionConstants('CASES', ['UPDATE'])
+export const CASES = createActionConstants('CASES', ['UPDATE', 'SELECT'])
 
 //-----------  Cases Actions  -----------//
 
@@ -14,6 +14,9 @@ export const casesActions = {
   },
   update: (kase, resolve, reject) => {
     return action(CASES.UPDATE, { kase, resolve, reject })
+  },
+  select: (kaseID, resolve, reject) => {
+    return action(CASES.SELECT, { kaseID, resolve, reject })
   }
 }
 

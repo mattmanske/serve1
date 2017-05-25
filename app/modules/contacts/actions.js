@@ -4,7 +4,7 @@ import { action, createActionConstants } from 'modules/helpers'
 
 //-----------  Definitions  -----------//
 
-export const CONTACTS = createActionConstants('CONTACTS', ['UPDATE'])
+export const CONTACTS = createActionConstants('CONTACTS', ['UPDATE', 'SELECT'])
 
 //-----------  Contacts Actions  -----------//
 
@@ -12,8 +12,11 @@ export const contactsActions = {
   sync: () => {
     return action(CONTACTS.SYNC)
   },
-  update: (clientID, contact, resolve, reject) => {
-    return action(CONTACTS.UPDATE, { clientID, contact, resolve, reject })
+  update: (contact, resolve, reject) => {
+    return action(CONTACTS.UPDATE, { contact, resolve, reject })
+  },
+  select: (clientID, contactID, resolve, reject) => {
+    return action(CONTACTS.SELECT, { clientID, contactID, resolve, reject })
   }
 }
 
