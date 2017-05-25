@@ -13,33 +13,48 @@ import FormSubmit           from './FormSubmit'
 
 const FormWrapper = (props) => {
 
-  const disabled = (!!props.selectedID && !!props.selector) || props.disabled
+  const {
+    title,
+    disabled,
+    horizontal,
+    isLoading,
+    selector,
+    canSelect,
+    selectedID,
+    fields,
+    fieldAttrs,
+    btnText,
+    otherBtn,
+    ...formProps,
+  } = props
+
+  const isDisabled = (!!selectedID && !!selector) || disabled
 
   return (
     <Form.Wrapper>
-      {props.title &&
+      {title &&
         <FormTitle
-          title={props.title}
-          horizontal={props.horizontal}
+          title={title}
+          horizontal={horizontal}
         />
       }
 
-      {props.canSelect &&
+      {canSelect &&
         <FormSelector
-          value={props.selectedID}
-          selector={props.selector}
-          isLoading={props.isLoading}
-          horizontal={props.horizontal}
-          afterSelect={props.onSubmitSuccess}
+          value={selectedID}
+          selector={selector}
+          isLoading={isLoading}
+          horizontal={horizontal}
+          afterSelect={onSubmitSuccess}
         />
       }
 
-      {props.fields.map(attrs => {
+      {fields.map(attrs => {
         const { field, ...fieldProps } = {
           key      : attrs.name,
-          layout   : (props.horizontal ? 'horizontal' : null),
-          disabled : disabled,
-          ...props.fieldAttrs,
+          layout   : (horizontal ? 'horizontal' : null),
+          disabled : isDisabled,
+          ...fieldAttrs,
           ...attrs,
         }
         return (
@@ -48,10 +63,10 @@ const FormWrapper = (props) => {
       })}
 
       <FormSubmit
-        btnText={props.btnText}
-        otherBtn={props.otherBtn}
-        horizontal={props.horizontal}
-        { ...props }
+        btnText={btnText}
+        otherBtn={otherBtn}
+        horizontal={horizontal}
+        { ...formProps }
       />
     </Form.Wrapper>
   )

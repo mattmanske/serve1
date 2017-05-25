@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   margin-bottom : 1rem;
-  text-align    : center;
+  text-align    : ${p => p.horizontal ? 'left' : 'center'};
 `
 
 const Small = styled.small`

@@ -4,27 +4,14 @@ import Route                from './styles'
 
 import validate             from './validate'
 
-import ClientStep           from './ClientStep'
-import ContactStep          from './ContactStep'
-import DetailsStep          from './DetailsStep'
-
 import React, { PropTypes } from 'react'
-import { reduxForm }        from 'redux-form'
-import { Steps, Button }    from 'antd'
 
 import ClientForm           from 'containers/ClientForm'
 
 //-----------  Definitions  -----------//
 
 const Step = Steps.Step
-
 const title = 'Create New Case'
-const attrs = {
-  form                     : 'new-case',
-  destroyOnUnmount         : false,
-  forceUnregisterOnUnmount : true,
-  validate
-}
 
 //-----------  Component  -----------//
 

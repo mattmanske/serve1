@@ -12,10 +12,10 @@ const FormTitle = ({ title, horizontal }) => {
 
   return horizontal ? (
     <HorizontalWrapper>
-      <Form.Title>{title}</Form.Title>
+      <Form.Title horizontal={horizontal}>{title}</Form.Title>
     </HorizontalWrapper>
   ) : (
-    <Form.Title>{title}</Form.Title>
+    <Form.Title horizontal={horizontal}>{title}</Form.Title>
   )
 }
 
