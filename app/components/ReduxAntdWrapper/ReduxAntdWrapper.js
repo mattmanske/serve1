@@ -32,7 +32,7 @@ const ReduxAntdWrapper = (field) => {
       defaultValue = value ? value : []
       break
     case 'ant-select':
-      defaultValue = value ? value.toString() : '0'
+      defaultValue = value ? value.toString() : undefined
       break
     case 'ant-input':
       input.value = value || null

@@ -62,6 +62,10 @@ const Nav = styled.div`
       color               : ${vars.white} !important;
       text-shadow         : 0 0 1rem rgba(0,0,0,0.15);
     }
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 `
 

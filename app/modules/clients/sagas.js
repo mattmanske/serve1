@@ -1,7 +1,7 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
-import { destroy, initialize }     from 'redux-form'
+import { initialize }              from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
@@ -44,7 +44,7 @@ function* updateClientSaga({ client, resolve, reject }){
 
 function* selectClientSaga({ clientID, resolve, reject }){
   if (!clientID){
-    yield put(destroy('client'))
+    yield put(initialize('client', {}))
   } else {
     const client = yield select(state => state.clients.data[clientID])
     if (!client && reject) return reject('No Record Found')

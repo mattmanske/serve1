@@ -1,11 +1,12 @@
 //-----------  Imports  -----------//
 
-import Form                 from './styles'
+import Form                      from './styles'
 
-import isFunction           from 'lodash/isFunction'
+import isFunction                from 'lodash/isFunction'
 
-import React, { PropTypes } from 'react'
-import { Steps, Button }    from 'antd'
+import React, { PropTypes }      from 'react'
+import { Steps, Button }         from 'antd'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
 //-----------  Definitions  -----------//
 
@@ -24,6 +25,7 @@ class FormWizard extends React.Component {
     index      : 0,
     status     : 'process',
     processing : false,
+    transition : 'swap-right'
   }
 
   //-----------  Event Handlers  -----------//
@@ -32,8 +34,8 @@ class FormWizard extends React.Component {
     const index = (this.state.index + 1)
 
     if (index < this.props.steps.length){
+      this.setState({ transition: 'swap-left' }, () => this.setState({ index }))
       this.props.onChange(index)
-      this.setState({ index })
     }
   }
 
@@ -41,8 +43,8 @@ class FormWizard extends React.Component {
     const index = (this.state.index - 1)
 
     if (index >= 0){
+      this.setState({ transition: 'swap-right' }, () => this.setState({ index }))
       this.props.onChange(index)
-      this.setState({ index })
     }
   }
 
@@ -60,7 +62,7 @@ class FormWizard extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { index, status, processing } = this.state
+    const { index, status, processing, transition } = this.state
     const { steps, ...props } = this.props
 
     const { form: StepForm, onSubmitFail, onSubmitSuccess, ...attrs } = steps[index]
@@ -81,16 +83,23 @@ class FormWizard extends React.Component {
             />
           ))}
         </Steps>
-
         <Form.Content>
-          <StepForm
-            { ...attrs }
-            { ...keepForm }
-            btnText={btnText}
-            otherBtn={backBtn}
-            onSubmitFail={(errors, dispatch, submitError, props) => this.fail(onSubmitFail, errors, dispatch, submitError, props)}
-            onSubmitSuccess={(result, dispatch, props) => this.success(onSubmitSuccess, result, dispatch, props)}
-          />
+          <ReactCSSTransitionReplace
+            transitionName={transition}
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={1000}
+          >
+            <Form.Transition key={index}>
+              <StepForm
+                { ...attrs }
+                { ...keepForm }
+                btnText={btnText}
+                otherBtn={backBtn}
+                onSubmitFail={(errors, dispatch, submitError, props) => this.fail(onSubmitFail, errors, dispatch, submitError, props)}
+                onSubmitSuccess={(result, dispatch, props) => this.success(onSubmitSuccess, result, dispatch, props)}
+              />
+            </Form.Transition>
+          </ReactCSSTransitionReplace>
         </Form.Content>
       </Form.Wizard>
     )

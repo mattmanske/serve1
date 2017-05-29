@@ -9,6 +9,7 @@ import { Input }            from 'antd'
 import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
+import ClientSelect         from 'containers/ClientSelect'
 import ContactSelect        from 'containers/ContactSelect'
 
 //-----------  Definitions  -----------//
@@ -21,10 +22,6 @@ const fieldAttrs = {
 }
 
 const fields = [{
-  name      : 'client',
-  label     : 'Client',
-  required  : true,
-},{
   name      : 'first_name',
   label     : 'First Name',
   required  : true,
@@ -48,10 +45,19 @@ const fields = [{
 
 const ContactForm = (props) => {
 
-  const formProps = { ...props, fields, fieldAttrs, selector }
+  const parentField = {
+    name      : 'client',
+    label     : 'Client',
+    required  : true,
+    disabled  : true,
+    field     : <ClientSelect value={props.filter} />,
+    component : ReduxAntdWrapper
+  }
+
+  const formProps = { ...props, fields, fieldAttrs, selector, parentField }
 
   return (
-    <FormWrapper { ...formProps } />
+    <FormWrapper type='contact' { ...formProps } />
   )
 }
 

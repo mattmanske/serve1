@@ -10,8 +10,8 @@ const RecordOption = ({ id, name }) => {
 
   return (
     <Record.Option>
-      {id && <Record.Id>{id}</Record.Id>}
-      {name}
+      {!!id && <Record.Id>{id}</Record.Id>}
+      {!!name && name}
     </Record.Option>
   )
 }
@@ -20,7 +20,7 @@ const RecordOption = ({ id, name }) => {
 
 RecordOption.propTypes = {
   id   : PropTypes.string,
-  name : PropTypes.node.isRequired
+  name : PropTypes.node
 }
 
 //-----------  Export  -----------//

@@ -7,8 +7,11 @@ import vars   from 'styles/variables'
 //-----------  Model Form  ----------- */
 
 const Wrapper = styled.form`
-  margin    : 0 auto;
-  max-width : ${vars.smallWidth};
+  background : ${vars.white};
+  display    : block;
+  margin     : 0 auto;
+  max-width  : ${vars.smallWidth};
+  position   : relative;
 `
 
 const Title = styled.h2`
@@ -24,6 +27,12 @@ const Small = styled.small`
   text-align : center;
 `
 
+const Field = styled.div`
+  ${p => p.float && `
+    float: right;
+  `}
+`
+
 const Submit = styled.div`
   button + button {
     margin-left: ${vars.gutterSm};
@@ -32,4 +41,4 @@ const Submit = styled.div`
 
 //-----------  Exports  ----------- */
 
-export default { Wrapper, Title, Small, Submit }
+export default { Wrapper, Title, Small, Field, Submit }

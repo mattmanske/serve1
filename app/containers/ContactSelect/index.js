@@ -17,7 +17,7 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   onChange: (option) => {
-    const clientID  = (option && option.clientID)
+    const clientID  = (option && option.clientID) || (ownProps.filter)
     const contactID = (option && option.value)
 
     return new Promise((res, rej) => {

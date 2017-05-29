@@ -2,16 +2,18 @@
 
 import Form                 from './styles'
 
+import capitalize           from 'lodash/capitalize'
+
 import React, { PropTypes } from 'react'
 
 import HorizontalWrapper    from 'components/HorizontalWrapper'
 
 //-----------  Component  -----------//
 
-const FormSelector = ({ selector: Select, horizontal, ...props }) => {
+const FormSelector = ({ type, selector: Select, horizontal, ...props }) => {
 
   return horizontal ? (
-    <HorizontalWrapper>
+    <HorizontalWrapper label={capitalize(type)}>
       <Select { ...props } />
       <Form.Small>or</Form.Small>
     </HorizontalWrapper>
@@ -23,6 +25,7 @@ const FormSelector = ({ selector: Select, horizontal, ...props }) => {
 //-----------  Prop Types  -----------//
 
 FormSelector.propTypes = {
+  type        : PropTypes.string,
   value       : PropTypes.string,
   selector    : PropTypes.func,
   horizontal  : PropTypes.bool,

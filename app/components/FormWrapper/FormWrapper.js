@@ -14,6 +14,7 @@ import FormSubmit           from './FormSubmit'
 const FormWrapper = (props) => {
 
   const {
+    type,
     title,
     filter,
     disabled,
@@ -24,6 +25,7 @@ const FormWrapper = (props) => {
     selectedID,
     fields,
     fieldAttrs,
+    parentField,
     btnText,
     otherBtn,
     ...formProps,
@@ -40,8 +42,13 @@ const FormWrapper = (props) => {
         />
       }
 
+      {parentField &&
+          <Field { ...parentField }>{parentField.field}</Field>
+      }
+
       {canSelect &&
         <FormSelector
+          type={type}
           value={selectedID}
           filter={filter}
           selector={selector}
@@ -53,14 +60,15 @@ const FormWrapper = (props) => {
 
       {fields.map(attrs => {
         const { field, ...fieldProps } = {
-          key      : attrs.name,
           layout   : (horizontal ? 'horizontal' : null),
           disabled : isDisabled,
           ...fieldAttrs,
           ...attrs,
         }
         return (
-          <Field { ...fieldProps }>{field}</Field>
+          <Form.Field key={fieldProps.name}>
+            <Field { ...fieldProps }>{field}</Field>
+          </Form.Field>
         )
       })}
 
@@ -77,6 +85,7 @@ const FormWrapper = (props) => {
 //-----------  Prop Types  -----------//
 
 FormWrapper.propTypes = {
+  type            : PropTypes.string.isRequired,
   title           : PropTypes.node,
   filter          : PropTypes.string,
   disabled        : PropTypes.bool,
@@ -87,6 +96,7 @@ FormWrapper.propTypes = {
   selectedID      : PropTypes.string,
   fields          : PropTypes.array.isRequired,
   fieldAttrs      : PropTypes.object,
+  parentField     : PropTypes.object,
   btnText         : PropTypes.string,
   otherBtn        : PropTypes.node,
   onSubmitSuccess : PropTypes.func.isRequired,

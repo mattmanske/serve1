@@ -5,13 +5,16 @@ import { Row, Col }         from 'antd'
 
 //-----------  Component  -----------//
 
-const HorizontalWrapper = ({ span, push, children }) => {
+const HorizontalWrapper = ({ span, push, label, children }) => {
 
-  return (
+  return label ? (
     <Row>
-      <Col span={span} push={push}>
-        {children}
-      </Col>
+      <Col span={push} className='ant-form-item-label'><label>{label}</label></Col>
+      <Col span={span}>{children}</Col>
+    </Row>
+  ) : (
+    <Row>
+      <Col span={span} push={push}>{children}</Col>
     </Row>
   )
 }
@@ -21,6 +24,7 @@ const HorizontalWrapper = ({ span, push, children }) => {
 HorizontalWrapper.propTypes = {
   span     : PropTypes.number,
   push     : PropTypes.number,
+  label    : PropTypes.node,
   children : PropTypes.node.isRequired,
 }
 

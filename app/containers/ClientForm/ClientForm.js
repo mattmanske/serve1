@@ -47,7 +47,7 @@ const ClientForm = (props) => {
   const formProps = { ...props, fields, fieldAttrs, selector }
 
   return (
-    <FormWrapper { ...formProps } />
+    <FormWrapper type='client' { ...formProps } />
   )
 }
 
