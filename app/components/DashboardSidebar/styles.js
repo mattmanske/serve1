@@ -13,6 +13,7 @@ const Sidebar = styled.aside`
   border-right           : 1px solid ${vars.grayLighter};
   border-top-left-radius : ${vars.radius};
   flex-basis             : 18em;
+  box-shadow             : inset -3px 0 3px rgba(0,0,0,0.02);
 
   > .ant-menu-inline {
     background   : none;

@@ -1,15 +1,11 @@
 //-----------  Imports  -----------//
 
-import isEmpty   from 'lodash/isEmpty'
-import toArray   from 'lodash/toArray'
-import mapValues from 'lodash/mapValues'
+import flatMap from 'lodash/flatMap'
 
 //-----------  Utilities  -----------//
 
-export function recordsToArray(records, isLoading, empty = false){
-  delete records['_empty']
-  const withID = mapValues(records, (obj, id) => ({ ...obj, id }))
-  return (!isEmpty(withID) || empty) ? toArray(withID) : [{ text: (isLoading ? 'Loading...' : 'No Records') }]
+export function recordsToArray(records){
+  return flatMap(records, (record, id) => ({ id, ...record }))
 }
 
 export function toSlug(text){

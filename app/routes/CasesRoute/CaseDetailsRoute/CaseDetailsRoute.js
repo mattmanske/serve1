@@ -8,6 +8,16 @@ import React, { PropTypes } from 'react'
 
 const title = 'Case Details'
 
+let breadcrumbs = [{
+  link  : '/',
+  title : 'Dashboard'
+},{
+  link  : '/cases',
+  title : 'Cases'
+},{
+  title : 'Details'
+}]
+
 //-----------  Component  -----------//
 
 class CaseDetailsRoute extends React.Component {
@@ -17,8 +27,10 @@ class CaseDetailsRoute extends React.Component {
   render(){
     const { props, state } = this
 
+    breadcrumbs.push
+
     return (
-      <Route.Page title={title}>
+      <Route.Page title={title} breadcrumbs={breadcrumbs}>
         <h1>Case Details Route</h1>
       </Route.Page>
     )

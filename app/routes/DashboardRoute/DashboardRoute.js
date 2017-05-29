@@ -10,6 +10,10 @@ import { Button }           from 'antd'
 
 const title = 'Dashboard'
 
+const breadcrumbs = [{
+  title : 'Dashboard'
+}]
+
 //-----------  Component  -----------//
 
 class DashboardRoute extends React.Component {
@@ -20,7 +24,7 @@ class DashboardRoute extends React.Component {
     const { props, state } = this
 
     return (
-      <Block.Page title={title}>
+      <Block.Page title={title} breadcrumbs={breadcrumbs}>
         <h1>Dashboard Route</h1>
         <Link to={'/cases/new'}>
           <Button size='large'>Start New Case</Button>

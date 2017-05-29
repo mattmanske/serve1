@@ -6,12 +6,25 @@ import vars   from 'styles/variables'
 
 //-----------  Page Wrapper  ----------- */
 
-const Elem = styled.main`
-  opacity        : 1;
-  overflow-x     : hidden;
-  padding-bottom : ${vars.gutterLg};
-  padding-top    : ${vars.gutterLg};
-  transition     : ${vars.transition};
+const Wrapper = styled.div``
+
+const Header = styled.header`
+  border-bottom : 1px solid ${vars.grayLightest};
+  padding       : ${vars.gutterSm} ${vars.gutter};
+  position      : relative;
+  box-shadow    : 0 3px 3px rgba(0,0,0,0.02);
+
+  .ant-breadcrumb-link {
+    line-height: 160%;
+  }
+`
+
+const Main = styled.main`
+  opacity    : 1;
+  overflow   : srcoll;
+  padding    : ${vars.gutterLg};
+  position   : relative;
+  transition : ${vars.transition};
 
   ${props => props.loading && `
     opacity        : 0.5;
@@ -38,4 +51,4 @@ const Elem = styled.main`
 
 //-----------  Exports  ----------- */
 
-export default { Elem }
+export default { Wrapper, Header, Main }

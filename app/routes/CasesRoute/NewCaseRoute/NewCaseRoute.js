@@ -13,6 +13,16 @@ import PageWrapper          from 'components/PageWrapper'
 
 const title = 'Create New Case'
 
+const breadcrumbs = [{
+  link  : '/',
+  title : 'Dashboard'
+},{
+  link  : '/cases',
+  title : 'Cases'
+},{
+  title : 'New'
+}]
+
 //-----------  Component  -----------//
 
 class NewCaseRoute extends React.Component {
@@ -63,7 +73,7 @@ class NewCaseRoute extends React.Component {
     }]
 
     return (
-      <PageWrapper title={title} loading={isLoading}>
+      <PageWrapper title={title} loading={isLoading} breadcrumbs={breadcrumbs}>
         <FormWizard steps={steps} />
       </PageWrapper>
     )

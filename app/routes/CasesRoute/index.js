@@ -6,7 +6,11 @@ import CasesRoute from './CasesRoute'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+  cases    : state.cases,
+  clients  : state.clients.data,
+  contacts : state.contacts.data
+})
 
 const mapDispatch = (dispatch) => ({})
 

@@ -73,11 +73,10 @@ Styles.Sheet = styled.div`
   transition    : all 1.25s ease-out 0.25s;
   filter        : ${p => p.show ? 'blur(0)' : 'blur(2px)'};
 
-  > main {
+  > div {
     color    : ${vars.black};
     flex     : 1 0 auto;
     overflow : scroll;
-    padding  : ${vars.gutterLg};
   }
 `
 
