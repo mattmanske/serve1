@@ -9,7 +9,7 @@ import React, { PropTypes, cloneElement } from 'react'
 //-----------  Component  -----------//
 
 const ReduxAntdWrapper = (field) => {
-  const { label, meta, layout, required, children, input: { value, checked, ...input }, ...props } = field
+  const { type, meta, label, layout, required, children, input: { value, checked, ...input }, ...props } = field
 
   const id       = (props.id || input.name)
   const invalid  = !!(meta.touched && meta.error)
@@ -59,15 +59,16 @@ const ReduxAntdWrapper = (field) => {
 ReduxAntdWrapper.propTypes = {
   // ReduxFormWrapper Props
 
+  className    : PropTypes.string,
   disabled     : PropTypes.bool,
-  id           : PropTypes.string,
   icon         : PropTypes.string,
+  id           : PropTypes.string,
   label        : PropTypes.string,
   loading      : PropTypes.bool,
   prependLabel : PropTypes.bool,
   required     : PropTypes.bool,
   style        : PropTypes.object,
-  className    : PropTypes.string,
+  type         : PropTypes.string,
 
   // Ant Design Props
 
@@ -115,6 +116,7 @@ ReduxAntdWrapper.defaultProps = {
   loading      : false,
   prependLabel : true,
   required     : false,
+  type         : 'text',
 }
 
 //-----------  Export  -----------//

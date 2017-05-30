@@ -1,23 +1,31 @@
 //-----------  Imports  -----------//
 
-import React, { PropTypes } from 'react'
-
 import flatMap              from 'lodash/flatMap'
+
+import React, { PropTypes } from 'react'
+import { Select }           from 'antd'
 
 import RecordOption         from 'components/RecordOption'
 import RecordSelector       from 'components/RecordSelector'
 
+//-----------  Definitions  -----------//
+
+const Option = Select.Option
+
 //-----------  Component  -----------//
 
-const ClientSelect = ({ clients, ...props }) => {
+const ClientSelect = ({ value, clients, ...props }) => {
 
-  const options = flatMap(clients, (client, id) => ({
-    value : id,
-    label : <RecordOption id={id} name={client.name} />
-  }))
+  if (value) props.defaultValue = value
 
   return (
-    <RecordSelector options={options} placeholder='Search Clients...' { ...props } />
+    <RecordSelector placeholder='Search Clients...' { ...props }>
+      {clients && flatMap(clients, (client, id) => (
+        <Option key={id} value={id}>
+          <RecordOption id={id} name={client.name} />
+        </Option>
+      ))}
+    </RecordSelector>
   )
 }
 
@@ -26,7 +34,7 @@ const ClientSelect = ({ clients, ...props }) => {
 ClientSelect.propTypes = {
   value     : PropTypes.string,
   clients   : PropTypes.object.isRequired,
-  onChange  : PropTypes.func.isRequired,
+  onSelect  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 

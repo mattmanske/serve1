@@ -6,10 +6,12 @@ import React, { PropTypes } from 'react'
 
 //-----------  Component  -----------//
 
-const RecordSelector = (props) => {
+const RecordSelector = ({ children, ...props }) => {
 
   return (
-    <Record.Selector { ...props } clearable />
+    <Record.Selector size='large' { ...props } allowClear showSearch>
+      {children}
+    </Record.Selector>
   )
 }
 
@@ -17,8 +19,8 @@ const RecordSelector = (props) => {
 
 RecordSelector.propTypes = {
   value     : PropTypes.string,
-  options   : PropTypes.array.isRequired,
-  onChange  : PropTypes.func,
+  children  : PropTypes.array,
+  onSelect  : PropTypes.func,
   isLoading : PropTypes.bool.isRequired,
 }
 

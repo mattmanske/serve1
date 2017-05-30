@@ -14,9 +14,7 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (option) => {
-    const clientID = (option && option.value)
-
+  onSelect: (clientID, option) => {
     return new Promise((res, rej) => {
       return dispatch(clientsActions.select(clientID, res, rej))
     }).then(selectedID => {
