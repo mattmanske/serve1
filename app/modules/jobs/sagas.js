@@ -1,7 +1,7 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
-import { destroy, initialize }     from 'redux-form'
+import { initialize }              from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
@@ -43,15 +43,12 @@ function* updateJobSaga({ job, resolve, reject }){
 }
 
 function* selectJobSaga({ jobID, resolve, reject }){
-  if (!jobID){
-    yield put(destroy('job'))
-  } else {
-    const job = yield select(state => state.jobs.data[jobID])
-    if (!job && reject) return reject('No Record Found')
-    yield put(initialize('job', { ...job, id: jobID }))
-  }
+  const job = yield select(state => state.jobs.data[jobID])
 
-  return resolve(clientID)
+  if (!job) return reject('No Record Found')
+
+  yield put(initialize('job', { ...job, id: jobID }))
+  return resolve(jobID)
 }
 
 //-----------  Watchers  -----------//

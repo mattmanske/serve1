@@ -43,14 +43,11 @@ function* updateClientSaga({ client, resolve, reject }){
 }
 
 function* selectClientSaga({ clientID, resolve, reject }){
-  if (!clientID){
-    yield put(initialize('client', {}))
-  } else {
-    const client = yield select(state => state.clients.data[clientID])
-    if (!client && reject) return reject('No Record Found')
-    yield put(initialize('client', { ...client, id: clientID }))
-  }
+  const client = yield select(state => state.clients.data[clientID])
 
+  if (!client) return reject('No Record Found')
+
+  yield put(initialize('client', { ...client, id: clientID }))
   return resolve(clientID)
 }
 

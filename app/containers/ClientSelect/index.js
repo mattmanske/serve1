@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import { connect }        from 'react-redux'
+import { initialize }     from 'redux-form'
 
 import ClientSelect       from './ClientSelect'
 
@@ -14,11 +15,13 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
-  onSelect: (clientID, option) => {
+  onChange: (clientID, option) => {
+    if (!clientID) return dispatch(initialize('client', {}))
+
     return new Promise((res, rej) => {
       return dispatch(clientsActions.select(clientID, res, rej))
-    }).then(selectedID => {
-      return ownProps.afterSelect && ownProps.afterSelect(selectedID)
+    }).then(clientID => {
+      return ownProps.afterSelect && ownProps.afterSelect(clientID)
     })
   },
 })

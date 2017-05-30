@@ -34,7 +34,7 @@ const ClientSelect = ({ value, clients, ...props }) => {
 ClientSelect.propTypes = {
   value     : PropTypes.string,
   clients   : PropTypes.object.isRequired,
-  onSelect  : PropTypes.func.isRequired,
+  onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 

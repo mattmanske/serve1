@@ -3,6 +3,7 @@
 import get                 from 'lodash/get'
 
 import { connect }         from 'react-redux'
+import { initialize }      from 'redux-form'
 
 import ContactSelect       from './ContactSelect'
 
@@ -16,14 +17,15 @@ const mapState = (state, ownProps) => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (option) => {
-    const clientID  = (option && option.clientID) || (ownProps.filter)
-    const contactID = (option && option.value)
+  onChange: (contactID, option) => {
+    const { clientID } = option.props
+    
+    if (!contactID) return dispatch(initialize('contact', { client: clientID }))
 
     return new Promise((res, rej) => {
       return dispatch(contactsActions.select(clientID, contactID, res, rej))
-    }).then(selectedID => {
-      return ownProps.afterSelect && ownProps.afterSelect(selectedID)
+    }).then(contactID => {
+      return ownProps.afterSelect && ownProps.afterSelect(contactID)
     })
   },
 })

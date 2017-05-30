@@ -44,14 +44,11 @@ function* updateContactSaga({ contact, resolve, reject }){
 }
 
 function* selectContactSaga({ clientID, contactID, resolve, reject }){
-  if (!clientID || !contactID){
-    yield put(initialize('contact', { client: clientID }))
-  } else {
-    const contact = yield select(state => state.contacts.data[clientID][contactID])
-    if (!contact && reject) return reject('No Record Found')
-    yield put(initialize('contact', { ...contact, id: contactID, client: clientID }))
-  }
+  const contact = yield select(state => state.contacts.data[clientID][contactID])
 
+  if (!contact) return reject('No Record Found')
+
+  yield put(initialize('contact', { ...contact, id: contactID, client: clientID }))
   return resolve(contactID)
 }
 

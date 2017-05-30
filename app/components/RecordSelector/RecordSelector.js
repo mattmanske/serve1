@@ -20,7 +20,7 @@ const RecordSelector = ({ children, ...props }) => {
 RecordSelector.propTypes = {
   value     : PropTypes.string,
   children  : PropTypes.array,
-  onSelect  : PropTypes.func,
+  onChange  : PropTypes.func,
   isLoading : PropTypes.bool.isRequired,
 }
 

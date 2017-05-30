@@ -43,14 +43,11 @@ function* updateCaseSaga({ kase, resolve, reject }){
 }
 
 function* selectCaseSaga({ kaseID, resolve, reject }){
-  if (!kaseID){
-    yield put(initialize('case', {}))
-  } else {
-    const kase = yield select(state => state.cases.data[kaseID])
-    if (!kase && reject) return reject('No Record Found')
-    yield put(initialize('case', { ...kase, id: kaseID }))
-  }
+  const kase = yield select(state => state.cases.data[kaseID])
 
+  if (!kase) return reject('No Record Found')
+
+  yield put(initialize('case', { ...kase, id: kaseID }))
   return resolve(kaseID)
 }
 

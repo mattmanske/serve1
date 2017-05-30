@@ -1,6 +1,7 @@
 //-----------  Imports  -----------//
 
 import { connect }      from 'react-redux'
+import { initialize }   from 'redux-form'
 
 import CaseSelect       from './CaseSelect'
 
@@ -14,13 +15,13 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (option) => {
-    const caseID = (option && option.value)
+  onChange: (caseID, option) => {
+    if (!caseID) return dispatch(initialize('case', {}))
 
     return new Promise((res, rej) => {
       return dispatch(casesActions.select(caseID, res, rej))
-    }).then(selectedID => {
-      return ownProps.afterSelect && ownProps.afterSelect(selectedID)
+    }).then(caseID => {
+      return ownProps.afterSelect && ownProps.afterSelect(caseID)
     })
   },
 })

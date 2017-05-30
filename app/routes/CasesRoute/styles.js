@@ -3,6 +3,7 @@
 import styled      from 'styled-components'
 
 import { Link }    from 'react-router'
+import { Card }    from 'antd'
 
 import PageWrapper from 'components/PageWrapper'
 
@@ -12,12 +13,8 @@ import vars        from 'styles/variables'
 
 const Page = styled(PageWrapper)``
 
-const Rollup = styled.div`
-  padding: ${vars.gutter} 0;
-
-  & + div {
-    border-top: 1px dotted ${vars.grayLightest}
-  }
+const Rollup = styled(Card)`
+  margin-top: ${vars.gutter};
 `
 
 const Details = styled.div``
