@@ -63,7 +63,7 @@ Styles.Sheet = styled.div`
   display       : flex;
   left          : 0;
   margin        : auto;
-  margin-top    : ${p => p.show ? '0em' : '3em'};
+  margin-top    : ${p => p.show ? '0em' : '2em'};
   max-width     : ${vars.maxWidth};
   opacity       : ${p => p.show ? 1 : 0.5};
   overflow      : hidden;
@@ -71,13 +71,7 @@ Styles.Sheet = styled.div`
   right         : 0;
   top           : 0;
   transition    : all 1.25s ease-out 0.25s;
-  filter        : ${p => p.show ? 'blur(0)' : 'blur(2px)'};
-
-  > div {
-    color    : ${vars.black};
-    flex     : 1 0 auto;
-    overflow : scroll;
-  }
+  filter        : ${p => p.show ? 'blur(0)' : 'blur(1px)'};
 `
 
 //-----------  Exports  ----------- */

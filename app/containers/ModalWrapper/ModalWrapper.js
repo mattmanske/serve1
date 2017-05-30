@@ -1,22 +1,21 @@
 //-----------  Imports  -----------//
 
-import Block                from './styles'
+import Modal                from './styles'
 
 import get                  from 'lodash/get'
 
 import React, { PropTypes } from 'react'
-import { Icon }             from 'antd'
-
-import PageShade            from 'components/PageShade'
 
 import LoginForm            from 'containers/LoginForm'
+import ContactForm          from 'containers/ContactForm'
 
 //-----------  Definitions  -----------//
 
 const delay = 150
 
 const MODAL_COMPONENTS = {
-  LOGIN_FORM: LoginForm,
+  LOGIN_FORM   : LoginForm,
+  CONTACT_FORM : ContactForm
 }
 
 //-----------  Helpers  -----------//
@@ -33,7 +32,6 @@ class ModalWrapper extends React.Component {
     open  : !!getModal(this.props.child),
     child : getModal(this.props.child),
     props : get(this.props, 'props', {}),
-    size  : get(this.props, 'options.size', 'sm'),
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -57,7 +55,6 @@ class ModalWrapper extends React.Component {
       return this.setState({
         open  : true,
         child : nextModal,
-        size  : get(nextProps, 'options.size', 'sm'),
         props : get(nextProps, 'props', {}),
       })
     }
@@ -69,7 +66,6 @@ class ModalWrapper extends React.Component {
       }, () => setTimeout(() => this.setState({
         open  : false,
         child : null,
-        size  : 'sm',
         props : {},
       }), delay))
     }
@@ -81,7 +77,6 @@ class ModalWrapper extends React.Component {
       }, () => setTimeout(() => this.setState({
         open  : true,
         child : nextModal,
-        size  : get(nextProps, 'options.size', 'sm'),
         props : get(nextProps, 'props', {}),
       }), delay))
     }
@@ -90,7 +85,7 @@ class ModalWrapper extends React.Component {
   //-----------  Event Handlers  -----------//
 
   closeModal = () => {
-    const { options: { onClose }, modalActions: { hideModal} } = this.props
+    const { options: { onClose }, modalActions: { hideModal }} = this.props
 
     this.setState({ open: false }, () => {
       setTimeout(() => {
@@ -103,28 +98,21 @@ class ModalWrapper extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { open, size, props, child: Modal } = this.state
+    const { open, props, child: Child } = this.state
     const { preventClose } = this.props.options
 
-    const hasModal   = !!Modal
+    const hasModal   = !!Child
     const shadeClick = preventClose ? null : this.closeModal
 
     return (
-      <Block.Wrapper open={open} size={size}>
-        <PageShade active={open || hasModal} onClick={shadeClick} />
-
-        <Block.Popup open={open} size={size}>
-          <Block.Content open={open} size={size}>
-            {hasModal && <Modal { ...props } />}
-
-            {!preventClose &&
-              <Block.Close>
-                <Icon type='close' onClick={this.closeModal} />
-              </Block.Close>
-            }
-          </Block.Content>
-        </Block.Popup>
-      </Block.Wrapper>
+      <Modal.Wrapper
+        footer={null}
+        visible={open}
+        closable={!preventClose}
+        onCancel={this.closeModal}
+      >
+        {hasModal && <Child { ...props } />}
+      </Modal.Wrapper>
     )
   }
 }

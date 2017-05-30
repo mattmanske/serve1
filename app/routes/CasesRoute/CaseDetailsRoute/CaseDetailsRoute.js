@@ -8,14 +8,12 @@ import React, { PropTypes } from 'react'
 
 const title = 'Case Details'
 
-let breadcrumbs = [{
+const breadcrumbs = [{
   link  : '/',
   title : 'Dashboard'
 },{
   link  : '/cases',
   title : 'Cases'
-},{
-  title : 'Details'
 }]
 
 //-----------  Component  -----------//
@@ -25,13 +23,12 @@ class CaseDetailsRoute extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { props, state } = this
-
-    breadcrumbs.push
+    const { kase, kaseID, ...props } = this.props
+    const crumb = { title: kaseID || '...' }
 
     return (
-      <Route.Page title={title} breadcrumbs={breadcrumbs}>
-        <h1>Case Details Route</h1>
+      <Route.Page title={title} loading={!kase} breadcrumbs={[ ...breadcrumbs, crumb ]}>
+        <h1>{kaseID}</h1>
       </Route.Page>
     )
   }
@@ -39,7 +36,10 @@ class CaseDetailsRoute extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-CaseDetailsRoute.propTypes = {}
+CaseDetailsRoute.propTypes = {
+  kase   : PropTypes.object.isRequired,
+  kaseID : PropTypes.string.isRequired
+}
 
 //-----------  Exports  -----------//
 

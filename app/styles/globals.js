@@ -28,5 +28,9 @@ injectGlobal`
     padding    : 0;
   }
 
+  .ant-popover {
+    z-index: 500 !important;
+  }
+
   ${ TextStyles }
 `

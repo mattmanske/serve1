@@ -13,10 +13,10 @@ const BreadcrumbItem = Breadcrumb.Item
 
 //-----------  Component  -----------//
 
-const PageWrapper = ({ fill, title, loading, children, description, breadcrumbs, ...props }) => {
+const PageWrapper = ({ title, loading, children, description, breadcrumbs, ...props }) => {
 
   return (
-    <Page.Wrapper fill={fill} loading={loading} { ...props }>
+    <Page.Wrapper>
       <Helmet title={title} meta={[{ name: 'description', content: description }]} />
 
       <Page.Header>
@@ -25,13 +25,15 @@ const PageWrapper = ({ fill, title, loading, children, description, breadcrumbs,
             <BreadcrumbItem key={index}>
               {breadcrumb.link ? (
                 <Link to={breadcrumb.link}>{breadcrumb.title}</Link>
-              ) : (breadcrumb.title)}
+              ) : (
+                <Page.Strong>{breadcrumb.title}</Page.Strong>
+              )}
             </BreadcrumbItem>
           ))}
         </Breadcrumb>
       </Page.Header>
 
-      <Page.Main>
+      <Page.Main loading={loading} { ...props }>
         {children}
       </Page.Main>
     </Page.Wrapper>
@@ -41,7 +43,6 @@ const PageWrapper = ({ fill, title, loading, children, description, breadcrumbs,
 //-----------  Prop Types  -----------//
 
 PageWrapper.propTypes = {
-  fill        : PropTypes.bool,
   title       : PropTypes.string,
   loading     : PropTypes.bool,
   description : PropTypes.string,
@@ -50,7 +51,6 @@ PageWrapper.propTypes = {
 }
 
 PageWrapper.defaultProps = {
-  fill    : false,
   loading : false
 }
 

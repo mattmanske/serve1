@@ -53,6 +53,18 @@ export default function createRoutes(store, subdomain){
     getComponent(nextState, cb){
       import('routes/CasesRoute/CaseDetailsRoute').then(loadModule(cb)).catch(err)
     },
+  },{
+    path : '/clients',
+    name : 'clients',
+    getComponent(nextState, cb){
+      import('routes/ClientsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/clients/:clientID',
+    name : 'client-details',
+    getComponent(nextState, cb){
+      import('routes/ClientsRoute/ClientDetailsRoute').then(loadModule(cb)).catch(err)
+    },
   }]
 
   return [ ...routes, {
