@@ -9,23 +9,23 @@ import RecordSelector       from 'components/RecordSelector'
 
 //-----------  Component  -----------//
 
-const CaseSelect = ({ cases, ...props }) => {
+const JobSelect = ({ jobs, ...props }) => {
 
-  const options = flatMap(cases, (kase, id) => ({
+  const options = flatMap(jobs, (job, id) => ({
     value : id,
-    label : <RecordOption id={id} name={`${kase.plantiff} vs ${kase.defendant}`} />
+    label : <RecordOption id={id} name={job.name} />
   }))
 
   return (
-    <RecordSelector options={options} placeholder='Search Cases...' { ...props } />
+    <RecordSelector options={options} placeholder='Search Jobs...' { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-CaseSelect.propTypes = {
+JobSelect.propTypes = {
   value     : PropTypes.string,
-  cases     : PropTypes.object.isRequired,
+  jobs     : PropTypes.object.isRequired,
   onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
@@ -33,4 +33,4 @@ CaseSelect.propTypes = {
 
 //-----------  Export  -----------//
 
-export default CaseSelect
+export default JobSelect

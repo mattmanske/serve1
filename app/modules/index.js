@@ -3,6 +3,7 @@
 import { fork, join }    from 'redux-saga/effects'
 
 import authSagas         from 'modules/auth/sagas'
+import jobsSagas         from 'modules/jobs/sagas'
 import casesSagas        from 'modules/cases/sagas'
 import clientsSagas      from 'modules/clients/sagas'
 import contactsSagas     from 'modules/contacts/sagas'
@@ -20,6 +21,7 @@ export const waitAll = (sagas) => function* genTasks(){
 export default function* rootSaga(){
   yield [
     authSagas(),
+    jobsSagas(),
     casesSagas(),
     clientsSagas(),
     contactsSagas(),

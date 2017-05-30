@@ -8,25 +8,31 @@ import { Button }           from 'antd'
 
 //-----------  Definitions  -----------//
 
-const title = 'Dashboard'
+const title = 'Job Details'
 
 const breadcrumbs = [{
+  link  : '/',
   title : 'Dashboard'
+},{
+  link  : '/jobs',
+  title : 'Jobs'
 }]
 
 //-----------  Component  -----------//
 
-class DashboardRoute extends React.Component {
+class JobDetailsRoute extends React.Component {
 
   //-----------  HTML Render  -----------//
 
   render(){
-    const { props, state } = this
+    const { job, jobID, ...props } = this.props
+    const crumb = { title: jobID || '...' }
 
     return (
-      <Route.Page title={title} breadcrumbs={breadcrumbs}>
-        <h1>Dashboard Route</h1>
-        <Link to={'/jobs/new'}>
+      <Route.Page title={title} loading={!job} breadcrumbs={[ ...breadcrumbs, crumb ]}>
+        <h4>Csae Number:</h4>
+        <h1>{jobID}</h1>
+        <Link to={'/jobs/${jobID}/jobs/new'}>
           <Button size='large'>Start New Job</Button>
         </Link>
       </Route.Page>
@@ -36,8 +42,11 @@ class DashboardRoute extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-DashboardRoute.propTypes = {}
+JobDetailsRoute.propTypes = {
+  job   : PropTypes.object.isRequired,
+  jobID : PropTypes.string.isRequired
+}
 
 //-----------  Exports  -----------//
 
-export default DashboardRoute
+export default JobDetailsRoute

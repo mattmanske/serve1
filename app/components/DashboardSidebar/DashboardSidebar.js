@@ -19,12 +19,14 @@ const MenuItem = Menu.Item
 function getOpenKey(pathname){
   const paths = pathname.split('/')
 
+  if (includes(paths, 'jobs'))  return '1'
   if (includes(paths, 'cases')) return '1'
 }
 
 function getSelectedKey(pathname){
   const paths = pathname.split('/')
 
+  if (includes(paths, 'jobs'))    return 'jobs'
   if (includes(paths, 'cases'))   return 'cases'
   if (includes(paths, 'clients')) return 'clients'
   return 'dashboard'
@@ -79,9 +81,9 @@ class DashboardSidebar extends React.Component {
             onTitleClick={this.handleMenuClick}
             title={<MenuTitle icon='copy' title='Jobs & Cases' />}
           >
-            <MenuItem key='jobs' disabled><MenuTitle to={'/jobs'} title='Jobs' /></MenuItem>
+            <MenuItem key='jobs'><MenuTitle to={'/jobs'} title='Jobs' /></MenuItem>
             <MenuItem key='cases'><MenuTitle to={'/cases'} title='Cases' /></MenuItem>
-            <MenuItem key='services' disabled><MenuTitle to={'/services'} title='Services' /></MenuItem>
+            <MenuItem key='services' disabled><MenuTitle to={'/services'} title='Services' disabled /></MenuItem>
           </SubMenu>
 
           <SubMenu key='2' title={<MenuTitle icon='paper-clip' title='Documents' disabled />}>

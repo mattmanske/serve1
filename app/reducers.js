@@ -7,6 +7,7 @@ import { createResponsiveStateReducer } from 'redux-responsive'
 import useragent                        from 'express-useragent'
 
 import authReducer                      from 'modules/auth/reducer'
+import jobsReducer                      from 'modules/jobs/reducer'
 import modalReducer                     from 'modules/modal/reducer'
 import casesReducer                     from 'modules/cases/reducer'
 import clientsReducer                   from 'modules/clients/reducer'
@@ -45,6 +46,7 @@ export default function createReducer(domain, subdomain){
     site         : () => domain,
     form         : formReducer,
     auth         : authReducer,
+    jobs         : jobsReducer,
     route        : routeReducer,
     modal        : modalReducer,
     cases        : casesReducer,

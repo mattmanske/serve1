@@ -8,7 +8,7 @@ import PageWrapper from 'components/PageWrapper'
 
 import vars        from 'styles/variables'
 
-//-----------  Cases Route  ----------- */
+//-----------  Jobs Route  ----------- */
 
 const Page = styled(PageWrapper)``
 

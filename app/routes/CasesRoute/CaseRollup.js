@@ -25,7 +25,8 @@ class CaseRollup extends React.Component {
             Case #: {kase.id}
           </Case.Title>
           <Case.Associations>
-            <Case.Contact to={`/clients/${kase.client}/contact/${kase.contact}`}>
+            <Case.Contact target='_blank' //href={`mailto:${contact.email}`}
+            >
               {contactName}
             </Case.Contact>
             <Case.Client to={`/clients/${kase.client}`}>

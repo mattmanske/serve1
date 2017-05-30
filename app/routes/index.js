@@ -48,6 +48,24 @@ export default function createRoutes(store, subdomain){
       import('routes/CasesRoute').then(loadModule(cb)).catch(err)
     },
   },{
+    path : '/jobs/new(/:step)',
+    name : 'new-job',
+    getComponent(nextState, cb){
+      import('routes/JobsRoute/NewJobRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/jobs/:jobID',
+    name : 'job-details',
+    getComponent(nextState, cb){
+      import('routes/JobsRoute/JobDetailsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/jobs',
+    name : 'jobs',
+    getComponent(nextState, cb){
+      import('routes/JobsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/clients',
     name : 'clients',
     getComponent(nextState, cb){
@@ -76,6 +94,6 @@ export default function createRoutes(store, subdomain){
   }, ...routes, {
     path : '*',
     name : '404-redirect',
-    onEnter: (nextState, replace) => { console.log('yo'); replace('/') }
+    onEnter: (nextState, replace) => { console.log('404', nextState); replace('/') }
   }]
 }

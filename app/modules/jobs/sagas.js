@@ -1,21 +1,21 @@
 //-----------  Imports  -----------//
 
 import { takeEvery }               from 'redux-saga'
-import { initialize }              from 'redux-form'
+import { destroy, initialize }     from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
 import { RSF, timestamp }          from 'modules/helpers'
 import { ORGANIZATION }            from 'modules/organization/actions'
 
-import { CASES, sagaActions }      from './actions'
+import { JOBS, sagaActions }       from './actions'
 
 //-----------  Definitions  -----------//
 
-const dbKey = 'cases'
+const dbKey = 'jobs'
 
 //-----------  Sagas  -----------//
 
-function* syncCasesSaga(){
+function* syncJobsSaga(){
   const org = yield select(state => state.org)
   const channel = yield call(RSF.channel, `${dbKey}/${org}`)
 
@@ -27,9 +27,9 @@ function* syncCasesSaga(){
   }
 }
 
-function* updateCaseSaga({ kase, resolve, reject }){
+function* updateJobSaga({ job, resolve, reject }){
   try {
-    let { id, ...attrs } = kase
+    let { id, ...attrs } = job
     const org = yield select(state => state.org)
     const record = { created_at: timestamp(), ...attrs, updated_at: timestamp() }
 
@@ -42,24 +42,24 @@ function* updateCaseSaga({ kase, resolve, reject }){
   }
 }
 
-function* selectCaseSaga({ kaseID, resolve, reject }){
-  if (!kaseID){
-    yield put(initialize('case', {}))
+function* selectJobSaga({ jobID, resolve, reject }){
+  if (!jobID){
+    yield put(destroy('job'))
   } else {
-    const kase = yield select(state => state.cases.data[kaseID])
-    if (!kase && reject) return reject('No Record Found')
-    yield put(initialize('case', { ...kase, id: kaseID }))
+    const job = yield select(state => state.jobs.data[jobID])
+    if (!job && reject) return reject('No Record Found')
+    yield put(initialize('job', { ...job, id: jobID }))
   }
 
-  return resolve(kaseID)
+  return resolve(clientID)
 }
 
 //-----------  Watchers  -----------//
 
-export default function* casesSagas(){
+export default function* jobsSagas(){
   yield [
-    takeEvery(ORGANIZATION.SUCCESS, syncCasesSaga),
-    takeEvery(CASES.UPDATE, updateCaseSaga),
-    takeEvery(CASES.SELECT, selectCaseSaga),
+    takeEvery(ORGANIZATION.SUCCESS, syncJobsSaga),
+    takeEvery(JOBS.UPDATE, updateJobSaga),
+    takeEvery(JOBS.SELECT, selectJobSaga),
   ]
 }
