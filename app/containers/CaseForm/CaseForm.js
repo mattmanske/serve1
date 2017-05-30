@@ -12,8 +12,6 @@ import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
 import CaseSelect           from 'containers/CaseSelect'
-import ClientSelect         from 'containers/ClientSelect'
-import ContactSelect        from 'containers/ContactSelect'
 
 //-----------  Definitions  -----------//
 
@@ -52,18 +50,6 @@ const fields = [{
   name      : 'id',
   label     : 'Case #',
   required  : true,
-},{
-  type      : 'select',
-  name      : 'client',
-  label     : 'Client',
-  required  : true,
-  field     : <ClientSelect />,
-},{
-  type      : 'select',
-  name      : 'contact',
-  label     : 'Contact',
-  required  : true,
-  field     : <ContactSelect />,
 },{
   type      : 'select',
   name      : 'state',

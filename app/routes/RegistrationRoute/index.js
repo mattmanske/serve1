@@ -7,7 +7,7 @@ import RegistrationRoute       from './RegistrationRoute'
 
 import { organizationActions } from 'modules/organization/actions'
 
-import { toSlug }              from 'utils/records'
+import { toKey }               from 'modules/helpers'
 
 //-----------  Redux Maps  -----------//
 
@@ -19,7 +19,7 @@ const mapState = (state) => {
     enableReinitialize      : true,
     keepDirtyOnReinitialize : true,
     initialValues: {
-      id     : name && toSlug(name),
+      id     : name && toKey(name),
       state  : 'WI',
       county : 'Dane',
     },

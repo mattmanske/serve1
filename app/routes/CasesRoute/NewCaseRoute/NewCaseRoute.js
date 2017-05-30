@@ -32,17 +32,21 @@ class NewCaseRoute extends React.Component {
     contact : null
   }
 
+  componentWillUnmount(){
+    this.props.resetForms()
+  }
+
   //-----------  Event Handlers  -----------//
 
-  onClientSuccess = (client) => {
-    this.setState({ client })
-    console.log('client ID:', client)
-  }
-
-  onContactSuccess = (contact) => {
-    this.setState({ contact })
-    console.log('contact ID:', contact)
-  }
+  // onClientSuccess = (client) => {
+  //   this.setState({ client })
+  //   console.log('client ID:', client)
+  // }
+  //
+  // onContactSuccess = (contact) => {
+  //   this.setState({ contact })
+  //   console.log('contact ID:', contact)
+  // }
 
   onCaseSuccess = (kase) => {
     console.log('case ID:', kase)
@@ -55,17 +59,17 @@ class NewCaseRoute extends React.Component {
     const { client, contact } = this.state
 
     const steps = [{
-      form            : ClientForm,
-      title           : 'Case Client',
-      canSelect       : true,
-      onSubmitSuccess : this.onClientSuccess,
-    }, {
-      form            : ContactForm,
-      title           : 'Primary Contact',
-      canSelect       : true,
-      initialValues   : { client },
-      onSubmitSuccess : this.onContactSuccess,
-    }, {
+    //   form            : ClientForm,
+    //   title           : 'Case Client',
+    //   canSelect       : true,
+    //   onSubmitSuccess : this.onClientSuccess,
+    // }, {
+    //   form            : ContactForm,
+    //   title           : 'Primary Contact',
+    //   canSelect       : true,
+    //   initialValues   : { client },
+    //   onSubmitSuccess : this.onContactSuccess,
+    // }, {
       form            : CaseForm,
       title           : 'Case Details',
       initialValues   : { client, contact },
@@ -83,7 +87,8 @@ class NewCaseRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 NewCaseRoute.propTypes = {
-  isLoading: PropTypes.bool.isRequired
+  isLoading  : PropTypes.bool.isRequired,
+  resetForms : PropTypes.func.isRequired
 }
 
 //-----------  Exports  -----------//

@@ -15,14 +15,33 @@ const firebaseApp = firebase.initializeApp({
 
 export const RSF = new ReduxSagaFirebase(firebaseApp)
 
+//-----------  Fiorebase Helpers  -----------//
+
+export const _empty = { _empty: false }
+
+export function toKey(id){
+  const a = 'àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;.'
+  const b = 'aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh-------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return id.toString().toLowerCase()
+    .replace(/[\[\]$#]+/g, '')      // Replace non-firebase characters
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(p, c =>
+        b.charAt(a.indexOf(c)))     // Replace special chars
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '')             // Trim - from end of text
+}
+
 //-----------  Remote Helpers  -----------//
 
 const SYNC    = 'SYNC'
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
-
-export const _empty = { _empty: false }
 
 export function timestamp(){
   return moment.utc().toISOString()
@@ -32,7 +51,7 @@ export function action(type, payload = {}){
   return { type, ...payload }
 }
 
-export const createActionConstants = (base, types = []) => {
+export function createActionConstants(base, types = []){
   const typeArr = [SYNC, REQUEST, SUCCESS, FAILURE, ...types]
   const res = {}
 

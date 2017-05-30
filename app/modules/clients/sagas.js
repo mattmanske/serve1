@@ -4,7 +4,7 @@ import { takeEvery }               from 'redux-saga'
 import { initialize }              from 'redux-form'
 import { put, take, call, select } from 'redux-saga/effects'
 
-import { RSF, timestamp }          from 'modules/helpers'
+import { RSF, toKey, timestamp }   from 'modules/helpers'
 import { ORGANIZATION }            from 'modules/organization/actions'
 
 import { CLIENTS, sagaActions }    from './actions'
@@ -29,13 +29,13 @@ function* syncClientsSaga(){
 
 function* updateClientSaga({ client, resolve, reject }){
   try {
-    let { id, ...attrs } = client
+    const key = toKey(client.id)
     const org = yield select(state => state.org)
-    const record = { created_at: timestamp(), ...attrs, updated_at: timestamp() }
 
-    yield call(RSF.patch, `${dbKey}/${org}/${id}`, record)
+    const record = { created_at: timestamp(), ...client, updated_at: timestamp() }
+    yield call(RSF.patch, `${dbKey}/${org}/${key}`, record)
 
-    if (resolve) resolve(id)
+    if (resolve) resolve(key)
   } catch(error){
     yield put(sagaActions.failure(error))
     if (reject) reject(error)

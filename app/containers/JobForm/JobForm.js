@@ -5,41 +5,17 @@ import validate             from './validate'
 import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
 import { Input,
-         Select,
-         Checkbox }         from 'antd'
+         DatePicker }       from 'antd'
 
 import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
-import JobSelect           from 'containers/JobSelect'
+import JobSelect            from 'containers/JobSelect'
+import ContactSelect        from 'containers/ContactSelect'
 
 //-----------  Definitions  -----------//
 
 const selector = JobSelect
-const Option   = Select.Option
-
-const statusTypes = [{
-  value : 'municipal_court',
-  label : 'Municipal Court'
-}, {
-  value : 'circuit_court',
-  label : 'Circuit Court'
-}, {
-  value : 'district_court',
-  label : 'District Court'
-}, {
-  value : 'court_of_appeals',
-  label : 'Court of Appeals'
-}, {
-  value : 'supreme_court',
-  label : 'Supreme Court'
-}, {
-  value : 'department_of_workforce_development',
-  label : 'Dept. of Workforce Development'
-}, {
-  value : 'other',
-  label : 'Other'
-}]
 
 const fieldAttrs = {
   field     : <Input />,
@@ -51,50 +27,14 @@ const fields = [{
   label     : 'Internal ID',
   required  : true,
 },{
-  name      : 'state',
-  label     : 'State',
+  name      : 'date_received',
+  label     : 'Received',
   required  : true,
-  field     : (
-    <Select placeholder='Select State...'>
-      <Option value='WI'>Wisconsin</Option>
-    </Select>
-  )
+  field     : <DatePicker format={'MMM Do, YYYY'} />,
 },{
-  name      : 'county',
-  label     : 'County',
-  required  : true,
-  field     : (
-    <Select placeholder='Select County...'>
-      <Option value='Dane'>Dane</Option>
-    </Select>
-  )
-},{
-  name      : 'court_type',
-  label     : 'Court Type',
-  required  : true,
-  field     : (
-    <Select placeholder='Select Court...'>
-      {statusTypes.map(({ value, label }) => (
-        <Option key={value} value={value}>{label}</Option>
-      ))}
-    </Select>
-  )
-},{
-  name      : 'plantiff',
-  label     : 'Plantiff',
-  required  : true,
-  // checkbox  : {
-  //   name  : 'plantiff_et_al',
-  //   field : <Checkbox>et al?</Checkbox>,
-  // }
-},{
-  name      : 'defendant',
-  label     : 'Defendant',
-  required  : true,
-  // checkbox  : {
-  //   name  : 'defendant_et_al',
-  //   field : <Checkbox>et al?</Checkbox>,
-  // }
+  name      : 'assigned_to',
+  label     : 'Assign To',
+  field     : <ContactSelect />
 }]
 
 //-----------  Component  -----------//

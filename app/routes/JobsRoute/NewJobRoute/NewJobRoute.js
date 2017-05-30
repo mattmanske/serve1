@@ -30,12 +30,16 @@ class NewJobRoute extends React.Component {
     kase: null,
   }
 
+  componentWillUnmount(){
+    this.props.resetForms()
+  }
+
   //-----------  Event Handlers  -----------//
 
-  onCaseSuccess = (kase) => {
-    this.setState({ kase })
-    console.log('case ID:', kase)
-  }
+  // onCaseSuccess = (kase) => {
+  //   this.setState({ kase })
+  //   console.log('case ID:', kase)
+  // }
 
   onJobSuccess = (job) => {
     console.log('job ID:', job)
@@ -48,11 +52,11 @@ class NewJobRoute extends React.Component {
     const { kase } = this.state
 
     const steps = [{
-      form            : CaseForm,
-      title           : 'Case Number',
-      canSelect       : true,
-      onSubmitSuccess : this.onCaseSuccess,
-    }, {
+    //   form            : CaseForm,
+    //   title           : 'Case Number',
+    //   canSelect       : true,
+    //   onSubmitSuccess : this.onCaseSuccess,
+    // }, {
       form            : JobForm,
       title           : 'Job Details',
       initialValues   : { case: kase },
@@ -70,7 +74,8 @@ class NewJobRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 NewJobRoute.propTypes = {
-  isLoading: PropTypes.bool.isRequired
+  isLoading  : PropTypes.bool.isRequired,
+  resetForms : PropTypes.func.isRequired
 }
 
 //-----------  Exports  -----------//

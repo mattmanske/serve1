@@ -10,20 +10,8 @@ export default function(values){
   if (!isRequired(values.id))
     errors.id = 'Required'
 
-  if (!isRequired(values.state))
-    errors.state = 'Required'
-
-  if (!isRequired(values.county))
-    errors.county = 'Required'
-
-  if (!isRequired(values.court_type))
-    errors.court_type = 'Required'
-
-  if (!isRequired(values.plantiff))
-    errors.plantiff = 'Required'
-
-  if (!isRequired(values.defendant))
-    errors.defendant = 'Required'
+  if (!isRequired(values.date_received))
+    errors.date_received = 'Required'
 
   return errors
 }
