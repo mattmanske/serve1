@@ -19,20 +19,22 @@ const PageWrapper = ({ title, loading, children, description, breadcrumbs, ...pr
     <Page.Wrapper>
       <Helmet title={title} meta={[{ name: 'description', content: description }]} />
 
-      <Page.Header>
-        <Breadcrumb>
-          {breadcrumbs.map((breadcrumb, index) => (
-            <BreadcrumbItem key={index}>
-              {breadcrumb.link ? (
-                <Link to={breadcrumb.link}>{breadcrumb.title}</Link>
-              ) : (
-                <Page.Strong>{breadcrumb.title}</Page.Strong>
-              )}
-            </BreadcrumbItem>
-          ))}
-        </Breadcrumb>
-      </Page.Header>
-
+      {breadcrumbs &&
+        <Page.Header>
+          <Breadcrumb>
+            {breadcrumbs.map((breadcrumb, index) => (
+              <BreadcrumbItem key={index}>
+                {breadcrumb.link ? (
+                  <Link to={breadcrumb.link}>{breadcrumb.title}</Link>
+                ) : (
+                  <Page.Strong>{breadcrumb.title}</Page.Strong>
+                )}
+              </BreadcrumbItem>
+            ))}
+          </Breadcrumb>
+        </Page.Header>
+      }
+      
       <Page.Main loading={loading} { ...props }>
         {children}
       </Page.Main>
@@ -46,7 +48,7 @@ PageWrapper.propTypes = {
   title       : PropTypes.string,
   loading     : PropTypes.bool,
   description : PropTypes.string,
-  breadcrumbs : PropTypes.array.isRequired,
+  breadcrumbs : PropTypes.array,
   children    : PropTypes.node.isRequired
 }
 

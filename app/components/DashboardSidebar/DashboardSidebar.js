@@ -1,5 +1,7 @@
 //-----------  Imports  -----------//
 
+import includes             from 'lodash/includes'
+
 import Dashboard            from './styles'
 
 import MenuTitle            from './MenuTitle'
@@ -12,39 +14,77 @@ import { Menu, Icon }       from 'antd'
 const SubMenu  = Menu.SubMenu
 const MenuItem = Menu.Item
 
+//-----------  Helpers  -----------//
+
+function getOpenKey(pathname){
+  const paths = pathname.split('/')
+
+  if (includes(paths, 'cases')) return '1'
+}
+
+function getSelectedKey(pathname){
+  const paths = pathname.split('/')
+
+  if (includes(paths, 'cases'))   return 'cases'
+  if (includes(paths, 'clients')) return 'clients'
+  return 'dashboard'
+}
+
 //-----------  Component  -----------//
 
 class DashboardSidebar extends React.Component {
 
   state = {
-    current: 'dashboard'
+    open     : getOpenKey(this.props.pathname),
+    selected : getSelectedKey(this.props.pathname)
+  }
+
+  componentWillUpdate(nextProps){
+    if (this.props.pathname != nextProps.pathname){
+      this.setState({
+        open     : getOpenKey(nextProps.pathname),
+        selected : getSelectedKey(nextProps.pathname)
+      })
+    }
   }
 
   //-----------  Event Handlers  -----------//
 
-  handleClick = (e) => {
-    this.setState({ current: e.key })
+  handleMenuClick = ({ key }) => {
+    const { open } = this.state
+
+    this.setState({
+      open: (!open && (key != open)) ? key : null
+    })
   }
 
   //-----------  HTML Render  -----------//
 
   render(){
-    const { current } = this.state
-
-
+    const { open, selected } = this.state
 
     return (
       <Dashboard.Sidebar>
-        <Menu onClick={this.handleClick} selectedKeys={[current]} mode='inline'>
+        <Menu
+          mode='inline'
+          openKeys={[open]}
+          selectedKeys={[selected]}
+        >
           <MenuItem key='dashboard'>
             <MenuTitle to={'/'} icon='home' title='Dashboard' />
           </MenuItem>
-          <SubMenu key='jobs&cases' title={<MenuTitle icon='copy' title='Jobs & Cases' />}>
+
+          <SubMenu
+            key='1'
+            onTitleClick={this.handleMenuClick}
+            title={<MenuTitle icon='copy' title='Jobs & Cases' />}
+          >
             <MenuItem key='jobs' disabled><MenuTitle to={'/jobs'} title='Jobs' /></MenuItem>
             <MenuItem key='cases'><MenuTitle to={'/cases'} title='Cases' /></MenuItem>
             <MenuItem key='services' disabled><MenuTitle to={'/services'} title='Services' /></MenuItem>
           </SubMenu>
-          <SubMenu key='documents' title={<MenuTitle icon='paper-clip' title='Documents' />} disabled>
+
+          <SubMenu key='2' title={<MenuTitle icon='paper-clip' title='Documents' disabled />}>
             <MenuItem key='5'>Option 5</MenuItem>
             <MenuItem key='6'>Option 6</MenuItem>
             <SubMenu key='sub3' title='Submenu'>
@@ -52,19 +92,19 @@ class DashboardSidebar extends React.Component {
               <MenuItem key='8'>Option 8</MenuItem>
             </SubMenu>
           </SubMenu>
-          <SubMenu key='logs' title={<MenuTitle icon='bars' title='Activity logs' />} disabled>
+
+          <SubMenu key='3' title={<MenuTitle icon='bars' title='Activity logs' disabled />}>
             <MenuItem key='9'>Option 9</MenuItem>
             <MenuItem key='10'>Option 10</MenuItem>
             <MenuItem key='11'>Option 11</MenuItem>
             <MenuItem key='12'>Option 12</MenuItem>
           </SubMenu>
-          <SubMenu key='contacts' title={<MenuTitle icon='contacts' title='Contacts' />} disabled>
-            <MenuItem key='13'>Option 9</MenuItem>
-            <MenuItem key='14'>Option 10</MenuItem>
-            <MenuItem key='15'>Option 11</MenuItem>
-            <MenuItem key='16'>Option 12</MenuItem>
-          </SubMenu>
-          <SubMenu key='settings' title={<MenuTitle icon='setting' title='Settings' />} disabled>
+
+          <MenuItem key='clients'>
+            <MenuTitle to={'/clients'} icon='contacts' title='Clients' />
+          </MenuItem>
+
+          <SubMenu key='settings' title={<MenuTitle icon='setting' title='Settings' disabled />}>
             <MenuItem key='17'>Option 9</MenuItem>
             <MenuItem key='18'>Option 10</MenuItem>
             <MenuItem key='19'>Option 11</MenuItem>
@@ -77,7 +117,9 @@ class DashboardSidebar extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-DashboardSidebar.propTypes = {}
+DashboardSidebar.propTypes = {
+  pathname: PropTypes.string.isRequired
+}
 
 //-----------  Export  -----------//
 

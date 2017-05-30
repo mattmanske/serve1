@@ -29,9 +29,10 @@ function getModal(child){
 class ModalWrapper extends React.Component {
 
   state = {
-    open  : !!getModal(this.props.child),
-    child : getModal(this.props.child),
-    props : get(this.props, 'props', {}),
+    open    : !!getModal(this.props.child),
+    child   : getModal(this.props.child),
+    props   : get(this.props, 'props', {}),
+    options : get(this.props, 'options', {}),
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -53,31 +54,34 @@ class ModalWrapper extends React.Component {
     // Open New Modal
     if (!thisModal && !!nextModal){
       return this.setState({
-        open  : true,
-        child : nextModal,
-        props : get(nextProps, 'props', {}),
+        open    : true,
+        child   : nextModal,
+        props   : get(nextProps, 'props', {}),
+        options : get(nextProps, 'options', {}),
       })
     }
 
     // Close Modal
     if (!!thisModal && !nextModal){
       return this.setState({
-        open  : false,
+        open    : false,
       }, () => setTimeout(() => this.setState({
-        open  : false,
-        child : null,
-        props : {},
+        open    : false,
+        child   : null,
+        props   : {},
+        options : {}
       }), delay))
     }
 
     // Switch Between Modals
     if (!!thisModal && !!nextModal){
       return this.setState({
-        open  : false,
+        open    : false,
       }, () => setTimeout(() => this.setState({
-        open  : true,
-        child : nextModal,
-        props : get(nextProps, 'props', {}),
+        open    : true,
+        child   : nextModal,
+        props   : get(nextProps, 'props', {}),
+        options : get(nextProps, 'options', {}),
       }), delay))
     }
   }
@@ -99,7 +103,7 @@ class ModalWrapper extends React.Component {
 
   render(){
     const { open, props, child: Child } = this.state
-    const { preventClose } = this.props.options
+    const { preventClose, ...options } = this.state.options
 
     const hasModal   = !!Child
     const shadeClick = preventClose ? null : this.closeModal
@@ -110,6 +114,7 @@ class ModalWrapper extends React.Component {
         visible={open}
         closable={!preventClose}
         onCancel={this.closeModal}
+        { ...options }
       >
         {hasModal && <Child { ...props } />}
       </Modal.Wrapper>

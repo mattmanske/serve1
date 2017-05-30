@@ -78,12 +78,13 @@ class OrganizationApp extends React.Component {
     const { ready, message } = this.state
 
     const firstTime = (location.state && location.state.welcome)
+    const pathname  = location.pathname || ''
 
     return(
       <Organization.App>
         {auth.isLoggedIn ? (
           <Organization.Sheet show={ready}>
-            <DashboardSidebar />
+            <DashboardSidebar pathname={pathname} />
             {React.Children.map(children, child => (
               React.cloneElement(child, { params, location })
             ))}

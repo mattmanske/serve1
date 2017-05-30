@@ -28,7 +28,7 @@ const columns = [{
 
 //-----------  Component  -----------//
 
-const ContactsTable = ({ contacts, modalActions, ...props }) => {
+const ContactsTable = ({ contacts, clientID, modalActions, ...props }) => {
 
   const actions = {
     key       : 'actions',
@@ -39,10 +39,12 @@ const ContactsTable = ({ contacts, modalActions, ...props }) => {
         content={(
           <Contacts.Actions>
             <a onClick={() => modalActions.showModal('CONTACT_FORM', {
-              title           : `${r.first_name} ${r.last_name}`,
-              canSelect       : false,
-              initialValues   : r,
-              onSubmitSuccess : modalActions.hideModal,
+              canSelect          : false,
+              initialValues      : { ...r, client: clientID },
+              onSubmitSuccess    : modalActions.hideModal,
+              enableReinitialize : true,
+            }, {
+              title: `${r.first_name} ${r.last_name}`,
             })}>
               <Icon type='edit' /> Edit
             </a>
@@ -60,10 +62,28 @@ const ContactsTable = ({ contacts, modalActions, ...props }) => {
     )
   }
 
+  const footer = () => (
+    <Button
+      icon='plus'
+      size='small'
+      onClick={() => modalActions.showModal('CONTACT_FORM', {
+        canSelect          : false,
+        initialValues      : { client: clientID },
+        onSubmitSuccess    : modalActions.hideModal,
+        enableReinitialize : true,
+      }, {
+        title: 'Add New Contact'
+      })}
+    >
+      Add Contact
+    </Button>
+  )
+
   return (
     <Contacts.Table
       size='small'
       rowKey='id'
+      footer={footer}
       pagination={false}
       dataSource={contacts}
       columns={[ ...columns, actions ]}
@@ -75,6 +95,7 @@ const ContactsTable = ({ contacts, modalActions, ...props }) => {
 //-----------  Prop Types  -----------//
 
 ContactsTable.propTypes = {
+  clientID     : PropTypes.string.isRequired,
   contacts     : PropTypes.array.isRequired,
   modalActions : PropTypes.object.isRequired
 }

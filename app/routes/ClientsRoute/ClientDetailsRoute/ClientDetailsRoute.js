@@ -40,7 +40,11 @@ class ClientDetailsRoute extends React.Component {
         </Route.Details>
 
         <Route.Contacts>
-          <ContactsTable contacts={records} modalActions={modalActions} />
+          <ContactsTable
+            clientID={clientID}
+            contacts={records}
+            modalActions={modalActions}
+          />
         </Route.Contacts>
       </Route.Page>
     )

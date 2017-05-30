@@ -65,10 +65,6 @@ ClientForm.propTypes = {
   onSubmitSuccess : PropTypes.func.isRequired,
 }
 
-ClientForm.defaultProps = {
-  title: 'Client',
-}
-
 //-----------  Exports  -----------//
 
 export default reduxForm({ form: 'client', validate })(ClientForm)

@@ -23,7 +23,16 @@ const Contacts = styled.div`
   flex: 0 0 50%;
 `
 
-const Table = styled(table)``
+const Table = styled(table)`
+  .ant-table {
+    border: none;
+  }
+
+  .ant-table-footer {
+    background : none;
+    text-align : right;
+  }
+`
 
 const Actions = styled.nav`
   padding: 0.25em;

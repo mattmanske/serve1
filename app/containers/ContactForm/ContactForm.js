@@ -76,10 +76,6 @@ ContactForm.propTypes = {
   onSubmitSuccess : PropTypes.func.isRequired,
 }
 
-ContactForm.defaultProps = {
-  title: 'Client Contact',
-}
-
 //-----------  Exports  -----------//
 
 export default reduxForm({ form: 'contact', validate })(ContactForm)

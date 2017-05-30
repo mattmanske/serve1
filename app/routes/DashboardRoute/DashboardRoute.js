@@ -1,6 +1,6 @@
 //-----------  Imports  -----------//
 
-import Block                from './styles'
+import Route                from './styles'
 
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
@@ -24,12 +24,12 @@ class DashboardRoute extends React.Component {
     const { props, state } = this
 
     return (
-      <Block.Page title={title} breadcrumbs={breadcrumbs}>
+      <Route.Page title={title} breadcrumbs={breadcrumbs}>
         <h1>Dashboard Route</h1>
         <Link to={'/cases/new'}>
           <Button size='large'>Start New Case</Button>
         </Link>
-      </Block.Page>
+      </Route.Page>
     )
   }
 }

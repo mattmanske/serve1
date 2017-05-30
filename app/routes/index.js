@@ -30,18 +30,6 @@ export default function createRoutes(store, subdomain){
       import('routes/HomeRoute').then(loadModule(cb)).catch(err)
     },
   }] : [{
-    path : '/',
-    name : 'dashboard',
-    getComponent(nextState, cb){
-      import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/cases',
-    name : 'cases',
-    getComponent(nextState, cb){
-      import('routes/CasesRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
     path : '/cases/new(/:step)',
     name : 'new-case',
     getComponent(nextState, cb){
@@ -52,6 +40,12 @@ export default function createRoutes(store, subdomain){
     name : 'case-details',
     getComponent(nextState, cb){
       import('routes/CasesRoute/CaseDetailsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases',
+    name : 'cases',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute').then(loadModule(cb)).catch(err)
     },
   },{
     path : '/clients',
@@ -65,15 +59,21 @@ export default function createRoutes(store, subdomain){
     getComponent(nextState, cb){
       import('routes/ClientsRoute/ClientDetailsRoute').then(loadModule(cb)).catch(err)
     },
+  },{
+    path : '/',
+    name : 'dashboard',
+    getComponent(nextState, cb){
+      import('routes/DashboardRoute').then(loadModule(cb)).catch(err)
+    },
   }]
 
-  return [ ...routes, {
+  return [{
     path : '/about',
     name : 'about',
     getComponent(nextState, cb){
       import('routes/AboutRoute').then(loadModule(cb)).catch(err)
     },
-  },{
+  }, ...routes, {
     path : '*',
     name : '404-redirect',
     onEnter: (nextState, replace) => { console.log('yo'); replace('/') }

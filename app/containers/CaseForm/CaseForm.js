@@ -122,10 +122,6 @@ CaseForm.propTypes = {
   onSubmitSuccess : PropTypes.func.isRequired,
 }
 
-CaseForm.defaultProps = {
-  title: 'Case',
-}
-
 //-----------  Exports  -----------//
 
 export default reduxForm({ form: 'case', validate })(CaseForm)

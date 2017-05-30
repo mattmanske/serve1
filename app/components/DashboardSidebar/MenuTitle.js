@@ -7,10 +7,10 @@ import { Icon }             from 'antd'
 
 //-----------  Component  -----------//
 
-const MenuTitle = ({ to, icon, title }) => {
+const MenuTitle = ({ to, icon, title, disabled }) => {
 
   return(
-    <Menu.Title to={to || ''}>
+    <Menu.Title to={to || ''} disabled={disabled}>
       {icon && <Icon type={icon} />}
       {title}
     </Menu.Title>
@@ -20,9 +20,10 @@ const MenuTitle = ({ to, icon, title }) => {
 //-----------  Prop Types  -----------//
 
 MenuTitle.propTypes = {
-  to    : PropTypes.string,
-  icon  : PropTypes.string,
-  title : PropTypes.node.isRequired,
+  to       : PropTypes.string,
+  icon     : PropTypes.string,
+  title    : PropTypes.node.isRequired,
+  disabled : PropTypes.bool,
 }
 
 //-----------  Export  -----------//
