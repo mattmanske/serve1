@@ -19,13 +19,12 @@ export const RSF = new ReduxSagaFirebase(firebaseApp)
 
 export const _empty = { _empty: false }
 
-export function toKey(id){
-  const a = 'àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;.'
-  const b = 'aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh-------'
+export function toKey(text){
+  const a = 'àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;'
+  const b = 'aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------'
   const p = new RegExp(a.split('').join('|'), 'g')
 
-  return id.toString().toLowerCase()
-    .replace(/[\[\]$#]+/g, '')      // Replace non-firebase characters
+  return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -
     .replace(p, c =>
         b.charAt(a.indexOf(c)))     // Replace special chars

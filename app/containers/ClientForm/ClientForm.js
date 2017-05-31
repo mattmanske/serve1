@@ -23,21 +23,21 @@ const fieldAttrs = {
 const fields = [{
   name      : 'id',
   label     : 'Internal ID',
-  required  : true,
 },{
   name      : 'name',
-  label     : 'Name',
+  label     : 'Company',
   required  : true,
 },{
   name      : 'email',
   label     : 'Email',
   required  : true,
 },{
-  name      : 'address',
-  label     : 'Address',
-},{
   name      : 'phone',
   label     : 'Phone',
+},{
+  name      : 'address',
+  label     : 'Address',
+  field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
 }]
 
 //-----------  Component  -----------//

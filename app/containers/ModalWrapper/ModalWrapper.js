@@ -7,6 +7,7 @@ import get                  from 'lodash/get'
 import React, { PropTypes } from 'react'
 
 import LoginForm            from 'containers/LoginForm'
+import ClientForm           from 'containers/ClientForm'
 import ContactForm          from 'containers/ContactForm'
 
 //-----------  Definitions  -----------//
@@ -15,7 +16,8 @@ const delay = 150
 
 const MODAL_COMPONENTS = {
   LOGIN_FORM   : LoginForm,
-  CONTACT_FORM : ContactForm
+  CLIENT_FORM  : ClientForm,
+  CONTACT_FORM : ContactForm,
 }
 
 //-----------  Helpers  -----------//

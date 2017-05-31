@@ -3,14 +3,22 @@
 import Route                from './styles'
 
 import React, { PropTypes } from 'react'
+import Avatar               from 'react-avatar'
+import { Icon,
+         Input,
+         Button,
+         Popover }          from 'antd'
 
-import ContactsTable        from './ContactsTable'
+import RecordsTable         from 'components/RecordsTable'
+import RecordsHeader        from 'components/RecordsHeader'
 
 import { recordsToArray }   from 'utils/records'
 
+
 //-----------  Definitions  -----------//
 
-const title = 'Client Details'
+const title  = 'Client Details'
+const Search = Input.Search
 
 let breadcrumbs = [{
   link  : '/',
@@ -18,6 +26,21 @@ let breadcrumbs = [{
 },{
   link  : '/clients',
   title : 'Clients'
+}]
+
+const columns = [{
+  key       : 'name',
+  title     : 'Name',
+  render    : (_, r) => `${r.first_name} ${r.last_name}`
+},{
+  key       : 'email',
+  title     : 'Email',
+  dataIndex : 'email',
+},{
+  key       : 'phone',
+  title     : 'Phone',
+  dataIndex : 'phone',
+  render    : p => p || '-'
 }]
 
 //-----------  Component  -----------//
@@ -34,18 +57,21 @@ class ClientDetailsRoute extends React.Component {
 
     return (
       <Route.Page title={title} loading={!client} breadcrumbs={[ ...breadcrumbs, crumb ]}>
-        <Route.Details>
-          <h1>{client.name}</h1>
-          <h5>{clientID}</h5>
-        </Route.Details>
+        <RecordsHeader title={client.name} count={records.length}>
+          <Search placeholder='Search Contacts...' />
+          <Button
+            type='primary'
+            icon='user-add'
+            // onClick={this.newClient}
+          >
+            Add Contact
+          </Button>
+        </RecordsHeader>
 
-        <Route.Contacts>
-          <ContactsTable
-            clientID={clientID}
-            contacts={records}
-            modalActions={modalActions}
-          />
-        </Route.Contacts>
+        <RecordsTable
+          columns={columns}
+          dataSource={records}
+        />
       </Route.Page>
     )
   }

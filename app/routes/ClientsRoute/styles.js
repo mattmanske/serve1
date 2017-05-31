@@ -7,29 +7,52 @@ import { Link }    from 'react-router'
 import PageWrapper from 'components/PageWrapper'
 
 import vars        from 'styles/variables'
+import mixins      from 'styles/mixins'
 
 //-----------  Cases Route  ----------- */
 
 const Page = styled(PageWrapper)``
 
-const Rollup = styled.div`
-  padding: ${vars.gutter} 0;
+const Info = styled(Link)`
+  align-items     : center;
+  display         : flex;
+  justify-content : flex-start;
 
-  & + div {
-    border-top: 1px dotted ${vars.grayLightest}
+  > * {
+    ${ mixins.antiAliased() }
+
+    color: ${vars.grayDarker};
   }
 `
 
-const Details = styled.div``
+const Avatar = styled.img`
+  background    : ${vars.yellow};
+  border-radius : 50%;
+  box-shadow    : 2px 2px 2px rgba(0,0,0,0.08);
+  height        : 2.75rem;
+  margin        : -0.25rem 0;
+  width         : 2.75rem;
+`
 
-const Title = styled(Link)``
+const Actions = styled.nav`
+  padding: 0.25em;
 
-const Associations = styled.div``
+  > * {
+    color   : ${vars.grayDark};
+    display : block;
 
-const Contact = styled(Link)``
+    i {
+      color        : ${vars.blueLight};
+      margin-left  : -${vars.gutterSm};
+      margin-right : ${vars.gutterSm};
+    }
 
-const Client = styled(Link)``
+    & + * {
+      margin-top: ${vars.gutterSm};
+    }
+  }
+`
 
 //-----------  Exports  ----------- */
 
-export default { Page, Rollup, Details, Title, Associations, Contact, Client }
+export default { Page, Info, Avatar, Actions }

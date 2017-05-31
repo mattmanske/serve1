@@ -17,11 +17,12 @@ const Wrapper = styled.div`
 `
 
 const Header = styled.header`
-  border-bottom : 1px solid ${vars.grayLightest};
+  border-bottom : 1px solid rgba(0,0,0,0.04);
   box-shadow    : 0 3px 3px rgba(0,0,0,0.02);
   flex          : 0 0 auto;
   padding       : ${vars.gutterSm} ${vars.gutter};
   position      : relative;
+  z-index: 10;
 
   .ant-breadcrumb-link {
     line-height: 160%;
@@ -35,6 +36,7 @@ const Strong = styled.span`
 `
 
 const Main = styled.main`
+  background : linear-gradient(${vars.white} 0%, ${vars.grayLightest} 50%);
   flex       : 1 0 auto;
   opacity    : 1;
   overflow   : srcoll;

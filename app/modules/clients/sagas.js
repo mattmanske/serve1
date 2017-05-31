@@ -29,10 +29,12 @@ function* syncClientsSaga(){
 
 function* updateClientSaga({ client, resolve, reject }){
   try {
-    const key = toKey(client.id)
+    const key = toKey(client.name)
     const org = yield select(state => state.org)
 
+
     const record = { created_at: timestamp(), ...client, updated_at: timestamp() }
+    console.log(key, record);
     yield call(RSF.patch, `${dbKey}/${org}/${key}`, record)
 
     if (resolve) resolve(key)

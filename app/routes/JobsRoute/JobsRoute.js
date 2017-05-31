@@ -42,7 +42,7 @@ class JobsRoute extends React.Component {
 
         {records.map(job => (
           <JobRollup
-            key={job.id}
+            key={job.key}
             job={job}
             kase={cases && cases[job.case]}
           />
