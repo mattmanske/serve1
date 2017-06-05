@@ -20,9 +20,9 @@ const ClientSelect = ({ value, clients, ...props }) => {
 
   return (
     <RecordSelector placeholder='Search Clients...' { ...props }>
-      {clients && flatMap(clients, (client, id) => (
-        <Option key={id} value={id}>
-          <RecordOption id={id} name={client.name} />
+      {clients && flatMap(clients, (client, key) => (
+        <Option key={key} value={key}>
+          <RecordOption id={client.id} name={client.name} />
         </Option>
       ))}
     </RecordSelector>

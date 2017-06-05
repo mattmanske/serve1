@@ -29,12 +29,16 @@ function* syncContactsSaga(){
 
 function* updateContactSaga({ contact, resolve, reject }){
   try {
+    const org = yield select(state => state.org)
     const record = { created_at: timestamp(), ...contact, updated_at: timestamp() }
 
-    if (contact.key) yield call(RSF.patch, `${dbKey}/${org}/${client}/${contact.key}`, record)
-    else key = yield call(RSF.create, `${dbKey}/${org}/${client}`, record)
-
-    if (resolve) resolve(key)
+    if (contact.key){
+      yield call(RSF.patch, `${dbKey}/${org}/${contact.client}/${contact.key}`, record)
+      if (resolve) resolve(contact.key)
+    } else {
+      const key = yield call(RSF.create, `${dbKey}/${org}/${contact.client}`, record)
+      if (resolve) resolve(key)
+    }
   } catch(error){
     yield put(sagaActions.failure(error))
     if (reject) reject(error)

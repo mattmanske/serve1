@@ -33,10 +33,10 @@ Styles.Wrapper = styled.div`
 `
 
 Styles.Page = styled.div`
-  display : flex;
-  height  : 100vh;
-  width   : 100vw;
-  flex-direction: column;
+  display        : flex;
+  flex-direction : column;
+  height         : 100vh;
+  width          : 100vw;
 
   > header {
     flex: 0 0 auto;

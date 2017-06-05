@@ -30,6 +30,9 @@ const fields = [{
   label     : 'Last Name',
   required  : true,
 },{
+  name      : 'title',
+  label     : 'Title',
+},{
   name      : 'email',
   label     : 'Email',
   required  : true,

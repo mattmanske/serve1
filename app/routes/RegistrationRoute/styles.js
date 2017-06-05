@@ -8,7 +8,9 @@ import vars        from 'styles/variables'
 
 //-----------  Registration Route  ----------- */
 
-const Page = styled(PageWrapper)``
+const Page = styled(PageWrapper)`
+  background: none;
+`
 
 const Split = styled.div`
   align-items     : center;

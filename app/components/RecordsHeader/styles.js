@@ -33,6 +33,14 @@ const Count = styled.h5`
   color: ${vars.grayLight};
 `
 
+const Subtitle = styled.h5`
+  ${ mixins.antiAliased() }
+
+  color       : ${vars.gray};
+  display     : block;
+  line-height : 1;
+`
+
 const Actions = styled.div`
   display    : flex;
   flex       : 0 1 auto;
@@ -44,10 +52,10 @@ const Actions = styled.div`
 
   .ant-input-affix-wrapper .ant-input-prefix,
   .ant-input-affix-wrapper .ant-input-suffix {
-    top: 40%;
+    top: 0.85rem;
   }
 `
 
 //-----------  Exports  ----------- */
 
-export default { Header, Info, Title, Count, Actions }
+export default { Header, Info, Title, Count, Subtitle, Actions }

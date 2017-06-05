@@ -116,7 +116,7 @@ class ClientsRoute extends React.Component {
     return (
       <Route.Page title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
         <RecordsHeader title={title} count={records.length}>
-          <Search placeholder='Search Clients...' />
+          <Search placeholder='Search Clients...' disabled />
           <Button
             type='primary'
             icon='user-add'
