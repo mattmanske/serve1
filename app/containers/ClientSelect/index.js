@@ -16,6 +16,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   onChange: (clientID, option) => {
+    if (ownProps.onChange) ownProps.onChange(clientID)
+
     if (!clientID) return dispatch(initialize('client', {}))
 
     return new Promise((res, rej) => {

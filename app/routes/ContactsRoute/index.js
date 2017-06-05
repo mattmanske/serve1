@@ -3,16 +3,14 @@
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
-import CaseDetailsRoute       from './CaseDetailsRoute'
+import ContactsRoute          from './ContactsRoute'
 
 import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state, ownProps) => ({
-  kase   : state.cases.data[ownProps.params.caseID] || {},
-  jobs   : state.jobs.data || {},
-  kaseID : ownProps.params.caseID
+const mapState = (state) => ({
+  contacts: state.contacts,
 })
 
 const mapDispatch = (dispatch) => ({
@@ -21,4 +19,4 @@ const mapDispatch = (dispatch) => ({
 
 //-----------  Exports  -----------//
 
-export default connect(mapState, mapDispatch)(CaseDetailsRoute)
+export default connect(mapState, mapDispatch)(ContactsRoute)

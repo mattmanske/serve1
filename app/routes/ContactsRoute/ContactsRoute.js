@@ -12,50 +12,43 @@ import { recordsToArray }   from 'utils/records'
 
 //-----------  Definitions  -----------//
 
-const title  = 'Client Details'
+const title  = 'Contacts'
 const Search = Input.Search
 
-let breadcrumbs = [{
+const breadcrumbs = [{
   link  : '/',
   title : 'Dashboard'
 },{
-  link  : '/clients',
-  title : 'Clients'
+  title : 'Contacts'
 }]
 
 //-----------  Component  -----------//
 
-class ClientDetailsRoute extends React.Component {
+class ContactsRoute extends React.Component {
 
   //-----------  Event Handlers  -----------//
 
   newContact = () => {
-    const { clientID, modalActions } = this.props
+    const { modalActions } = this.props
 
     modalActions.showModal('CONTACT_FORM', {
       canSelect       : false,
-      initialValues   : { client: clientID },
       onSubmitSuccess : modalActions.hideModal
-    }, { title: 'Add Client Contact' })
+    }, { title: 'Add Contact' })
   }
 
   //-----------  HTML Render  -----------//
 
   render(){
-    const { client, contacts, clientID, modalActions, ...props } = this.props
-    const crumb = { title: client ? client.name : '...' }
+    const { contacts, modalActions, ...props } = this.props
+    const { data, error, isWatching } = contacts
 
-    const records = recordsToArray(contacts)
+    const records = recordsToArray(data)
 
     return (
-      <PageWrapper title={title} loading={!client} breadcrumbs={[ ...breadcrumbs, crumb ]}>
-        <RecordsHeader
-          title={client.name || title}
-          count={records.length}
-          countType='Contact'
-          subtitle={client.id}
-        >
-          <Search placeholder='Search Contacts...' />
+      <PageWrapper title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
+        <RecordsHeader title={title} count={records.length}>
+          <Search placeholder='Search Contacts...' disabled />
           <Button
             type='primary'
             icon='user-add'
@@ -73,13 +66,11 @@ class ClientDetailsRoute extends React.Component {
 
 //-----------  Prop Types  -----------//
 
-ClientDetailsRoute.propTypes = {
-  client       : PropTypes.object.isRequired,
+ContactsRoute.propTypes = {
   contacts     : PropTypes.object.isRequired,
-  clientID     : PropTypes.string.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 
 //-----------  Exports  -----------//
 
-export default ClientDetailsRoute
+export default ContactsRoute

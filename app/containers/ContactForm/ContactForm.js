@@ -30,12 +30,12 @@ const fields = [{
   label     : 'Last Name',
   required  : true,
 },{
-  name      : 'title',
-  label     : 'Title',
-},{
   name      : 'email',
   label     : 'Email',
   required  : true,
+},{
+  name      : 'role',
+  label     : 'Role / Title',
 },{
   name      : 'phone',
   label     : 'Phone',
@@ -52,7 +52,6 @@ const ContactForm = (props) => {
     name      : 'client',
     label     : 'Client',
     required  : true,
-    disabled  : true,
     field     : <ClientSelect value={props.filter} />,
     component : ReduxAntdWrapper
   }

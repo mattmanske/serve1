@@ -13,6 +13,7 @@ import { Menu, Icon }       from 'antd'
 
 const SubMenu  = Menu.SubMenu
 const MenuItem = Menu.Item
+const Divider  = Menu.Divider
 
 //-----------  Helpers  -----------//
 
@@ -29,6 +30,7 @@ function getSelectedKey(pathname){
   if (includes(paths, 'jobs'))    return 'jobs'
   if (includes(paths, 'cases'))   return 'cases'
   if (includes(paths, 'clients')) return 'clients'
+  if (includes(paths, 'contacts')) return 'contacts'
   return 'dashboard'
 }
 
@@ -76,6 +78,8 @@ class DashboardSidebar extends React.Component {
             <MenuTitle to={'/'} icon='home' title='Dashboard' />
           </MenuItem>
 
+          {/* <Divider /> */}
+
           <MenuItem key='jobs'>
             <MenuTitle to={'/jobs'} icon='copy' title='Jobs' />
           </MenuItem>
@@ -87,6 +91,12 @@ class DashboardSidebar extends React.Component {
           <MenuItem key='clients'>
             <MenuTitle to={'/clients'} icon='contacts' title='Clients' />
           </MenuItem>
+
+          <MenuItem key='contacts'>
+            <MenuTitle to={'/contacts'} icon='usergroup-add' title='Contacts' />
+          </MenuItem>
+
+          {/* <Divider /> */}
 
           <SubMenu key='2' title={<MenuTitle icon='paper-clip' title='Documents' disabled />}>
             <MenuItem key='5'>Option 5</MenuItem>

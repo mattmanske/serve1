@@ -33,10 +33,10 @@ function* updateContactSaga({ contact, resolve, reject }){
     const record = { created_at: timestamp(), ...contact, updated_at: timestamp() }
 
     if (contact.key){
-      yield call(RSF.patch, `${dbKey}/${org}/${contact.client}/${contact.key}`, record)
+      yield call(RSF.update, `${dbKey}/${org}/${contact.key}`, record)
       if (resolve) resolve(contact.key)
     } else {
-      const key = yield call(RSF.create, `${dbKey}/${org}/${contact.client}`, record)
+      const key = yield call(RSF.create, `${dbKey}/${org}`, record)
       if (resolve) resolve(key)
     }
   } catch(error){
@@ -45,12 +45,12 @@ function* updateContactSaga({ contact, resolve, reject }){
   }
 }
 
-function* selectContactSaga({ clientID, contactID, resolve, reject }){
-  const contact = yield select(state => state.contacts.data[clientID][contactID])
+function* selectContactSaga({ contactID, resolve, reject }){
+  const contact = yield select(state => state.contacts.data[contactID])
 
   if (!contact) return reject('No Record Found')
 
-  yield put(initialize('contact', { ...contact, id: contactID, client: clientID }))
+  yield put(initialize('contact', { ...contact, id: contactID }))
   return resolve(contactID)
 }
 

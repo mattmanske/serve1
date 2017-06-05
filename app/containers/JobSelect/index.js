@@ -16,6 +16,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   onChange: (jobID, option) => {
+    if (ownProps.onChange) ownProps.onChange(jobID)
+
     if (!jobID) return dispatch(initialize('job', {}))
 
     return new Promise((res, rej) => {

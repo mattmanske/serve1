@@ -18,12 +18,12 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   onChange: (contactID, option) => {
-    const { clientID } = option.props
-    
-    if (!contactID) return dispatch(initialize('contact', { client: clientID }))
+    if (ownProps.onChange) ownProps.onChange(contactID)
+
+    if (!contactID) return dispatch(initialize('contact', {}))
 
     return new Promise((res, rej) => {
-      return dispatch(contactsActions.select(clientID, contactID, res, rej))
+      return dispatch(contactsActions.select(contactID, res, rej))
     }).then(contactID => {
       return ownProps.afterSelect && ownProps.afterSelect(contactID)
     })

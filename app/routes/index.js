@@ -78,6 +78,18 @@ export default function createRoutes(store, subdomain){
       import('routes/ClientsRoute').then(loadModule(cb)).catch(err)
     },
   },{
+    path : '/contacts/:contactID',
+    name : 'contact-details',
+    getComponent(nextState, cb){
+      import('routes/ContactsRoute/ContactDetailsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/contacts',
+    name : 'contacts',
+    getComponent(nextState, cb){
+      import('routes/ContactsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/',
     name : 'dashboard',
     getComponent(nextState, cb){

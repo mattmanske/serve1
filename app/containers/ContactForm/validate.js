@@ -7,8 +7,10 @@ import { isRequired } from 'utils/forms'
 export default function(values){
   const errors = {}
 
-  if (!isRequired(values.id))
-    errors.id = 'Required'
+  console.log(values);
+
+  if (!isRequired(values.client))
+    errors.client = 'Required'
 
   if (!isRequired(values.first_name))
     errors.first_name = 'Required'

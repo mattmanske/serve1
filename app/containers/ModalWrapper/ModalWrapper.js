@@ -6,6 +6,7 @@ import get                  from 'lodash/get'
 
 import React, { PropTypes } from 'react'
 
+import JobForm              from 'containers/JobForm'
 import CaseForm             from 'containers/CaseForm'
 import LoginForm            from 'containers/LoginForm'
 import ClientForm           from 'containers/ClientForm'
@@ -16,6 +17,7 @@ import ContactForm          from 'containers/ContactForm'
 const delay = 150
 
 const MODAL_COMPONENTS = {
+  JOB_FORM     : JobForm,
   CASE_FORM    : CaseForm,
   LOGIN_FORM   : LoginForm,
   CLIENT_FORM  : ClientForm,

@@ -15,8 +15,8 @@ export const contactsActions = {
   update: (contact, resolve, reject) => {
     return action(CONTACTS.UPDATE, { contact, resolve, reject })
   },
-  select: (clientID, contactID, resolve, reject) => {
-    return action(CONTACTS.SELECT, { clientID, contactID, resolve, reject })
+  select: (contactID, resolve, reject) => {
+    return action(CONTACTS.SELECT, { contactID, resolve, reject })
   }
 }
 

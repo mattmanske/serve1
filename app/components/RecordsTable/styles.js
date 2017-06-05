@@ -2,9 +2,16 @@
 
 import styled             from 'styled-components'
 
-import { Table as table } from 'antd'
+import * as avatar        from 'react-avatar'
+import { Link as link }   from 'react-router'
+import { Icon,
+         Input,
+         Button,
+         Popover,
+         Table as table } from 'antd'
 
 import vars               from 'styles/variables'
+import mixins             from 'styles/mixins'
 
 //-----------  Records Table  ----------- */
 
@@ -24,15 +31,15 @@ const Table = styled(table)`
   }
 
   .ant-table-thead > tr > th {
-    background : transparent;
-    color      : ${vars.gray};
-    padding    : 0 0.5em;
+    background     : transparent;
+    color          : ${vars.gray};
+    padding-bottom : 0;
+    padding-top    : 0;
   }
 
   .ant-table-tbody > tr:hover > td {
     background: ${vars.blueLightest};
   }
-
 
   .ant-table-tbody > tr > td {
     background : ${vars.white};
@@ -40,18 +47,6 @@ const Table = styled(table)`
     box-shadow : 2px 2px 4px rgba(0,0,0,0.02);
     overflow-x : hidden;
     padding    : 0.67rem;
-
-    a {
-      color: inherit;
-
-      &, * {
-        transition: color 0.15s ease-out;
-      }
-
-      &:hover, &:hover * {
-        color: ${vars.blue} !important;
-      }
-    }
 
     i {
       margin-right   : 0.25rem;
@@ -75,20 +70,83 @@ const Table = styled(table)`
       border-radius : 0 ${vars.radius} ${vars.radius} 0;
       border-right  : 2px solid rgba(0,0,0,0.06);
       padding-right : 0.5rem;
+    }
 
-      i {
-        color     : ${vars.blueLight};
-        font-size : 1.25rem;
-        opacity   : 1;
+    &.avatar-col {
+      width: 4rem;
+    }
 
-        &:hover {
-          color: ${vars.blue};
-        }
-      }
+    &.actions-col {
+      width: 3rem;
+    }
+  }
+`
+
+const A = styled.a`
+  color: inherit;
+`
+
+const Link = styled(link)`
+  color: inherit;
+
+  &, * {
+    transition: color 0.15s ease-out;
+  }
+
+  &:hover, &:hover * {
+    color: ${vars.blue} !important;
+  }
+`
+
+const Small = styled.small`
+  font-style: italic;
+`
+
+const Address = styled.address`
+  font-style: normal;
+`
+
+const Avatar = styled(avatar)`
+  margin-right   : -0.5rem;
+  vertical-align : middle;
+`
+
+const PopMenu = styled(Popover)``
+
+const PopIcon = styled(Icon)`
+  color     : ${vars.blue};
+  cursor    : pointer;
+  font-size : 1.25rem;
+  opacity   : 1 !important;
+`
+
+const Stacked = styled.div`
+  > * {
+    ${ mixins.antiAliased() }
+
+    display: block;
+  }
+`
+
+const Actions = styled.nav`
+  padding: 0.25em;
+
+  > * {
+    color   : ${vars.grayDark};
+    display : block;
+
+    i {
+      color        : ${vars.blueLight};
+      margin-left  : -${vars.gutterSm};
+      margin-right : ${vars.gutterSm};
+    }
+
+    & + * {
+      margin-top: ${vars.gutterSm};
     }
   }
 `
 
 //-----------  Exports  ----------- */
 
-export default { Table }
+export default { Table, Link, A, Small, Avatar, Address, PopMenu, PopIcon, Stacked, Actions }

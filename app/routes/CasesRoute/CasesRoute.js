@@ -6,7 +6,6 @@ import moment               from 'moment'
 
 import React, { PropTypes } from 'react'
 import { Link }             from 'react-router'
-import Avatar               from 'react-avatar'
 import { Icon,
          Input,
          Button,
@@ -34,12 +33,12 @@ const breadcrumbs = [{
 
 const columns = [{
   key       : 'id',
-  title     : 'Case #',
+  title     : 'Case',
   render    : kase => (
     <Route.Info to={`/cases/${kase.key}`}>
       <div>
-        {kase.id && <h6>{kase.id}</h6>}
-        <h5>{kase.plantiff} v. {kase.defendant}</h5>
+        <h5>{kase.id}</h5>
+        <h6>{kase.plantiff} v. {kase.defendant}</h6>
       </div>
     </Route.Info>
   )

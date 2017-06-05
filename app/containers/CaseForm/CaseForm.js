@@ -18,9 +18,6 @@ import { COURT_TYPES,
 
 //-----------  Definitions  -----------//
 
-
-console.log(COURT_TYPES, constToSelect(COURT_TYPES))
-
 const selector   = CaseSelect
 const Option     = Select.Option
 
