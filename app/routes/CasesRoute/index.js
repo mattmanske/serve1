@@ -1,8 +1,11 @@
 //-----------  Imports  -----------//
 
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect }            from 'react-redux'
 
-import CasesRoute from './CasesRoute'
+import CasesRoute             from './CasesRoute'
+
+import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
@@ -12,7 +15,9 @@ const mapState = (state) => ({
   contacts : state.contacts.data
 })
 
-const mapDispatch = (dispatch) => ({})
+const mapDispatch = (dispatch) => ({
+  modalActions: bindActionCreators(modalActions, dispatch)
+})
 
 //-----------  Exports  -----------//
 

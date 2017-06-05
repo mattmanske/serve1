@@ -29,6 +29,8 @@ const breadcrumbs = [{
   title : 'Clients'
 }]
 
+//-----------  Table Columns  -----------//
+
 const columns = [{
   key       : 'avatar',
   dataIndex : 'name',

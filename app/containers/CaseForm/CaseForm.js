@@ -13,33 +13,16 @@ import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
 import CaseSelect           from 'containers/CaseSelect'
 
+import { COURT_TYPES,
+         constToSelect }    from 'utils/constants'
+
 //-----------  Definitions  -----------//
 
-const selector = CaseSelect
-const Option   = Select.Option
 
-const courtTypes = [{
-  value : 'municipal_court',
-  label : 'Municipal Court'
-}, {
-  value : 'circuit_court',
-  label : 'Circuit Court'
-}, {
-  value : 'district_court',
-  label : 'District Court'
-}, {
-  value : 'court_of_appeals',
-  label : 'Court of Appeals'
-}, {
-  value : 'supreme_court',
-  label : 'Supreme Court'
-}, {
-  value : 'department_of_workforce_development',
-  label : 'Dept. of Workforce Development'
-}, {
-  value : 'other',
-  label : 'Other'
-}]
+console.log(COURT_TYPES, constToSelect(COURT_TYPES))
+
+const selector   = CaseSelect
+const Option     = Select.Option
 
 const fieldAttrs = {
   field     : <Input />,
@@ -76,7 +59,7 @@ const fields = [{
   required  : true,
   field     : (
     <Select placeholder='Select Court...'>
-      {courtTypes.map(({ value, label }) => (
+      {constToSelect(COURT_TYPES).map(({ value, label }) => (
         <Option key={value} value={value}>{label}</Option>
       ))}
     </Select>
