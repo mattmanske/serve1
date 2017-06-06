@@ -1,5 +1,7 @@
 //-----------  Imports  -----------//
 
+import filter                 from 'lodash/filter'
+
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
@@ -9,11 +11,16 @@ import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state, ownProps) => ({
-  client   : state.clients.data[ownProps.params.clientID] || {},
-  contacts : state.contacts.data[ownProps.params.clientID] || {},
-  clientID : ownProps.params.clientID,
-})
+const mapState = (state, ownProps) => {
+  const { clientID } = ownProps.params
+
+  return {
+    clientID,
+    client   : state.clients.data[clientID] || {},
+    jobs     : filter(state.jobs.data, ['client', clientID]),
+    contacts : filter(state.contacts.data, ['client', clientID]),
+  }
+}
 
 const mapDispatch = (dispatch) => ({
   modalActions: bindActionCreators(modalActions, dispatch)

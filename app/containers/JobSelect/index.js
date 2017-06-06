@@ -14,19 +14,7 @@ const mapState = (state) => ({
   isLoading : state.jobs.isLoading,
 })
 
-const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (jobID, option) => {
-    if (ownProps.onChange) ownProps.onChange(jobID)
-
-    if (!jobID) return dispatch(initialize('job', {}))
-
-    return new Promise((res, rej) => {
-      return dispatch(jobsActions.select(jobID, res, rej))
-    }).then(jobID => {
-      return ownProps.afterSelect && ownProps.afterSelect(jobID)
-    })
-  },
-})
+const mapDispatch = (dispatch, ownProps) => ({})
 
 //-----------  Exports  -----------//
 

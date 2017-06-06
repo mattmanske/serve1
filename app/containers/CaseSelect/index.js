@@ -14,19 +14,7 @@ const mapState = (state) => ({
   isLoading : state.cases.isLoading,
 })
 
-const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (caseID, option) => {
-    if (ownProps.onChange) ownProps.onChange(caseID)
-
-    if (!caseID) return dispatch(initialize('case', {}))
-
-    return new Promise((res, rej) => {
-      return dispatch(casesActions.select(caseID, res, rej))
-    }).then(caseID => {
-      return ownProps.afterSelect && ownProps.afterSelect(caseID)
-    })
-  },
-})
+const mapDispatch = (dispatch, ownProps) => ({})
 
 //-----------  Exports  -----------//
 

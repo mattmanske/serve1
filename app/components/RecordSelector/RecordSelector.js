@@ -6,10 +6,10 @@ import React, { PropTypes } from 'react'
 
 //-----------  Component  -----------//
 
-const RecordSelector = ({ children, ...props }) => {
+const RecordSelector = ({ children, onChange, ...props }) => {
 
   return (
-    <Record.Selector size='large' { ...props } allowClear showSearch>
+    <Record.Selector size='large' allowClear showSearch onChange={(v = null, l) => onChange(v, l)} { ...props }>
       {children}
     </Record.Selector>
   )

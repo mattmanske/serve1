@@ -116,6 +116,7 @@ class ModalWrapper extends React.Component {
 
     return (
       <Modal.Wrapper
+        key={open.toString()}
         footer={null}
         visible={open}
         closable={!preventClose}

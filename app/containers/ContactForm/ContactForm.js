@@ -17,6 +17,7 @@ import ContactSelect        from 'containers/ContactSelect'
 const selector = ContactSelect
 
 const fieldAttrs = {
+  type      : 'input',
   field     : <Input />,
   component : ReduxAntdWrapper
 }
@@ -49,10 +50,11 @@ const fields = [{
 const ContactForm = (props) => {
 
   const parentField = {
+    type      : 'select',
     name      : 'client',
     label     : 'Client',
     required  : true,
-    field     : <ClientSelect value={props.filter} />,
+    field     : <ClientSelect />,
     component : ReduxAntdWrapper
   }
 

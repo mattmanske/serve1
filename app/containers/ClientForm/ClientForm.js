@@ -16,6 +16,7 @@ import ClientSelect         from 'containers/ClientSelect'
 const selector = ClientSelect
 
 const fieldAttrs = {
+  type      : 'input',
   field     : <Input />,
   component : ReduxAntdWrapper
 }
@@ -35,6 +36,7 @@ const fields = [{
   name      : 'phone',
   label     : 'Phone',
 },{
+  type      : 'textarea',
   name      : 'address',
   label     : 'Address',
   field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />

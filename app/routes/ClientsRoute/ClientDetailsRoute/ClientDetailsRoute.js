@@ -74,6 +74,7 @@ class ClientDetailsRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 ClientDetailsRoute.propTypes = {
+  jobs         : PropTypes.object.isRequired,
   client       : PropTypes.object.isRequired,
   contacts     : PropTypes.object.isRequired,
   clientID     : PropTypes.string.isRequired,

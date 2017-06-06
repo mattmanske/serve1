@@ -1,54 +1,32 @@
 //-----------  Imports  -----------//
 
-import { takeEvery }               from 'redux-saga'
-import { initialize }              from 'redux-form'
-import { put, take, call, select } from 'redux-saga/effects'
+import { takeEvery }          from 'redux-saga'
+import { call }               from 'redux-saga/effects'
 
-import { RSF, toKey, timestamp }   from 'modules/helpers'
-import { ORGANIZATION }            from 'modules/organization/actions'
+import { ORGANIZATION }       from 'modules/organization/actions'
+import { syncRecordSaga,
+         updateRecordSaga,
+         selectRecordSaga }   from 'modules/sagas'
 
-import { CASES, sagaActions }      from './actions'
+import { CASES, sagaActions } from './actions'
 
 //-----------  Definitions  -----------//
 
-const dbKey = 'cases'
+const dataType = 'cases'
+const formName = 'case'
 
 //-----------  Sagas  -----------//
 
 function* syncCasesSaga(){
-  const org = yield select(state => state.org)
-  const channel = yield call(RSF.channel, `${dbKey}/${org}`)
-
-  while(true){
-    const data = yield take(channel)
-
-    if (data) yield put(sagaActions.success(data))
-    else yield put(sagaActions.failure())
-  }
+  yield call(syncRecordSaga, dataType, sagaActions)
 }
 
 function* updateCaseSaga({ kase, resolve, reject }){
-  try {
-    const key = toKey(kase.id)
-    const org = yield select(state => state.org)
-
-    const record = { created_at: timestamp(), ...kase, updated_at: timestamp() }
-    yield call(RSF.patch, `${dbKey}/${org}/${key}`, record)
-
-    if (resolve) resolve(key)
-  } catch(error){
-    yield put(sagaActions.failure(error))
-    if (reject) reject(error)
-  }
+  yield call(updateRecordSaga, kase, dataType, sagaActions, resolve, reject)
 }
 
 function* selectCaseSaga({ kaseID, resolve, reject }){
-  const kase = yield select(state => state.cases.data[kaseID])
-
-  if (!kase) return reject('No Record Found')
-
-  yield put(initialize('case', { ...kase, id: kaseID }))
-  return resolve(kaseID)
+  yield call(selectRecordSaga, kaseID, dataType, formName, resolve, reject)
 }
 
 //-----------  Watchers  -----------//

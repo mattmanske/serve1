@@ -1,57 +1,32 @@
 //-----------  Imports  -----------//
 
-import { takeEvery }               from 'redux-saga'
-import { initialize }              from 'redux-form'
-import { put, take, call, select } from 'redux-saga/effects'
+import { takeEvery }             from 'redux-saga'
+import { call }                  from 'redux-saga/effects'
 
-import { RSF, toKey, timestamp }   from 'modules/helpers'
-import { ORGANIZATION }            from 'modules/organization/actions'
+import { ORGANIZATION }          from 'modules/organization/actions'
+import { syncRecordSaga,
+         updateRecordSaga,
+         selectRecordSaga }      from 'modules/sagas'
 
-import { CONTACTS, sagaActions }   from './actions'
+import { CONTACTS, sagaActions } from './actions'
 
 //-----------  Definitions  -----------//
 
-const dbKey = 'client_contacts'
+const dataType = 'contacts'
+const formName = 'contact'
 
 //-----------  Sagas  -----------//
 
 function* syncContactsSaga(){
-  const org = yield select(state => state.org)
-  const channel = yield call(RSF.channel, `${dbKey}/${org}`)
-
-  while(true){
-    const data = yield take(channel)
-
-    if (data) yield put(sagaActions.success(data))
-    else yield put(sagaActions.failure())
-  }
+  yield call(syncRecordSaga, dataType, sagaActions)
 }
 
 function* updateContactSaga({ contact, resolve, reject }){
-  try {
-    const org = yield select(state => state.org)
-    const record = { created_at: timestamp(), ...contact, updated_at: timestamp() }
-
-    if (contact.key){
-      yield call(RSF.update, `${dbKey}/${org}/${contact.key}`, record)
-      if (resolve) resolve(contact.key)
-    } else {
-      const key = yield call(RSF.create, `${dbKey}/${org}`, record)
-      if (resolve) resolve(key)
-    }
-  } catch(error){
-    yield put(sagaActions.failure(error))
-    if (reject) reject(error)
-  }
+  yield call(updateRecordSaga, contact, dataType, sagaActions, resolve, reject)
 }
 
 function* selectContactSaga({ contactID, resolve, reject }){
-  const contact = yield select(state => state.contacts.data[contactID])
-
-  if (!contact) return reject('No Record Found')
-
-  yield put(initialize('contact', { ...contact, id: contactID }))
-  return resolve(contactID)
+  yield call(selectRecordSaga, contactID, dataType, formName, resolve, reject)
 }
 
 //-----------  Watchers  -----------//

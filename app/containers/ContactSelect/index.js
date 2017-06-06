@@ -16,20 +16,7 @@ const mapState = (state, ownProps) => ({
   isLoading : state.contacts.isLoading,
 })
 
-const mapDispatch = (dispatch, ownProps) => ({
-  onChange: (contactID, option) => {
-    if (ownProps.onChange) ownProps.onChange(contactID)
-
-    if (!contactID) return dispatch(initialize('contact', {}))
-
-    return new Promise((res, rej) => {
-      return dispatch(contactsActions.select(contactID, res, rej))
-    }).then(contactID => {
-      return ownProps.afterSelect && ownProps.afterSelect(contactID)
-    })
-  },
-})
-
+const mapDispatch = (dispatch, ownProps) => ({})
 
 //-----------  Exports  -----------//
 

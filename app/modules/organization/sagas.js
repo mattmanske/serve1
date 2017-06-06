@@ -10,14 +10,15 @@ import { createOrganization }        from './api'
 
 //-----------  Definitions  -----------//
 
-const dbKey = 'organizations'
+const dataType = 'organizations'
+const formName = 'organization'
 
 //-----------  Sagas  -----------//
 
 function* requestOrganizationSaga(){
   try {
-    const id = yield select(state => state.org)
-    const organization = yield call(RSF.get, `${dbKey}/${id}`)
+    const org = yield select(state => state.org)
+    const organization = yield call(RSF.get, `${dataType}/${org}`)
     yield put(sagaActions.success(organization))
   } catch(error){
     yield put(sagaActions.failure(error))

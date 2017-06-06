@@ -32,7 +32,7 @@ const ReduxAntdWrapper = (field) => {
       defaultValue = value ? value : []
       break
     case 'ant-select':
-      defaultValue = value ? value.toString() : undefined
+      defaultValue = value ? value.toString() : null
       break
     case 'ant-input':
       input.value = value || null
@@ -44,6 +44,8 @@ const ReduxAntdWrapper = (field) => {
   const size       = 'large'
   const elState    = { id, label, required, disabled, validateStatus, ...formLayout }
   const childProps = { ...input, id, size, disabled, onBlur, onChange, defaultValue, defaultChecked }
+
+  if ('select' == type && !defaultValue) delete childProps.defaultValue
 
   return (
     <Field.Wrapper { ...elState }>
