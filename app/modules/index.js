@@ -6,7 +6,9 @@ import authSagas         from 'modules/auth/sagas'
 import jobsSagas         from 'modules/jobs/sagas'
 import casesSagas        from 'modules/cases/sagas'
 import clientsSagas      from 'modules/clients/sagas'
+import partiesSagas      from 'modules/parties/sagas'
 import contactsSagas     from 'modules/contacts/sagas'
+import servicesSagas     from 'modules/services/sagas'
 import organizationSagas from 'modules/organization/sagas'
 
 //-----------  Wait All  -----------//
@@ -24,7 +26,9 @@ export default function* rootSaga(){
     jobsSagas(),
     casesSagas(),
     clientsSagas(),
+    partiesSagas(),
     contactsSagas(),
+    servicesSagas(),
     organizationSagas(),
   ]
 }

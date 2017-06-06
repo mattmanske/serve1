@@ -58,10 +58,10 @@ class JobDetailsRoute extends React.Component {
           <Search placeholder='Search Services...' />
           <Button
             type='primary'
-            icon='user-add'
-            onClick={this.newServoice}
+            icon='file-add'
+            onClick={this.newService}
           >
-            Add Service
+            Record Service
           </Button>
         </RecordsHeader>
 

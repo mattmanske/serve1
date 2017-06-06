@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import { Input, Button }    from 'antd'
+import Avatar               from 'react-avatar'
 
 import PageWrapper          from 'components/PageWrapper'
 import RecordsHeader        from 'components/RecordsHeader'
@@ -31,9 +32,12 @@ class ContactDetailsRoute extends React.Component {
     const { client, contact, modalActions, ...props } = this.props
     const crumb = { title: contact ? `${contact.first_name} ${contact.last_name}` : '...' }
 
+    const avatar = <Avatar email={contact.email} size={55} textSizeRatio={3.5} round style={{ marginRight: '1rem' }} />
+
     return (
       <PageWrapper title={title} loading={!contact} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
+          avatar={avatar}
           title={`${contact.first_name} ${contact.last_name}` || title}
           subtitle={client.name}
         />

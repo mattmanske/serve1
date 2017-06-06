@@ -11,7 +11,9 @@ import jobsReducer                      from 'modules/jobs/reducer'
 import modalReducer                     from 'modules/modal/reducer'
 import casesReducer                     from 'modules/cases/reducer'
 import clientsReducer                   from 'modules/clients/reducer'
+import partiesReducer                   from 'modules/parties/reducer'
 import contactsReducer                  from 'modules/contacts/reducer'
+import servicesReducer                  from 'modules/services/reducer'
 import organizationReducer              from 'modules/organization/reducer'
 
 //-----------  Definitions  -----------//
@@ -51,7 +53,9 @@ export default function createReducer(domain, subdomain){
     modal        : modalReducer,
     cases        : casesReducer,
     clients      : clientsReducer,
+    parties      : partiesReducer,
     contacts     : contactsReducer,
+    services     : servicesReducer,
     organization : organizationReducer,
     browser: createResponsiveStateReducer(null, { initialMediaType: initialMediaType() }),
   })

@@ -6,12 +6,14 @@ import React, { PropTypes } from 'react'
 
 //-----------  Component  -----------//
 
-const RecordsHeader = ({ title, count, subtitle, countType, children, ...props }) => {
+const RecordsHeader = ({ title, count, avatar, subtitle, countType, children, ...props }) => {
 
   const type = !countType ? 'Total' : (1 != count) ? countType + 's' : countType
 
   return (
     <Records.Header { ...props }>
+      {avatar && avatar}
+      
       <Records.Info>
         <Records.Title>{title}</Records.Title>
         <Records.Count>{count ? `${count} ${type}` : ' '}</Records.Count>
@@ -32,6 +34,7 @@ const RecordsHeader = ({ title, count, subtitle, countType, children, ...props }
 RecordsHeader.propTypes = {
   title     : PropTypes.string.isRequired,
   count     : PropTypes.number,
+  avatar    : PropTypes.node,
   subtitle  : PropTypes.node,
   countType : PropTypes.string,
   children  : PropTypes.node,
