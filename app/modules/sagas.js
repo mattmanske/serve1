@@ -43,6 +43,6 @@ export function* selectRecordSaga(recordID, dataType, formName, resolve, reject)
 
   if (!record) return reject('No Record Found')
 
-  yield put(initialize(formName, { ...record, id: record }))
+  yield put(initialize(formName, { ...record, key: recordID }))
   return resolve(recordID)
 }

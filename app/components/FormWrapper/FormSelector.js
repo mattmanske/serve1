@@ -27,6 +27,7 @@ const FormSelector = ({ type, selector: Select, horizontal, ...props }) => {
 FormSelector.propTypes = {
   type        : PropTypes.string,
   value       : PropTypes.string,
+  onChange    : PropTypes.func,
   selector    : PropTypes.func,
   horizontal  : PropTypes.bool,
   isLoading   : PropTypes.bool.isRequired,

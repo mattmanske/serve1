@@ -3,6 +3,7 @@
 import Field                              from './styles'
 
 import moment                             from 'moment'
+import isEmpty                            from 'lodash/isEmpty'
 
 import React, { PropTypes, cloneElement } from 'react'
 
@@ -23,18 +24,15 @@ const ReduxAntdWrapper = (field) => {
   let defaultValue   = value
   let defaultChecked = !!value
 
-  switch (children.props.prefixCls){
-    case 'ant-calendar':
+  switch (type){
+    case 'calendar':
       onChange     = (val) => input.onChange(val ? val.toISOString() : null)
       defaultValue = (value && moment(value).isValid()) ? moment(value) : undefined
       break
-    case 'ant-checkbox-group':
+    case 'checkbox-group':
       defaultValue = value ? value : []
       break
-    case 'ant-select':
-      defaultValue = value ? value.toString() : null
-      break
-    case 'ant-input':
+    case 'input':
       input.value = value || null
       if (!!field.addonAfter) input.addonAfter = field.addonAfter
       if (!!field.addonBefore) input.addonBefore = field.addonBefore
@@ -45,7 +43,10 @@ const ReduxAntdWrapper = (field) => {
   const elState    = { id, label, required, disabled, validateStatus, ...formLayout }
   const childProps = { ...input, id, size, disabled, onBlur, onChange, defaultValue, defaultChecked }
 
-  if ('select' == type && !defaultValue) delete childProps.defaultValue
+  if ('select' == type){
+    delete childProps.defaultValue
+    childProps.value = isEmpty(value) ? undefined : value
+  }
 
   return (
     <Field.Wrapper { ...elState }>

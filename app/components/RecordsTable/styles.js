@@ -96,6 +96,10 @@ const Link = styled(link)`
   &:hover, &:hover * {
     color: ${vars.blue} !important;
   }
+
+  h5 {
+    font-weight: bold;
+  }
 `
 
 const Small = styled.small`
@@ -128,8 +132,14 @@ const Stacked = styled.div`
   }
 `
 
-const Add = styled(Button)`
+const Add = styled(Button).attrs({
+  size : 'small',
+  type : 'dashed',
+  icon : 'paper-clip'
+})`
+  ${ mixins.antiAliased() }
 
+  color: ${vars.gray};
 `
 
 const Actions = styled.nav`

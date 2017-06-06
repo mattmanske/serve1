@@ -3,6 +3,7 @@
 import get              from 'lodash/get'
 
 import { connect }      from 'react-redux'
+import { initialize }   from 'redux-form'
 
 import CaseForm         from './CaseForm'
 
@@ -15,7 +16,16 @@ const mapState = (state) => ({
   selectedID : get(state, 'form.case.initial.id', null),
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch, ownProps) => ({
+  onSelect: (caseID, option) => {
+    if (!caseID) return dispatch(initialize('case', {}))
+
+    return new Promise((res, rej) => {
+      return dispatch(casesActions.select(caseID, res, rej))
+    }).then(caseID => {
+      return ownProps.afterSelect && ownProps.afterSelect(caseID)
+    })
+  },
   onSubmit: (values) => {
     return new Promise((res, rej) => {
       return dispatch(casesActions.update(values, res, rej))

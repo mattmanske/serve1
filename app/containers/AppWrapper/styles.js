@@ -13,7 +13,7 @@ let Styles = {}
 
 Styles.Wrapper = styled.div`
   align-items    : stretch;
-  background     : linear-gradient(45deg, ${vars.purple}, ${vars.blueLight})
+  background     : linear-gradient(45deg, ${vars.purple}, ${vars.blueLight});
   color          : ${vars.white};
   display        : flex;
   flex-direction : column;

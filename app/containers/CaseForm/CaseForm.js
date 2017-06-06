@@ -22,6 +22,7 @@ const selector   = CaseSelect
 const Option     = Select.Option
 
 const fieldAttrs = {
+  type      : 'input',
   field     : <Input />,
   component : ReduxAntdWrapper
 }
@@ -51,6 +52,7 @@ const fields = [{
     </Select>
   )
 },{
+  type      : 'select',
   name      : 'court_type',
   label     : 'Court Type',
   required  : true,
@@ -99,6 +101,7 @@ CaseForm.propTypes = {
   btnText         : PropTypes.string,
   otherBtn        : PropTypes.node,
   isLoading       : PropTypes.bool,
+  onSelect        : PropTypes.func.isRequired,
   onSubmit        : PropTypes.func.isRequired,
   onSubmitFail    : PropTypes.func,
   onSubmitSuccess : PropTypes.func.isRequired,

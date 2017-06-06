@@ -21,7 +21,7 @@ const nameCol = {
 
 //-----------  Dynamic Columns  -----------//
 
-const caseCol = ({ cases }) => ({
+const caseCol = ({ cases, modalActions }) => ({
   key       : 'case',
   title     : 'Case',
   dataIndex : 'case',
@@ -31,11 +31,16 @@ const caseCol = ({ cases }) => ({
       <h6>{cases[kase].plantiff} v. {cases[kase].defendant}</h6>
     </Cell.Link>
   ) : (
-    <Cell.Add>Attach Case</Cell.Add>
+    <Cell.Add onClick={() => {
+      modalActions.showModal('CASE_FORM', {
+        canSelect       : true,
+        onSubmitSuccess : modalActions.hideModal
+      }, { title: 'Attach Case' })
+    }}>Attach Case</Cell.Add>
   )
 })
 
-const contactCol = ({ contacts }) => ({
+const contactCol = ({ contacts, modalActions }) => ({
   key       : 'contact',
   title     : 'Contact',
   dataIndex : 'contact',
@@ -45,7 +50,12 @@ const contactCol = ({ contacts }) => ({
       {contacts[contact].role && <h6>{contacts[contact].role}</h6>}
     </Cell.Link>
   ) : (
-    <Cell.Add>Attach Contact</Cell.Add>
+    <Cell.Add onClick={() => {
+      modalActions.showModal('CONTACT_FORM', {
+        canSelect       : true,
+        onSubmitSuccess : modalActions.hideModal
+      }, { title: 'Attach Contact' })
+    }}>Attach Contact</Cell.Add>
   )
 })
 

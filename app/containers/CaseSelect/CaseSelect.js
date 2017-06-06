@@ -20,9 +20,9 @@ const CaseSelect = ({ value, cases, ...props }) => {
 
   return (
     <RecordSelector placeholder='Search Cases...' { ...props }>
-      {cases && flatMap(cases, (kase, id) => (
-        <Option key={id} value={id}>
-          <RecordOption id={id} name={`${kase.plantiff} vs ${kase.defendant}`} />
+      {cases && flatMap(cases, (kase, key) => (
+        <Option key={key} value={key}>
+          <RecordOption id={kase.id} name={`${kase.plantiff} vs ${kase.defendant}`} />
         </Option>
       ))}
     </RecordSelector>
@@ -34,7 +34,6 @@ const CaseSelect = ({ value, cases, ...props }) => {
 CaseSelect.propTypes = {
   value     : PropTypes.string,
   cases     : PropTypes.object.isRequired,
-  onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 

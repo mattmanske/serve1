@@ -21,6 +21,7 @@ const FormWrapper = (props) => {
     horizontal,
     isLoading,
     selector,
+    onSelect,
     canSelect,
     selectedID,
     fields,
@@ -51,6 +52,7 @@ const FormWrapper = (props) => {
           type={type}
           value={selectedID}
           filter={filter}
+          onChange={onSelect}
           selector={selector}
           isLoading={isLoading}
           horizontal={horizontal}
@@ -92,6 +94,7 @@ FormWrapper.propTypes = {
   horizontal      : PropTypes.bool,
   isLoading       : PropTypes.bool,
   selector        : PropTypes.func,
+  onSelect        : PropTypes.func,
   canSelect       : PropTypes.bool,
   selectedID      : PropTypes.string,
   fields          : PropTypes.array.isRequired,

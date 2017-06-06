@@ -35,7 +35,6 @@ ContactSelect.propTypes = {
   value     : PropTypes.string,
   filter    : PropTypes.string,
   contacts  : PropTypes.object.isRequired,
-  onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 

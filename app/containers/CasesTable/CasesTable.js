@@ -33,20 +33,6 @@ const courtCol = {
 
 //-----------  Dynamic Columns  -----------//
 
-const clientCol = ({ clients }) => ({
-  key       : 'client',
-  title     : 'Client',
-  dataIndex : 'client',
-  render    : client => clients[client] ? (
-    <Cell.Link to={`/clients/${client}`}>
-      <h5>{clients[client].name}</h5>
-      {clients[client].id && <h6>{clients[client].id}</h6>}
-    </Cell.Link>
-  ) : (
-    <Cell.Add>Attach Client</Cell.Add>
-  )
-})
-
 const actionsCol = ({ modalActions }) => Columns.Actions([{
   icon    : 'edit',
   title   : 'Edit Case',
@@ -68,7 +54,6 @@ const CasesTable = ({ records, ...props }) => {
   const columns = [
     nameCol,
     courtCol,
-    clientCol(props),
     actionsCol(props),
   ]
 
@@ -81,7 +66,6 @@ const CasesTable = ({ records, ...props }) => {
 
 CasesTable.propTypes = {
   records      : PropTypes.array,
-  clients      : PropTypes.object,
   modalActions : PropTypes.object.isRequired
 }
 

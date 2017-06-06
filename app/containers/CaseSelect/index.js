@@ -1,11 +1,8 @@
 //-----------  Imports  -----------//
 
 import { connect }      from 'react-redux'
-import { initialize }   from 'redux-form'
 
 import CaseSelect       from './CaseSelect'
-
-import { casesActions } from 'modules/cases/actions'
 
 //-----------  Redux Maps  -----------//
 

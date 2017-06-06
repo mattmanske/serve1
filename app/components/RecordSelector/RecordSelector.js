@@ -2,14 +2,20 @@
 
 import Record               from './styles'
 
+import isFunction           from 'lodash/isFunction'
+
 import React, { PropTypes } from 'react'
 
 //-----------  Component  -----------//
 
-const RecordSelector = ({ children, onChange, ...props }) => {
+const RecordSelector = ({ children, onChange, afterSelect, ...props }) => {
+
+  function onSelect(value = null, label){
+    isFunction(onChange) && onChange(value, label)
+  }
 
   return (
-    <Record.Selector size='large' allowClear showSearch onChange={(v = null, l) => onChange(v, l)} { ...props }>
+    <Record.Selector size='large' allowClear showSearch onChange={onSelect} { ...props }>
       {children}
     </Record.Selector>
   )
@@ -18,10 +24,11 @@ const RecordSelector = ({ children, onChange, ...props }) => {
 //-----------  Prop Types  -----------//
 
 RecordSelector.propTypes = {
-  value     : PropTypes.string,
-  children  : PropTypes.array,
-  onChange  : PropTypes.func,
-  isLoading : PropTypes.bool.isRequired,
+  value       : PropTypes.string,
+  children    : PropTypes.array,
+  onChange    : PropTypes.func,
+  afterSelect : PropTypes.func,
+  isLoading   : PropTypes.bool.isRequired,
 }
 
 //-----------  Export  -----------//

@@ -34,7 +34,6 @@ const JobSelect = ({ jobs, value, ...props }) => {
 JobSelect.propTypes = {
   jobs      : PropTypes.object.isRequired,
   value     : PropTypes.string,
-  onChange  : PropTypes.func.isRequired,
   isLoading : PropTypes.bool.isRequired,
 }
 
