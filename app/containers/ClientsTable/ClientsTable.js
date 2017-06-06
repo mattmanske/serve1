@@ -5,11 +5,9 @@ import React, { PropTypes } from 'react'
 import RecordsTable,
        { Cell, Columns }    from 'components/RecordsTable'
 
-//-----------  Table Columns  -----------//
+//-----------  Static Columns  -----------//
 
-const columns = [{
-  ...Columns.Avatar('name'),
-},{
+const nameCol = {
   key       : 'name',
   title     : 'Basic Info',
   render    : client => (
@@ -18,7 +16,9 @@ const columns = [{
       {client.id && <h6>{client.id}</h6>}
     </Cell.Link>
   )
-},{
+}
+
+const contactCol = {
   key       : 'contact',
   title     : 'Email / Phone',
   render    : client => (
@@ -29,7 +29,9 @@ const columns = [{
       }
     </Cell.Stacked>
   )
-},{
+}
+
+const addressCol = {
   key       : 'address',
   title     : 'Address',
   dataIndex : 'address',
@@ -40,24 +42,34 @@ const columns = [{
       )) : '-'}
     </Cell.Address>
   )
-}]
+}
+
+//-----------  Dynamic Columns  -----------//
+
+const actionsCol = ({ modalActions }) => Columns.Actions([{
+  icon    : 'edit',
+  title   : 'Edit Client',
+  onClick : () => console.log('edit')
+},{
+  icon    : 'delete',
+  title   : 'Delete',
+  onClick : () => console.log('delete')
+}])
 
 //-----------  Component  -----------//
 
-const ClientsTable = ({ records, modalActions, ...props }) => {
+const ClientsTable = ({ records, ...props }) => {
 
-  const actions = Columns.Actions([{
-    icon    : 'edit',
-    title   : 'Edit Client',
-    onClick : () => console.log('edit')
-  },{
-    icon    : 'delete',
-    title   : 'Delete',
-    onClick : () => console.log('delete')
-  }])
+  const columns = [
+    Columns.Avatar('name'),
+    nameCol,
+    contactCol,
+    addressCol,
+    actionsCol(props),
+  ]
 
   return (
-    <RecordsTable columns={[ ...columns, actions ]} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} dataSource={records} { ...props } />
   )
 }
 

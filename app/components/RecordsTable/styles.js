@@ -128,6 +128,10 @@ const Stacked = styled.div`
   }
 `
 
+const Add = styled(Button)`
+
+`
+
 const Actions = styled.nav`
   padding: 0.25em;
 
@@ -149,4 +153,4 @@ const Actions = styled.nav`
 
 //-----------  Exports  ----------- */
 
-export default { Table, Link, A, Small, Avatar, Address, PopMenu, PopIcon, Stacked, Actions }
+export default { Table, Link, A, Small, Avatar, Address, PopMenu, PopIcon, Stacked, Add, Actions }

@@ -7,9 +7,9 @@ import RecordsTable,
 
 import { COURT_TYPES }      from 'utils/constants'
 
-//-----------  Table Columns  -----------//
+//-----------  Static Columns  -----------//
 
-const columns = [{
+const nameCol = {
   key       : 'case',
   title     : 'Case',
   render    : kase => (
@@ -18,7 +18,9 @@ const columns = [{
       <h6>{kase.plantiff} v. {kase.defendant}</h6>
     </Cell.Link>
   )
-},{
+}
+
+const courtCol = {
   key       : 'court',
   title     : 'Court',
   render    : kase => (
@@ -27,28 +29,51 @@ const columns = [{
       {kase.county} County, {kase.state}
     </div>
   )
-}]
+}
+
+//-----------  Dynamic Columns  -----------//
+
+const clientCol = ({ clients }) => ({
+  key       : 'client',
+  title     : 'Client',
+  dataIndex : 'client',
+  render    : client => clients[client] ? (
+    <Cell.Link to={`/clients/${client}`}>
+      <h5>{clients[client].name}</h5>
+      {clients[client].id && <h6>{clients[client].id}</h6>}
+    </Cell.Link>
+  ) : (
+    <Cell.Add>Attach Client</Cell.Add>
+  )
+})
+
+const actionsCol = ({ modalActions }) => Columns.Actions([{
+  icon    : 'edit',
+  title   : 'Edit Case',
+  onClick : kase => modalActions.showModal('CASE_FORM', {
+    initialValues   : kase,
+    onSubmitSuccess : modalActions.hideModal
+  }, { title: kase.id })
+},{
+  icon    : 'delete',
+  title   : 'Delete',
+  diabled : true,
+  onClick : kase => console.log('delete :', { kase })
+}])
 
 //-----------  Component  -----------//
 
-const CasesTable = ({ records, modalActions, ...props }) => {
+const CasesTable = ({ records, ...props }) => {
 
-  const actions = Columns.Actions([{
-    icon    : 'edit',
-    title   : 'Edit Case',
-    onClick : kase => modalActions.showModal('CASE_FORM', {
-      initialValues   : kase,
-      onSubmitSuccess : modalActions.hideModal
-    }, { title: kase.id })
-  },{
-    icon    : 'delete',
-    title   : 'Delete',
-    diabled : true,
-    onClick : kase => console.log('delete :', { kase })
-  }])
+  const columns = [
+    nameCol,
+    courtCol,
+    clientCol(props),
+    actionsCol(props),
+  ]
 
   return (
-    <RecordsTable columns={[ ...columns, actions ]} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} dataSource={records} { ...props } />
   )
 }
 
@@ -56,6 +81,7 @@ const CasesTable = ({ records, modalActions, ...props }) => {
 
 CasesTable.propTypes = {
   records      : PropTypes.array,
+  clients      : PropTypes.object,
   modalActions : PropTypes.object.isRequired
 }
 

@@ -5,11 +5,9 @@ import React, { PropTypes } from 'react'
 import RecordsTable,
        { Cell, Columns }    from 'components/RecordsTable'
 
-//-----------  Table Columns  -----------//
+//-----------  Static Columns  -----------//
 
-const columns = [{
-  ...Columns.Avatar('email'),
-},{
+const nameCol = {
   key       : 'name',
   title     : 'Name',
   render    : contact => (
@@ -18,14 +16,18 @@ const columns = [{
       {contact.role && <h6>{contact.role}</h6>}
     </Cell.Link>
   )
-},{
+}
+
+const emailCol = {
   key       : 'email',
   title     : 'Email',
   dataIndex : 'email',
   render    : email => (
     <Cell.A href={`mailto:${email}`} target='_blank'>{email}</Cell.A>
   )
-},{
+}
+
+const phoneCol = {
   key       : 'phone',
   title     : 'Phone',
   dataIndex : 'phone',
@@ -34,7 +36,9 @@ const columns = [{
   ) : (
     <Cell.Small>(use client)</Cell.Small>
   )
-},{
+}
+
+const addressCol = {
   key       : 'address',
   title     : 'Address',
   dataIndex : 'address',
@@ -47,28 +51,54 @@ const columns = [{
   ) : (
     <Cell.Small>(use client)</Cell.Small>
   )
-}]
+}
+
+//-----------  Dynamic Columns  -----------//
+
+const clientCol = ({ clients }) => ({
+  key       : 'client',
+  title     : 'Client',
+  dataIndex : 'client',
+  render    : client => clients[client] ? (
+    <Cell.Link to={`/clients/${client}`}>
+      <h5>{clients[client].name}</h5>
+      {clients[client].id && <h6>{clients[client].id}</h6>}
+    </Cell.Link>
+  ) : (
+    <Cell.Add>Attach Client</Cell.Add>
+  )
+})
+
+const actionsCol = ({ modalActions }) => Columns.Actions([{
+  icon    : 'edit',
+  title   : 'Edit Contact',
+  onClick : contact => modalActions.showModal('CONTACT_FORM', {
+    initialValues   : contact,
+    onSubmitSuccess : modalActions.hideModal
+  }, { title: `${contact.first_name} ${contact.last_name}` })
+},{
+  icon    : 'delete',
+  title   : 'Delete',
+  diabled : true,
+  onClick : contact => console.log('delete :', { contact })
+}])
 
 //-----------  Component  -----------//
 
-const ContactsTable = ({ records, modalActions, ...props }) => {
+const ContactsTable = ({ records, showClient, ...props }) => {
 
-  const actions = Columns.Actions([{
-    icon    : 'edit',
-    title   : 'Edit Contact',
-    onClick : contact => modalActions.showModal('CONTACT_FORM', {
-      initialValues   : contact,
-      onSubmitSuccess : modalActions.hideModal
-    }, { title: `${contact.first_name} ${contact.last_name}` })
-  },{
-    icon    : 'delete',
-    title   : 'Delete',
-    diabled : true,
-    onClick : contact => console.log('delete :', { contact })
-  }])
+  const columns = [
+    Columns.Avatar('email'),
+    nameCol,
+    showClient && clientCol(props),
+    emailCol,
+    phoneCol,
+    addressCol,
+    actionsCol(props),
+  ]
 
   return (
-    <RecordsTable columns={[ ...columns, actions ]} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} dataSource={records} { ...props } />
   )
 }
 
@@ -76,7 +106,13 @@ const ContactsTable = ({ records, modalActions, ...props }) => {
 
 ContactsTable.propTypes = {
   records      : PropTypes.array,
+  clients      : PropTypes.object,
+  showClient   : PropTypes.bool,
   modalActions : PropTypes.object.isRequired
+}
+
+ContactsTable.defaultProps = {
+  showClient: true
 }
 
 //-----------  Export  -----------//

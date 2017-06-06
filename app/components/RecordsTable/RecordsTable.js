@@ -2,20 +2,25 @@
 
 import Records              from './styles'
 
+import compact              from 'lodash/compact'
+
 import React, { PropTypes } from 'react'
 
 //-----------  Component  -----------//
 
-const RecordsTable = (props) => {
+const RecordsTable = ({ columns, ...props }) => {
 
   return (
-    <Records.Table pagination={false} { ...props } />
+    <Records.Table pagination={false} columns={compact(columns)} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-RecordsTable.propTypes = {}
+RecordsTable.propTypes = {
+  columns    : PropTypes.array.isRequired,
+  dataSource : PropTypes.array.isRequired
+}
 
 //-----------  Export  -----------//
 

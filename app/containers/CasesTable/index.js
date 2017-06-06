@@ -9,7 +9,9 @@ import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+  clients: state.clients.data,  
+})
 
 const mapDispatch = (dispatch) => ({
   modalActions: bindActionCreators(modalActions, dispatch)
