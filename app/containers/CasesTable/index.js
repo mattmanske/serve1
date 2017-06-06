@@ -1,14 +1,19 @@
 //-----------  Imports  -----------//
 
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect }            from 'react-redux'
 
-import CasesTable from './CasesTable'
+import CasesTable             from './CasesTable'
+
+import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
 const mapState = (state) => ({})
 
-const mapDispatch = (dispatch) => ({})
+const mapDispatch = (dispatch) => ({
+  modalActions: bindActionCreators(modalActions, dispatch)
+})
 
 //-----------  Exports  -----------//
 

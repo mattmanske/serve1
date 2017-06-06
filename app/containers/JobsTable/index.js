@@ -3,15 +3,13 @@
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
-import CasesRoute             from './CasesRoute'
+import JobsTable             from './JobsTable'
 
 import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({
-  cases: state.cases,
-})
+const mapState = (state) => ({})
 
 const mapDispatch = (dispatch) => ({
   modalActions: bindActionCreators(modalActions, dispatch)
@@ -19,4 +17,4 @@ const mapDispatch = (dispatch) => ({
 
 //-----------  Exports  -----------//
 
-export default connect(mapState, mapDispatch)(CasesRoute)
+export default connect(mapState, mapDispatch)(JobsTable)

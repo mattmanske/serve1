@@ -1,6 +1,6 @@
 //-----------  Imports  -----------//
 
-import Route                from './../styles'
+import Route                from './styles'
 
 import moment               from 'moment'
 

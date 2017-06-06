@@ -1,17 +1,11 @@
 //-----------  Imports  -----------//
 
-import Route                from './styles'
-
-import moment               from 'moment'
-
 import React, { PropTypes } from 'react'
-import { Link }             from 'react-router'
-import { Icon,
-         Input,
-         Button,
-         Popover }          from 'antd'
+import { Input, Button }    from 'antd'
 
-import RecordsTable         from 'components/RecordsTable'
+import JobsTable            from 'containers/JobsTable'
+
+import PageWrapper          from 'components/PageWrapper'
 import RecordsHeader        from 'components/RecordsHeader'
 
 import { recordsToArray }   from 'utils/records'
@@ -26,61 +20,6 @@ const breadcrumbs = [{
   title : 'Dashboard'
 },{
   title : 'Jobs'
-}]
-
-//-----------  Table Columns  -----------//
-
-const columns = [{
-  key       : 'id',
-  title     : 'Job ID',
-  render    : job => (
-    <Route.Info to={`/jobs/${job.key}`}>
-      <div>
-        <h5>{job.id}</h5>
-        {job.status && <h6>{job.status}</h6>}
-      </div>
-    </Route.Info>
-  )
-},{
-  key       : 'case',
-  title     : 'Case',
-  dataIndex : 'case',
-  render    : kase => (
-    <div>
-      <a>{kase}</a>
-    </div>
-  )
-},{
-  key       : 'contact',
-  title     : 'Contact',
-  render    : job => (
-    <div>
-      <a>{job.contact}</a><br/>
-      {job.client && <a>{job.client}</a>}
-    </div>
-  )
-},{
-  key       : 'created',
-  title     : 'Created',
-  dataIndex : 'created_at',
-  render    : created_at => (
-    <small>{moment.utc(created_at).fromNow()}</small>
-  )
-},{
-  key       : 'actions',
-  render    : job => (
-    <Popover
-      placement='left'
-      content={(
-        <Route.Actions>
-          <a><Icon type='edit' /> Edit Job</a>
-          <a><Icon type='delete' /> Remove</a>
-        </Route.Actions>
-      )}
-    >
-      <Icon type='ellipsis' />
-    </Popover>
-  )
 }]
 
 //-----------  Component  -----------//
@@ -107,7 +46,7 @@ class JobsRoute extends React.Component {
     const records = recordsToArray(data)
 
     return (
-      <Route.Page title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
+      <PageWrapper title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
         <RecordsHeader title={title} count={records.length}>
           <Search placeholder='Search Jobs...' disabled />
           <Button
@@ -119,11 +58,8 @@ class JobsRoute extends React.Component {
           </Button>
         </RecordsHeader>
 
-        <RecordsTable
-          columns={columns}
-          dataSource={records}
-        />
-      </Route.Page>
+        <JobsTable records={records} />
+      </PageWrapper>
     )
   }
 }
@@ -132,9 +68,6 @@ class JobsRoute extends React.Component {
 
 JobsRoute.propTypes = {
   jobs         : PropTypes.object.isRequired,
-  cases        : PropTypes.object.isRequired,
-  clients      : PropTypes.object.isRequired,
-  contacts     : PropTypes.object.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 
