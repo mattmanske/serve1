@@ -32,7 +32,7 @@ const FormWrapper = (props) => {
     ...formProps,
   } = props
 
-  const isDisabled = (!!selectedID && !!selector) || disabled
+  const isDisabled = (canSelect && !!selectedID && !!selector) || disabled
 
   return (
     <Form.Wrapper noValidate onSubmit={formProps.handleSubmit}>

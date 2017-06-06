@@ -49,11 +49,15 @@ const addressCol = {
 const actionsCol = ({ modalActions }) => Columns.Actions([{
   icon    : 'edit',
   title   : 'Edit Client',
-  onClick : () => console.log('edit')
+  onClick : client => modalActions.showModal('CLIENT_FORM', {
+    initialValues   : client,
+    onSubmitSuccess : modalActions.hideModal
+  }, { title: client.name })
 },{
   icon    : 'delete',
   title   : 'Delete',
-  onClick : () => console.log('delete')
+  diabled : true,
+  onClick : client => console.log('delete :', { client })
 }])
 
 //-----------  Component  -----------//

@@ -66,7 +66,7 @@ const contactCol = ({ contacts, modalActions }) => ({
 
 const actionsCol = ({ modalActions }) => Columns.Actions([{
   icon    : 'edit',
-  title   : 'Edit Case',
+  title   : 'Edit Job',
   onClick : job => modalActions.showModal('JOB_FORM', {
     initialValues   : job,
     onSubmitSuccess : modalActions.hideModal
