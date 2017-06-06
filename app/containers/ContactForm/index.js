@@ -18,6 +18,15 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
+  onSelect: (contactID, option) => {
+    if (!contactID) return dispatch(initialize('contact', {}))
+
+    return new Promise((res, rej) => {
+      return dispatch(casesActions.select(contactID, res, rej))
+    }).then(contactID => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(contactID)
+    })
+  },
   onSubmit: (values) => {
     return new Promise((res, rej) => {
       return dispatch(contactsActions.update(values, res, rej))

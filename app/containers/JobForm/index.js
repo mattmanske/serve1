@@ -16,6 +16,15 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
+  onSelect: (jobID, option) => {
+    if (!jobID) return dispatch(initialize('job', {}))
+
+    return new Promise((res, rej) => {
+      return dispatch(casesActions.select(jobID, res, rej))
+    }).then(jobID => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(jobID)
+    })
+  },
   onSubmit: (values) => {
     return new Promise((res, rej) => {
       return dispatch(jobsActions.update(values, res, rej))

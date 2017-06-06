@@ -18,6 +18,7 @@ import ContactSelect        from 'containers/ContactSelect'
 const selector = JobSelect
 
 const fieldAttrs = {
+  type      : 'input',
   field     : <Input />,
   component : ReduxAntdWrapper
 }
@@ -27,11 +28,13 @@ const fields = [{
   label     : 'Internal ID',
   required  : true,
 },{
+  type      : 'calendar',
   name      : 'date_received',
   label     : 'Received',
   required  : true,
   field     : <DatePicker format={'MMM Do, YYYY'} />,
 },{
+  type      : 'select',
   name      : 'assigned_to',
   label     : 'Assign To',
   field     : <ContactSelect />
@@ -57,6 +60,7 @@ JobForm.propTypes = {
   btnText         : PropTypes.string,
   otherBtn        : PropTypes.node,
   isLoading       : PropTypes.bool,
+  onSelect        : PropTypes.func.isRequired,
   onSubmit        : PropTypes.func.isRequired,
   onSubmitFail    : PropTypes.func,
   onSubmitSuccess : PropTypes.func.isRequired,

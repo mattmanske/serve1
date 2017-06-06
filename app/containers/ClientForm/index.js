@@ -17,13 +17,13 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  onSelect: (caseID, option) => {
-    if (!caseID) return dispatch(initialize('case', {}))
+  onSelect: (clientID, option) => {
+    if (!clientID) return dispatch(initialize('client', {}))
 
     return new Promise((res, rej) => {
-      return dispatch(casesActions.select(caseID, res, rej))
-    }).then(caseID => {
-      return ownProps.afterSelect && ownProps.afterSelect(caseID)
+      return dispatch(casesActions.select(clientID, res, rej))
+    }).then(clientID => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(clientID)
     })
   },
   onSubmit: (values) => {

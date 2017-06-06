@@ -21,22 +21,27 @@ const nameCol = {
 
 //-----------  Dynamic Columns  -----------//
 
-const caseCol = ({ cases, modalActions }) => ({
+const caseCol = ({ cases, jobsActions, modalActions }) => ({
   key       : 'case',
   title     : 'Case',
-  dataIndex : 'case',
-  render    : kase => cases[kase] ? (
-    <Cell.Link to={`/cases/${kase}`}>
-      <h5>{cases[kase].id}</h5>
-      <h6>{cases[kase].plantiff} v. {cases[kase].defendant}</h6>
+  render    : job => (job.case && cases[job.case]) ? (
+    <Cell.Link to={`/cases/${job.case}`}>
+      <h5>{cases[job.case].id}</h5>
+      <h6>{cases[job.case].plantiff} v. {cases[job.case].defendant}</h6>
     </Cell.Link>
   ) : (
     <Cell.Add onClick={() => {
       modalActions.showModal('CASE_FORM', {
         canSelect       : true,
-        onSubmitSuccess : modalActions.hideModal
+        onSubmitSuccess : caseID => {
+          return new Promise((res, rej) => {
+            return jobsActions.update({ ...job, case: caseID }, res, rej)
+          }).then(caseID => modalActions.hideModal())
+        }
       }, { title: 'Attach Case' })
-    }}>Attach Case</Cell.Add>
+    }}>
+      Attach Case
+    </Cell.Add>
   )
 })
 
@@ -97,6 +102,7 @@ JobsTable.propTypes = {
   cases        : PropTypes.object,
   clients      : PropTypes.object,
   contacts     : PropTypes.object,
+  jobsActions  : PropTypes.object.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

@@ -3,8 +3,9 @@
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
-import JobsTable             from './JobsTable'
+import JobsTable              from './JobsTable'
 
+import { jobsActions }        from 'modules/jobs/actions'
 import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
@@ -16,7 +17,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  modalActions: bindActionCreators(modalActions, dispatch)
+  jobsActions  : bindActionCreators(jobsActions, dispatch),
+  modalActions : bindActionCreators(modalActions, dispatch)
 })
 
 //-----------  Exports  -----------//

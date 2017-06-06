@@ -62,6 +62,7 @@ ClientForm.propTypes = {
   btnText         : PropTypes.string,
   otherBtn        : PropTypes.node,
   isLoading       : PropTypes.bool,
+  onSelect        : PropTypes.func.isRequired,
   onSubmit        : PropTypes.func.isRequired,
   onSubmitFail    : PropTypes.func,
   onSubmitSuccess : PropTypes.func.isRequired,

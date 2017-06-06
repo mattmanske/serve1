@@ -23,7 +23,7 @@ const mapDispatch = (dispatch, ownProps) => ({
     return new Promise((res, rej) => {
       return dispatch(casesActions.select(caseID, res, rej))
     }).then(caseID => {
-      return ownProps.afterSelect && ownProps.afterSelect(caseID)
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(caseID)
     })
   },
   onSubmit: (values) => {
