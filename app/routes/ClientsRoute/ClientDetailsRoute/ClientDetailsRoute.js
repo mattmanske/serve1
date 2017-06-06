@@ -65,7 +65,7 @@ class ClientDetailsRoute extends React.Component {
           </Button>
         </RecordsHeader>
 
-        <ContactsTable records={records} showClient={false} />
+        <ContactsTable records={records} compact />
       </PageWrapper>
     )
   }

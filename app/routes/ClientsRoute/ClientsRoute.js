@@ -29,11 +29,14 @@ class ClientsRoute extends React.Component {
   //-----------  Event Handlers  -----------//
 
   newClient = () => {
-    const { modalActions } = this.props
+    const { redirectTo, modalActions } = this.props
 
     modalActions.showModal('CLIENT_FORM', {
       canSelect       : false,
-      onSubmitSuccess : modalActions.hideModal
+      onSubmitSuccess : clientID => {
+        redirectTo(`clients/${clientID}`)
+        modalActions.hideModal()
+      }
     }, { title: 'Add Client' })
   }
 
@@ -68,6 +71,7 @@ class ClientsRoute extends React.Component {
 
 ClientsRoute.propTypes = {
   clients      : PropTypes.object.isRequired,
+  redirectTo   : PropTypes.func.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

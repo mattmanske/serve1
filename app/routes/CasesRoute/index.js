@@ -2,6 +2,7 @@
 
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
+import { push }               from 'react-router-redux'
 
 import CasesRoute             from './CasesRoute'
 
@@ -14,7 +15,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  modalActions: bindActionCreators(modalActions, dispatch)
+  redirectTo   : (route) => dispatch(push(route)),
+  modalActions : bindActionCreators(modalActions, dispatch)
 })
 
 //-----------  Exports  -----------//

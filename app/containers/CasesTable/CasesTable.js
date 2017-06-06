@@ -52,6 +52,7 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
 const CasesTable = ({ records, ...props }) => {
 
   const columns = [
+    Columns.Avatar('id', 'name'),
     nameCol,
     courtCol,
     actionsCol(props),

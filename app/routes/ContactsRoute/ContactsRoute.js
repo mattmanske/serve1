@@ -29,11 +29,14 @@ class ContactsRoute extends React.Component {
   //-----------  Event Handlers  -----------//
 
   newContact = () => {
-    const { modalActions } = this.props
+    const { redirectTo, modalActions } = this.props
 
     modalActions.showModal('CONTACT_FORM', {
       canSelect       : false,
-      onSubmitSuccess : modalActions.hideModal
+      onSubmitSuccess : contactID => {
+        redirectTo(`contacts/${contactID}`)
+        modalActions.hideModal()
+      }
     }, { title: 'Add Contact' })
   }
 
@@ -68,6 +71,7 @@ class ContactsRoute extends React.Component {
 
 ContactsRoute.propTypes = {
   contacts     : PropTypes.object.isRequired,
+  redirectTo   : PropTypes.func.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

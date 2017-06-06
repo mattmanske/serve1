@@ -80,11 +80,12 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
 
 //-----------  Component  -----------//
 
-const JobsTable = ({ records, ...props }) => {
+const JobsTable = ({ records, compact, ...props }) => {
 
   const columns = [
+    Columns.Avatar('id', 'name'),
     nameCol,
-    caseCol(props),
+    !compact && caseCol(props),
     contactCol(props),
     Columns.Created,
     actionsCol(props),
@@ -102,6 +103,7 @@ JobsTable.propTypes = {
   cases        : PropTypes.object,
   clients      : PropTypes.object,
   contacts     : PropTypes.object,
+  compact      : PropTypes.bool,
   jobsActions  : PropTypes.object.isRequired,
   modalActions : PropTypes.object.isRequired
 }

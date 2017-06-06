@@ -103,7 +103,8 @@ const Link = styled(link)`
 `
 
 const Small = styled.small`
-  font-style: italic;
+  font-style : italic;
+  color      : ${vars.grayLight};
 `
 
 const Address = styled.address`

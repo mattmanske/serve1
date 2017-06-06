@@ -29,11 +29,14 @@ class CasesRoute extends React.Component {
   //-----------  Event Handlers  -----------//
 
   newCase = () => {
-    const { modalActions } = this.props
+    const { redirectTo, modalActions } = this.props
 
     modalActions.showModal('CASE_FORM', {
       canSelect       : false,
-      onSubmitSuccess : modalActions.hideModal
+      onSubmitSuccess : caseID => {
+        redirectTo(`cases/${caseID}`)
+        modalActions.hideModal()
+      }
     }, { title: 'Add Case' })
   }
 
@@ -68,6 +71,7 @@ class CasesRoute extends React.Component {
 
 CasesRoute.propTypes = {
   cases        : PropTypes.object.isRequired,
+  redirectTo   : PropTypes.func.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

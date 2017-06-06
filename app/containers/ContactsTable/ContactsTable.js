@@ -85,12 +85,12 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
 
 //-----------  Component  -----------//
 
-const ContactsTable = ({ records, showClient, ...props }) => {
+const ContactsTable = ({ records, compact, ...props }) => {
 
   const columns = [
     Columns.Avatar('email'),
     nameCol,
-    showClient && clientCol(props),
+    !compact && clientCol(props),
     emailCol,
     phoneCol,
     addressCol,
@@ -107,12 +107,8 @@ const ContactsTable = ({ records, showClient, ...props }) => {
 ContactsTable.propTypes = {
   records      : PropTypes.array,
   clients      : PropTypes.object,
-  showClient   : PropTypes.bool,
+  compact      : PropTypes.bool,
   modalActions : PropTypes.object.isRequired
-}
-
-ContactsTable.defaultProps = {
-  showClient: true
 }
 
 //-----------  Export  -----------//

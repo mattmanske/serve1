@@ -29,11 +29,14 @@ class JobsRoute extends React.Component {
   //-----------  Event Handlers  -----------//
 
   newJob = () => {
-    const { modalActions } = this.props
+    const { redirectTo, modalActions } = this.props
 
     modalActions.showModal('JOB_FORM', {
       canSelect       : false,
-      onSubmitSuccess : modalActions.hideModal
+      onSubmitSuccess : jobID => {
+        redirectTo(`jobs/${jobID}`)
+        modalActions.hideModal()
+      }
     }, { title: 'Start New Job' })
   }
 
@@ -68,6 +71,7 @@ class JobsRoute extends React.Component {
 
 JobsRoute.propTypes = {
   jobs         : PropTypes.object.isRequired,
+  redirectTo   : PropTypes.func.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

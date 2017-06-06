@@ -1,6 +1,6 @@
 //-----------  Imports  -----------//
 
-import filter                 from 'lodash/filter'
+import pickBy                 from 'lodash/pickBy'
 
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
@@ -17,8 +17,8 @@ const mapState = (state, ownProps) => {
   return {
     clientID,
     client   : state.clients.data[clientID] || {},
-    jobs     : filter(state.jobs.data, ['client', clientID]),
-    contacts : filter(state.contacts.data, ['client', clientID]),
+    jobs     : pickBy(state.jobs.data, ['client', clientID]),
+    contacts : pickBy(state.contacts.data, ['client', clientID]),
   }
 }
 

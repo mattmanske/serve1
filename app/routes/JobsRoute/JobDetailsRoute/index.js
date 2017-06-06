@@ -1,17 +1,28 @@
 //-----------  Imports  -----------//
 
-import { connect } from 'react-redux'
+import filter                 from 'lodash/filter'
 
-import JobDetailsRoute from './JobDetailsRoute'
+import { bindActionCreators } from 'redux'
+import { connect }            from 'react-redux'
+
+import JobDetailsRoute        from './JobDetailsRoute'
+
+import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state, ownProps) => ({
-  job   : state.jobs.data[ownProps.params.jobID] || {},
-  jobID : ownProps.params.jobID
-})
+const mapState = (state, ownProps) => {
+  const { jobID } = ownProps.params
 
-const mapDispatch = (dispatch) => ({})
+  return {
+    jobID,
+    job: state.jobs.data[jobID] || {},
+  }
+}
+
+const mapDispatch = (dispatch) => ({
+  modalActions: bindActionCreators(modalActions, dispatch)
+})
 
 //-----------  Exports  -----------//
 
