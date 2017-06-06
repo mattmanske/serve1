@@ -90,6 +90,24 @@ export default function createRoutes(store, subdomain){
       import('routes/ContactsRoute').then(loadModule(cb)).catch(err)
     },
   },{
+    path : '/organization',
+    name : 'organization',
+    getComponent(nextState, cb){
+      import('routes/OrganizationRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/settings',
+    name : 'settings',
+    getComponent(nextState, cb){
+      import('routes/SettingsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/profile',
+    name : 'profile',
+    getComponent(nextState, cb){
+      import('routes/ProfileRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/',
     name : 'dashboard',
     getComponent(nextState, cb){

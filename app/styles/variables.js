@@ -44,7 +44,7 @@ export default Object.assign({}, allColors, {
   gutterLg         : `${gutter * 2.33}em`,
   gutterSm         : `${gutter / 2.33}em`,
 
-  maxWidth         : '75rem',
+  maxWidth         : '82rem',
   blockWidth       : '54rem',
   compactWidth     : '34rem',
   smallWidth       : '22rem',

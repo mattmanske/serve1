@@ -28,10 +28,10 @@ const OrganizationNav = ({ auth, authActions }) => {
       </MenuItem>
       <MenuDivider />
       <MenuItem key='profile'>
-        <Link to={'/'}><Icon type='user' /> Edit Profile</Link>
+        <Link to={'/profile'}><Icon type='user' /> Edit Profile</Link>
       </MenuItem>
       <MenuItem key='account'>
-        <Link to={'/'}><Icon type='setting' /> Account Settings</Link>
+        <Link to={'/settings'}><Icon type='setting' /> Account Settings</Link>
       </MenuItem>
       {/* <MenuDivider /> */}
       <MenuItem key='logout'>

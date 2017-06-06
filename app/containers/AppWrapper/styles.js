@@ -45,6 +45,7 @@ Styles.Page = styled.div`
 
 Styles.App = styled.div`
   flex     : 1 0 auto;
+  margin   : 0 ${vars.gutter};
   position : relative;
 `
 
@@ -62,7 +63,7 @@ Styles.Sheet = styled.div`
   box-shadow    : 0.25em 1.25em 5em rgba(0, 0, 0, 0.15);
   display       : flex;
   left          : 0;
-  margin        : auto;
+  margin        : 0 auto;
   margin-top    : ${p => p.show ? '0em' : '2em'};
   max-width     : ${vars.maxWidth};
   opacity       : ${p => p.show ? 1 : 0.5};

@@ -27,10 +27,11 @@ function getOpenKey(pathname){
 function getSelectedKey(pathname){
   const paths = pathname.split('/')
 
-  if (includes(paths, 'jobs'))    return 'jobs'
-  if (includes(paths, 'cases'))   return 'cases'
-  if (includes(paths, 'clients')) return 'clients'
-  if (includes(paths, 'contacts')) return 'contacts'
+  if (includes(paths, 'jobs'))         return 'jobs'
+  if (includes(paths, 'cases'))        return 'cases'
+  if (includes(paths, 'clients'))      return 'clients'
+  if (includes(paths, 'contacts'))     return 'contacts'
+  if (includes(paths, 'organization')) return 'organization'
   return 'dashboard'
 }
 
@@ -114,7 +115,11 @@ class DashboardSidebar extends React.Component {
             <MenuItem key='12'>Option 12</MenuItem>
           </SubMenu>
 
-          <SubMenu key='settings' title={<MenuTitle icon='setting' title='Settings' disabled />}>
+          <MenuItem key='organization'>
+            <MenuTitle to={'/organization'} icon='setting' title='Organization' />
+          </MenuItem>
+
+          <SubMenu key='settings' title={<MenuTitle icon='setting' title='Organization' disabled />}>
             <MenuItem key='17'>Option 9</MenuItem>
             <MenuItem key='18'>Option 10</MenuItem>
             <MenuItem key='19'>Option 11</MenuItem>
