@@ -12,6 +12,7 @@ import modalReducer                     from 'modules/modal/reducer'
 import casesReducer                     from 'modules/cases/reducer'
 import clientsReducer                   from 'modules/clients/reducer'
 import partiesReducer                   from 'modules/parties/reducer'
+import attemptsReducer                  from 'modules/attempts/reducer'
 import contactsReducer                  from 'modules/contacts/reducer'
 import servicesReducer                  from 'modules/services/reducer'
 import organizationReducer              from 'modules/organization/reducer'
@@ -54,6 +55,7 @@ export default function createReducer(domain, subdomain){
     cases        : casesReducer,
     clients      : clientsReducer,
     parties      : partiesReducer,
+    attempts     : attemptsReducer,
     contacts     : contactsReducer,
     services     : servicesReducer,
     organization : organizationReducer,

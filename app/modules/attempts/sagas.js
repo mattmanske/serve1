@@ -11,24 +11,24 @@ import { SERVICES, sagaActions } from './actions'
 
 //-----------  Definitions  -----------//
 
-const dataType = 'services'
-const formName = 'service'
+const dataType = 'attempts'
+const formName = 'attempt'
 
 //-----------  Sagas  -----------//
 
-function* syncServicesSaga(){
+function* syncAttemptsSaga(){
   yield call(syncRecordSaga, dataType, sagaActions)
 }
 
-function* updateServiceSaga({ service, resolve, reject }){
-  yield call(updateRecordSaga, { status: 'dispatched', ...service }, dataType, sagaActions, resolve, reject)
+function* updateAttemptSaga({ attempt, resolve, reject }){
+  yield call(updateRecordSaga, { status: 'dispatched', ...attempt }, dataType, sagaActions, resolve, reject)
 }
 
 //-----------  Watchers  -----------//
 
-export default function* servicesSagas(){
+export default function* attemptsSagas(){
   yield [
-    takeEvery(ORGANIZATION.SUCCESS, syncServicesSaga),
-    takeEvery(SERVICES.UPDATE, updateServiceSaga),
+    takeEvery(ORGANIZATION.SUCCESS, syncAttemptsSaga),
+    takeEvery(SERVICES.UPDATE, updateAttemptSaga),
   ]
 }

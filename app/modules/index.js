@@ -7,6 +7,7 @@ import jobsSagas         from 'modules/jobs/sagas'
 import casesSagas        from 'modules/cases/sagas'
 import clientsSagas      from 'modules/clients/sagas'
 import partiesSagas      from 'modules/parties/sagas'
+import attemptsSagas     from 'modules/attempts/sagas'
 import contactsSagas     from 'modules/contacts/sagas'
 import servicesSagas     from 'modules/services/sagas'
 import organizationSagas from 'modules/organization/sagas'
@@ -27,6 +28,7 @@ export default function* rootSaga(){
     casesSagas(),
     clientsSagas(),
     partiesSagas(),
+    attemptsSagas(),
     contactsSagas(),
     servicesSagas(),
     organizationSagas(),
