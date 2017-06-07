@@ -1,7 +1,5 @@
 //-----------  Imports  -----------//
 
-import get                 from 'lodash/get'
-
 import { connect }         from 'react-redux'
 
 import NotesForm           from './NotesForm'

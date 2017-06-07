@@ -24,6 +24,9 @@ export function validatePerson(values){
   if (!isRequired(values.person_name))
     errors.person_name = 'Required'
 
+  if (!isRequired(values.person_title))
+    errors.person_title = 'Required'
+
   return errors
 }
 

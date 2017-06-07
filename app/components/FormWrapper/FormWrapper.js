@@ -44,7 +44,7 @@ const FormWrapper = (props) => {
       }
 
       {parentField &&
-          <Field { ...parentField }>{parentField.field}</Field>
+        <Field { ...parentField }>{parentField.field}</Field>
       }
 
       {canSelect &&

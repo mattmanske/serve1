@@ -27,6 +27,7 @@ const fields = [{
 },{
   name      : 'person_title',
   label     : 'Title',
+  required  : true,
 },{
   name      : 'person_capacity',
   label     : 'Capacity',

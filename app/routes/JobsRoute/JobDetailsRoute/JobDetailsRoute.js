@@ -41,7 +41,7 @@ class JobDetailsRoute extends React.Component {
         <RecordsHeader
           title={job.id || title}
           count={records.length}
-          countType='Service'
+          countType='Attempt'
           subtitle={`Status: ${job.status || 'Draft'}`}
         >
           <Search placeholder='Search Services...' />

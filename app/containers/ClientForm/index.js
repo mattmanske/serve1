@@ -16,12 +16,12 @@ const mapState = (state) => ({
   selectedID : get(state, 'form.client.initial.id', null),
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch, ownProps) => ({
   onSelect: (clientID, option) => {
     if (!clientID) return dispatch(initialize('client', {}))
 
     return new Promise((res, rej) => {
-      return dispatch(casesActions.select(clientID, res, rej))
+      return dispatch(clientsActions.select(clientID, res, rej))
     }).then(client => {
       return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(client)
     })

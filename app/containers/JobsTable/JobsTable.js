@@ -35,7 +35,8 @@ const caseCol = ({ cases, jobsActions, modalActions }) => ({
         canSelect       : true,
         onSubmitSuccess : kase => {
           return new Promise((res, rej) => {
-            return jobsActions.update({ ...job, case: kase.key }, res, rej)
+            const record = { ...job, case: kase.key, contact: kase.contact, client: kase.client }
+            return jobsActions.update(record, res, rej)
           }).then(() => modalActions.hideModal())
         }
       }, { title: 'Attach Case' })
@@ -45,23 +46,35 @@ const caseCol = ({ cases, jobsActions, modalActions }) => ({
   )
 })
 
-const contactCol = ({ contacts, modalActions }) => ({
+const contactCol = ({ clients, contacts, jobsActions, modalActions }) => ({
   key       : 'contact',
-  title     : 'Contact',
-  dataIndex : 'contact',
-  render    : contact => contacts[contact] ? (
-    <Cell.Link to={`/contacts/${contact}`}>
-      <h5>{contacts[contact].first_name} {contacts[contact].last_name}</h5>
-      {contacts[contact].role && <h6>{contacts[contact].role}</h6>}
+  title     : 'Client Contact',
+  render    : job => (job.contact && contacts[job.contact]) ? (
+    <Cell.Link to={`/contacts/${job.contact}`}>
+      <h5>{contacts[job.contact].first_name} {contacts[job.contact].last_name}</h5>
+      {clients[job.client] && <h6>{clients[job.client].name}</h6>}
     </Cell.Link>
   ) : (
     <Cell.Add onClick={() => {
       modalActions.showModal('CONTACT_FORM', {
         canSelect       : true,
-        onSubmitSuccess : modalActions.hideModal
+        onSubmitSuccess : contact => {
+          return new Promise((res, rej) => {
+            const record = { ...job, contact: contact.key, client: contact.client }
+            return jobsActions.update(record, res, rej)
+          }).then(() => modalActions.hideModal())
+        }
       }, { title: 'Attach Contact' })
     }}>Attach Contact</Cell.Add>
   )
+})
+
+const servicesCol = ({ services }) => ({
+  key       : 'services',
+  title     : 'Attempts',
+  dataIndex : 'key',
+  className : 'centered',
+  render    : key => services[key] || 0
 })
 
 const actionsCol = ({ modalActions }) => Columns.Actions([{
@@ -85,6 +98,7 @@ const JobsTable = ({ records, compact, ...props }) => {
   const columns = [
     Columns.Avatar('id', 'name'),
     nameCol,
+    servicesCol(props),
     !compact && caseCol(props),
     contactCol(props),
     Columns.Created,
@@ -103,6 +117,7 @@ JobsTable.propTypes = {
   cases        : PropTypes.object,
   clients      : PropTypes.object,
   contacts     : PropTypes.object,
+  services     : PropTypes.object,
   compact      : PropTypes.bool,
   jobsActions  : PropTypes.object.isRequired,
   modalActions : PropTypes.object.isRequired

@@ -1,5 +1,7 @@
 //-----------  Imports  -----------//
 
+import countBy                from 'lodash/countBy'
+
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
@@ -13,7 +15,8 @@ import { modalActions }       from 'modules/modal/actions'
 const mapState = (state) => ({
   cases    : state.cases.data,
   clients  : state.clients.data,
-  contacts : state.contacts.data
+  contacts : state.contacts.data,
+  services : countBy(state.services.data, 'job')
 })
 
 const mapDispatch = (dispatch) => ({

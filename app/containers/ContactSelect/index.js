@@ -1,6 +1,6 @@
 //-----------  Imports  -----------//
 
-import get                 from 'lodash/get'
+import pickBy              from 'lodash/pickBy'
 
 import { connect }         from 'react-redux'
 import { initialize }      from 'redux-form'
@@ -12,7 +12,8 @@ import { contactsActions } from 'modules/contacts/actions'
 //-----------  Redux Maps  -----------//
 
 const mapState = (state, ownProps) => ({
-  contacts  : get(state.contacts, `data.${ownProps.filter || ''}`, {}),
+  disabled  : !ownProps.filter,
+  contacts  : pickBy(state.contacts.data, ['client', ownProps.filter]),
   isLoading : state.contacts.isLoading,
 })
 

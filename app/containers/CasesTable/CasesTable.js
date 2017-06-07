@@ -33,6 +33,56 @@ const courtCol = {
 
 //-----------  Dynamic Columns  -----------//
 
+const clientCol = ({ clients, casesActions, modalActions }) => ({
+  key       : 'client',
+  title     : 'Client',
+  render    : kase => (kase.client && clients[kase.client]) ? (
+    <Cell.Link to={`/clients/${kase.client}`}>
+      <h5>{clients[kase.client].name}</h5>
+      {clients[kase.client].id && <h6>{clients[kase.client].id}</h6>}
+    </Cell.Link>
+  ) : (
+    <Cell.Add onClick={() => {
+      modalActions.showModal('CLIENT_FORM', {
+        canSelect       : true,
+        onSubmitSuccess : client => {
+          return new Promise((res, rej) => {
+            const record = { ...kase, client: client.key }
+            return casesActions.update(record, res, rej)
+          }).then(() => modalActions.hideModal())
+        }
+      }, { title: 'Attach Client' })
+    }}>
+      Attach Client
+    </Cell.Add>
+  )
+})
+
+const contactCol = ({ clients, contacts, casesActions, modalActions }) => ({
+  key       : 'contact',
+  title     : 'Client Contact',
+  render    : kase => (kase.contact && contacts[kase.contact]) ? (
+    <Cell.Link to={`/contacts/${kase.contact}`}>
+      <h5>{contacts[kase.contact].first_name} {contacts[kase.contact].last_name}</h5>
+      {contacts[kase.contact].role && <h6>{contacts[kase.contact].role}</h6>}
+    </Cell.Link>
+  ) : (
+    <Cell.Add onClick={() => {
+      modalActions.showModal('CONTACT_FORM', {
+        canSelect       : true,
+        onSubmitSuccess : contact => {
+          return new Promise((res, rej) => {
+            const record = { ...kase, contact: contact.key, client: contact.client }
+            return casesActions.update(record, res, rej)
+          }).then(() => modalActions.hideModal())
+        }
+      }, { title: 'Attach Contact' })
+    }}>
+      Attach Contact
+    </Cell.Add>
+  )
+})
+
 const actionsCol = ({ modalActions }) => Columns.Actions([{
   icon    : 'edit',
   title   : 'Edit Case',
@@ -55,6 +105,8 @@ const CasesTable = ({ records, ...props }) => {
     Columns.Avatar('id', 'name'),
     nameCol,
     courtCol,
+    clientCol(props),
+    contactCol(props),
     actionsCol(props),
   ]
 
@@ -67,7 +119,10 @@ const CasesTable = ({ records, ...props }) => {
 
 CasesTable.propTypes = {
   records      : PropTypes.array,
-  modalActions : PropTypes.object.isRequired
+  clients      : PropTypes.object.isRequired,
+  contacts     : PropTypes.object.isRequired,
+  casesActions : PropTypes.object.isRequired,
+  modalActions : PropTypes.object.isRequired,
 }
 
 //-----------  Export  -----------//

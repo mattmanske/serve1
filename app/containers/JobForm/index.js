@@ -15,12 +15,12 @@ const mapState = (state) => ({
   selectedID : get(state, 'form.job.initial.id', null),
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch, ownProps) => ({
   onSelect: (jobID, option) => {
     if (!jobID) return dispatch(initialize('job', {}))
 
     return new Promise((res, rej) => {
-      return dispatch(casesActions.select(jobID, res, rej))
+      return dispatch(jobsActions.select(jobID, res, rej))
     }).then(job => {
       return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(job)
     })
