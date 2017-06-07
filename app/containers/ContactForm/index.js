@@ -23,8 +23,8 @@ const mapDispatch = (dispatch) => ({
 
     return new Promise((res, rej) => {
       return dispatch(casesActions.select(contactID, res, rej))
-    }).then(contactID => {
-      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(contactID)
+    }).then(contact => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(contact)
     })
   },
   onSubmit: (values) => {

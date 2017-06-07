@@ -33,10 +33,10 @@ const caseCol = ({ cases, jobsActions, modalActions }) => ({
     <Cell.Add onClick={() => {
       modalActions.showModal('CASE_FORM', {
         canSelect       : true,
-        onSubmitSuccess : caseID => {
+        onSubmitSuccess : kase => {
           return new Promise((res, rej) => {
-            return jobsActions.update({ ...job, case: caseID }, res, rej)
-          }).then(caseID => modalActions.hideModal())
+            return jobsActions.update({ ...job, case: kase.key }, res, rej)
+          }).then(() => modalActions.hideModal())
         }
       }, { title: 'Attach Case' })
     }}>

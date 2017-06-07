@@ -30,8 +30,8 @@ const fields = [{
   label     : 'Payment',
 },{
   type      : 'textarea',
-  name      : 'person_description',
-  label     : 'Description',
+  name      : 'notes',
+  label     : 'Notes',
   field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
 }]
 

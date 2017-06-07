@@ -33,8 +33,8 @@ class ClientsRoute extends React.Component {
 
     modalActions.showModal('CLIENT_FORM', {
       canSelect       : false,
-      onSubmitSuccess : clientID => {
-        redirectTo(`clients/${clientID}`)
+      onSubmitSuccess : client => {
+        redirectTo(`clients/${client.key}`)
         modalActions.hideModal()
       }
     }, { title: 'Add Client' })

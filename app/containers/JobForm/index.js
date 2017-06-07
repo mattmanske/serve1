@@ -21,8 +21,8 @@ const mapDispatch = (dispatch) => ({
 
     return new Promise((res, rej) => {
       return dispatch(casesActions.select(jobID, res, rej))
-    }).then(jobID => {
-      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(jobID)
+    }).then(job => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(job)
     })
   },
   onSubmit: (values) => {

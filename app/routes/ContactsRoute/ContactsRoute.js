@@ -33,8 +33,8 @@ class ContactsRoute extends React.Component {
 
     modalActions.showModal('CONTACT_FORM', {
       canSelect       : false,
-      onSubmitSuccess : contactID => {
-        redirectTo(`contacts/${contactID}`)
+      onSubmitSuccess : contact => {
+        redirectTo(`contacts/${contact.key}`)
         modalActions.hideModal()
       }
     }, { title: 'Add Contact' })

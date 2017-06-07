@@ -27,10 +27,10 @@ export function* updateRecordSaga(record, dataType, sagaActions, resolve, reject
     if (record.key){
       delete data.key
       yield call(RSF.update, `${dataType}/${org}/${record.key}`, data)
-      if (resolve) resolve(record.key, data)
+      if (resolve) resolve({ ...data, key: record.key })
     } else {
       const key = yield call(RSF.create, `${dataType}/${org}`, data)
-      if (resolve) resolve(key, data)
+      if (resolve) resolve({ ...data, key })
     }
   } catch(error){
     yield put(sagaActions.failure(error))
@@ -44,5 +44,5 @@ export function* selectRecordSaga(recordID, dataType, formName, resolve, reject)
   if (!record) return reject('No Record Found')
 
   yield put(initialize(formName, { ...record, key: recordID }))
-  return resolve(recordID)
+  return resolve({ ...record, key: recordID })
 }

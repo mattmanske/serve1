@@ -5,20 +5,20 @@ import pickBy                 from 'lodash/pickBy'
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
 
-import ServiceDetailsRoute     from './ServiceDetailsRoute'
+import ServiceDetailsRoute    from './ServiceDetailsRoute'
 
 import { modalActions }       from 'modules/modal/actions'
 
 //-----------  Redux Maps  -----------//
 
 const mapState = (state, ownProps) => {
-  const { serviceID } = ownProps.params
+  const { jobID, serviceID } = ownProps.params
 
   return {
+    jobID,
     serviceID,
-    service   : state.services.data[serviceID] || {},
-    jobs     : pickBy(state.jobs.data, ['service', serviceID]),
-    contacts : pickBy(state.contacts.data, ['service', serviceID]),
+    job      : state.jobs.data[jobID] || {},
+    service  : state.services.data[serviceID] || {},
   }
 }
 

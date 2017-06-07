@@ -33,8 +33,8 @@ class CasesRoute extends React.Component {
 
     modalActions.showModal('CASE_FORM', {
       canSelect       : false,
-      onSubmitSuccess : caseID => {
-        redirectTo(`cases/${caseID}`)
+      onSubmitSuccess : kase => {
+        redirectTo(`cases/${kase.key}`)
         modalActions.hideModal()
       }
     }, { title: 'Add Case' })

@@ -21,8 +21,8 @@ const mapDispatch = (dispatch, ownProps) => ({
 
     return new Promise((res, rej) => {
       return dispatch(partiesActions.select(partyID, res, rej))
-    }).then(partyID => {
-      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(partyID)
+    }).then(party => {
+      return ownProps.onSubmitSuccess && ownProps.onSubmitSuccess(party)
     })
   },
   onSubmit: (values) => {

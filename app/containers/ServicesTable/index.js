@@ -10,10 +10,12 @@ import { servicesActions }    from 'modules/services/actions'
 
 //-----------  Redux Maps  -----------//
 
-const mapState = (state) => ({})
+const mapState = (state) => ({
+  parties: state.parties.data
+})
 
 const mapDispatch = (dispatch) => ({
-  modalActions    : bindActionCreators(modalActions, dispatch)
+  modalActions    : bindActionCreators(modalActions, dispatch),
   servicesActions : bindActionCreators(servicesActions, dispatch),
 })
 

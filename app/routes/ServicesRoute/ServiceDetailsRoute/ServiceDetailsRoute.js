@@ -19,8 +19,8 @@ let breadcrumbs = [{
   link  : '/',
   title : 'Dashboard'
 },{
-  link  : '/services',
-  title : 'Services'
+  link  : '/jobs',
+  title : 'Jobs'
 }]
 
 //-----------  Component  -----------//
@@ -42,17 +42,19 @@ class ServiceDetailsRoute extends React.Component {
   //-----------  HTML Render  -----------//
 
   render(){
-    const { service, contacts, serviceID, modalActions, ...props } = this.props
-    const crumb = { title: service ? service.name : '...' }
+    const { job, jobID, service, serviceID, modalActions, ...props } = this.props
 
-    const records = recordsToArray(contacts)
+    const jobCrumb = { link: `/jobs/${jobID}`, title: job.id }
+    const serCrumb = { title: 'Service' }
+
+    // const records = recordsToArray(contacts)
 
     return (
-      <PageWrapper title={title} loading={!service} breadcrumbs={[ ...breadcrumbs, crumb ]}>
+      <PageWrapper title={title} loading={!service} breadcrumbs={[ ...breadcrumbs, jobCrumb, serCrumb ]}>
         <RecordsHeader
           title={service.name || title}
-          count={records.length}
-          countType='Contact'
+          // count={records.length}
+          // countType='Contact'
           subtitle={service.id}
         >
           <Search placeholder='Search Contacts...' />
@@ -65,7 +67,7 @@ class ServiceDetailsRoute extends React.Component {
           </Button>
         </RecordsHeader>
 
-        <ContactsTable records={records} compact />
+        {/* <ContactsTable records={records} compact /> */}
       </PageWrapper>
     )
   }
@@ -74,10 +76,10 @@ class ServiceDetailsRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 ServiceDetailsRoute.propTypes = {
-  jobs         : PropTypes.object.isRequired,
-  service       : PropTypes.object.isRequired,
-  contacts     : PropTypes.object.isRequired,
-  serviceID     : PropTypes.string.isRequired,
+  job          : PropTypes.object.isRequired,
+  jobID        : PropTypes.string.isRequired,
+  service      : PropTypes.object.isRequired,
+  serviceID    : PropTypes.string.isRequired,
   modalActions : PropTypes.object.isRequired
 }
 

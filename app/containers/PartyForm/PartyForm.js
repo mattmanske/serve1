@@ -15,6 +15,7 @@ import PartySelect          from 'containers/PartySelect'
 //-----------  Definitions  -----------//
 
 const selector = PartySelect
+const Option   = Select.Option
 
 const fieldAttrs = {
   type      : 'input',

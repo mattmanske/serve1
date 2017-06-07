@@ -33,8 +33,8 @@ class JobsRoute extends React.Component {
 
     modalActions.showModal('JOB_FORM', {
       canSelect       : false,
-      onSubmitSuccess : jobID => {
-        redirectTo(`jobs/${jobID}`)
+      onSubmitSuccess : job => {
+        redirectTo(`jobs/${job.key}`)
         modalActions.hideModal()
       }
     }, { title: 'Start New Job' })

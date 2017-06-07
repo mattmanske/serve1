@@ -36,23 +36,23 @@ class ServicesRoute extends React.Component {
   //-----------  Event Handlers  -----------//
 
   onPartySuccess = (party) => {
-    console.log('party ID:', party)
-    this.setState({ party })
+    console.log('party:', party)
+    this.setState({ party: party.key })
   }
 
-  onDetailsSuccess = (serviceID, service) => {
+  onDetailsSuccess = (service) => {
     console.log('service:', service)
     this.setState({ service })
   }
 
-  onPersonSuccess = (serviceID, service) => {
+  onPersonSuccess = (service) => {
     console.log('service:', service)
     this.setState({ service })
   }
 
-  onNotesSuccess = (serviceID, service) => {
-    console.log('service:', service)
-    this.setState({ service })
+  onNotesSuccess = (service) => {
+    const { jobID, redirectTo } = this.props
+    return redirectTo(`/jobs/${jobID}`)
   }
 
   //-----------  HTML Render  -----------//
@@ -68,22 +68,22 @@ class ServicesRoute extends React.Component {
       form            : PartyForm,
       title           : 'Service Party',
       canSelect       : true,
-      initialValues   : { party },
+      initialValues   : { party, job: jobID },
       onSubmitSuccess : this.onPartySuccess,
     }, {
       form            : ServiceDetailsForm,
       title           : 'Service Details',
-      initialValues   : { party, ...service },
+      initialValues   : { party, ...service, job: jobID },
       onSubmitSuccess : this.onDetailsSuccess,
     }, {
       form            : ServicePersonForm,
       title           : 'Service Person',
-      initialValues   : { party, ...service },
+      initialValues   : { party, ...service, job: jobID },
       onSubmitSuccess : this.onPersonSuccess,
     }, {
       form            : ServiceNotesForm,
       title           : 'Service Notes',
-      initialValues   : { party, ...service },
+      initialValues   : { party, ...service, job: jobID },
       onSubmitSuccess : this.onNotesSuccess,
     }]
 
