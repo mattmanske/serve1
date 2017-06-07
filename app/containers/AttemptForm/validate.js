@@ -2,13 +2,13 @@
 
 import { isRequired } from 'utils/forms'
 
-//-----------  Service Details Validation  -----------//
+//-----------  Attempt Details Validation  -----------//
 
 export function validateDetails(values){
   const errors = {}
 
-  if (!isRequired(values.serviced_at))
-    errors.serviced_at = 'Required'
+  if (!isRequired(values.attemptd_at))
+    errors.attemptd_at = 'Required'
 
   if (!isRequired(values.type))
     errors.type = 'Required'
@@ -16,7 +16,7 @@ export function validateDetails(values){
   return errors
 }
 
-//-----------  Service Person Validation  -----------//
+//-----------  Attempt Person Validation  -----------//
 
 export function validatePerson(values){
   const errors = {}
@@ -30,7 +30,7 @@ export function validatePerson(values){
   return errors
 }
 
-//-----------  Service Notes Validation  -----------//
+//-----------  Attempt Notes Validation  -----------//
 
 export function validateNotes(values){
   const errors = {}

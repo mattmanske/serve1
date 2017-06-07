@@ -11,7 +11,6 @@ import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
 import JobSelect            from 'containers/JobSelect'
-import ContactSelect        from 'containers/ContactSelect'
 
 //-----------  Definitions  -----------//
 
@@ -33,11 +32,6 @@ const fields = [{
   label     : 'Received',
   required  : true,
   field     : <DatePicker format={'MMM Do, YYYY'} />,
-},{
-  type      : 'select',
-  name      : 'assigned_to',
-  label     : 'Assign To',
-  field     : <ContactSelect />
 }]
 
 //-----------  Component  -----------//

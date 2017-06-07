@@ -1,37 +1,26 @@
 //-----------  Imports  -----------//
 
-import moment               from 'moment'
+import moment                 from 'moment'
 
-import React, { PropTypes } from 'react'
-import { Button }           from 'antd'
+import React, { PropTypes }   from 'react'
+import { Button }             from 'antd'
 
 import RecordsTable,
-       { Cell, Columns }    from 'components/RecordsTable'
+       { Cell, Columns }      from 'components/RecordsTable'
 
-import { SERVICE_TYPES }    from 'utils/constants'
+import { SERVICE_STATUS,
+         serviceStatusBadge } from 'utils/constants'
 
 //-----------  Static Columns  -----------//
 
-const serviceCol = {
-  key       : 'service',
-  title     : 'Service',
-  render    : service => (
-    <Cell.Link to={`/jobs/${service.job}/services/${service.key}`}>
-      <h5>{SERVICE_TYPES[service.type]}</h5>
-      <h6>{moment.utc(service.serviced_at).format('MMM Do, YYYY')}</h6>
-    </Cell.Link>
+const statusCol = {
+  key       : 'status',
+  width     : 120,
+  title     : 'Status',
+  dataIndex : 'status',
+  render    : status => (
+    <Cell.Status status={serviceStatusBadge(status)} text={SERVICE_STATUS[status]} />
   )
-}
-
-const personCol = {
-  key       : 'person',
-  title     : 'Person Served',
-  render    : service => service.person_name ? (
-    <Cell.Stacked>
-      <h5>{service.person_name}</h5>
-      <h6>{service.person_title}</h6>
-    </Cell.Stacked>
-  ) : (<Cell.Small>n/a</Cell.Small>)
 }
 
 //-----------  Dynamic Columns  -----------//
@@ -48,22 +37,23 @@ const partyCol = ({ parties }) => ({
   )
 })
 
+const assignedCol = () => ({
+  key       : 'assigned_to',
+  title     : 'Assigned To',
+  dataIndex : 'assigned_to',
+  render    : assigned_to => (
+    <Cell.Small>-</Cell.Small>
+  )
+})
+
 const actionsCol = ({ modalActions }) => Columns.Actions([{
-  icon    : 'edit',
-  title   : 'Edit Service Party',
-  onClick : service => console.log('delete :', { service })
+  icon    : 'user-add',
+  title   : 'Edit Party',
+  onClick : service => console.log('edit party :', { service })
 },{
   icon    : 'edit',
-  title   : 'Edit Service Details',
-  onClick : service => console.log('delete :', { service })
-},{
-  icon    : 'edit',
-  title   : 'Edit Person Served',
-  onClick : service => console.log('delete :', { service })
-},{
-  icon    : 'edit',
-  title   : 'Edit Service Notes',
-  onClick : service => console.log('delete :', { service })
+  title   : 'Edit Service',
+  onClick : service => console.log('edit service :', { service })
 },{
   icon    : 'delete',
   title   : 'Delete',
@@ -75,9 +65,9 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
 
 const emptyCell = (empty) => ({ emptyText: (
   <Cell.Empty>
-    <h4>No Services Recorded</h4>
-    <h5>Record a service by clicking below.</h5>
-    {empty}
+    <h4>No Services Added</h4>
+    <h5>Add a service by clicking below.</h5>
+    {React.cloneElement(empty, { size: 'large', children: 'Add a Service' })}
   </Cell.Empty>
 )})
 
@@ -86,9 +76,9 @@ const emptyCell = (empty) => ({ emptyText: (
 const ServicesTable = ({ empty, records, ...props }) => {
 
   const columns = [
-    serviceCol,
+    statusCol,
     partyCol(props),
-    personCol,
+    assignedCol(props),
     actionsCol(props),
   ]
 

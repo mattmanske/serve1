@@ -6,24 +6,24 @@ import NotesForm           from './NotesForm'
 import PersonForm          from './PersonForm'
 import DetailsForm         from './DetailsForm'
 
-import { servicesActions } from 'modules/services/actions'
+import { attemptsActions } from 'modules/attempts/actions'
 
 //-----------  Redux Maps  -----------//
 
 const mapState = (state) => ({
-  isLoading: state.services.isLoading,
+  isLoading: state.attempts.isLoading,
 })
 
 const mapDispatch = (dispatch) => ({
   onSubmit: (values) => {
     return new Promise((res, rej) => {
-      return dispatch(servicesActions.update(values, res, rej))
+      return dispatch(attemptsActions.update(values, res, rej))
     })
   }
 })
 
 //-----------  Exports  -----------//
 
-export const ServiceNotesForm   = connect(mapState, mapDispatch)(NotesForm)
-export const ServicePersonForm  = connect(mapState, mapDispatch)(PersonForm)
-export const ServiceDetailsForm = connect(mapState, mapDispatch)(DetailsForm)
+export const AttemptNotesForm   = connect(mapState, mapDispatch)(NotesForm)
+export const AttemptPersonForm  = connect(mapState, mapDispatch)(PersonForm)
+export const AttemptDetailsForm = connect(mapState, mapDispatch)(DetailsForm)

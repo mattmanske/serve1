@@ -1,12 +1,10 @@
 //-----------  Imports  -----------//
 
-import { validateDetails }  from './validate'
+import { validatePerson }   from './validate'
 
 import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
-import { Input,
-         Select,
-         DatePicker }       from 'antd'
+import { Input }            from 'antd'
 
 import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
@@ -16,8 +14,6 @@ import { SERVICE_TYPES,
 
 //-----------  Definitions  -----------//
 
-const Option = Select.Option
-
 const fieldAttrs = {
   type      : 'input',
   field     : <Input />,
@@ -25,39 +21,37 @@ const fieldAttrs = {
 }
 
 const fields = [{
-  type      : 'calendar',
-  name      : 'serviced_at',
-  label     : 'Date',
+  name      : 'person_name',
+  label     : 'Full Name',
   required  : true,
-  field     : <DatePicker format={'MMM Do, YYYY'} />,
 },{
-  type      : 'select',
-  name      : 'type',
-  label     : 'Type',
+  name      : 'person_title',
+  label     : 'Title',
   required  : true,
-  field     : (
-    <Select placeholder='Select Type...'>
-      {constToSelect(SERVICE_TYPES).map(({ value, label }) => (
-        <Option key={value} value={value}>{label}</Option>
-      ))}
-    </Select>
-  )
+},{
+  name      : 'person_capacity',
+  label     : 'Capacity',
+},{
+  type      : 'textarea',
+  name      : 'person_description',
+  label     : 'Description',
+  field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
 }]
 
 //-----------  Component  -----------//
 
-const DetailsForm = (props) => {
+const PersonForm = (props) => {
 
   const formProps = { ...props, fields, fieldAttrs }
 
   return (
-    <FormWrapper type='service' { ...formProps } />
+    <FormWrapper type='attempt' { ...formProps } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-DetailsForm.propTypes = {
+PersonForm.propTypes = {
   title           : PropTypes.string,
   canSelect       : PropTypes.bool,
   selectedID      : PropTypes.string,
@@ -71,4 +65,4 @@ DetailsForm.propTypes = {
 
 //-----------  Exports  -----------//
 
-export default reduxForm({ form: 'service-details', validateDetails })(DetailsForm)
+export default reduxForm({ form: 'attempt-person', validatePerson })(PersonForm)

@@ -47,6 +47,12 @@ class ClientDetailsRoute extends React.Component {
 
     const records = recordsToArray(contacts)
 
+    const createButton = (
+      <Button type='primary' icon='plus' onClick={this.newContact}>
+        Add Contact
+      </Button>
+    )
+
     return (
       <PageWrapper title={title} loading={!client} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
@@ -56,16 +62,10 @@ class ClientDetailsRoute extends React.Component {
           subtitle={client.id}
         >
           <Search placeholder='Search Contacts...' />
-          <Button
-            type='primary'
-            icon='user-add'
-            onClick={this.newContact}
-          >
-            Add Contact
-          </Button>
+          {createButton}
         </RecordsHeader>
 
-        <ContactsTable records={records} compact />
+        <ContactsTable records={records} empty={createButton} compact />
       </PageWrapper>
     )
   }

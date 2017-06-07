@@ -1,10 +1,12 @@
 //-----------  Imports  -----------//
 
-import { validatePerson }   from './validate'
+import { validateNotes }    from './validate'
 
 import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
-import { Input }            from 'antd'
+import { Input,
+         Select,
+         DatePicker }       from 'antd'
 
 import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
@@ -21,37 +23,33 @@ const fieldAttrs = {
 }
 
 const fields = [{
-  name      : 'person_name',
-  label     : 'Full Name',
-  required  : true,
+  name      : 'milage',
+  label     : 'Milage',
 },{
-  name      : 'person_title',
-  label     : 'Title',
-  required  : true,
-},{
-  name      : 'person_capacity',
-  label     : 'Capacity',
+  name      : 'Payment',
+  label     : 'Payment',
 },{
   type      : 'textarea',
-  name      : 'person_description',
-  label     : 'Description',
+  name      : 'notes',
+  label     : 'Notes',
   field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
 }]
 
+
 //-----------  Component  -----------//
 
-const PersonForm = (props) => {
+const NotesForm = (props) => {
 
   const formProps = { ...props, fields, fieldAttrs }
 
   return (
-    <FormWrapper type='service' { ...formProps } />
+    <FormWrapper type='attempt' { ...formProps } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-PersonForm.propTypes = {
+NotesForm.propTypes = {
   title           : PropTypes.string,
   canSelect       : PropTypes.bool,
   selectedID      : PropTypes.string,
@@ -65,4 +63,4 @@ PersonForm.propTypes = {
 
 //-----------  Exports  -----------//
 
-export default reduxForm({ form: 'service-person', validatePerson })(PersonForm)
+export default reduxForm({ form: 'attempt-notes', validateNotes })(NotesForm)

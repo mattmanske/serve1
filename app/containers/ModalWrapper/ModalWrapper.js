@@ -9,6 +9,7 @@ import React, { PropTypes } from 'react'
 import JobForm              from 'containers/JobForm'
 import CaseForm             from 'containers/CaseForm'
 import LoginForm            from 'containers/LoginForm'
+import PartyForm            from 'containers/PartyForm'
 import ClientForm           from 'containers/ClientForm'
 import ContactForm          from 'containers/ContactForm'
 
@@ -20,6 +21,7 @@ const MODAL_COMPONENTS = {
   JOB_FORM     : JobForm,
   CASE_FORM    : CaseForm,
   LOGIN_FORM   : LoginForm,
+  PARTY_FORM   : PartyForm,
   CLIENT_FORM  : ClientForm,
   CONTACT_FORM : ContactForm,
 }

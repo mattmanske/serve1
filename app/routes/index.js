@@ -30,16 +30,16 @@ export default function createRoutes(store, subdomain){
       import('routes/HomeRoute').then(loadModule(cb)).catch(err)
     },
   }] : [{
+    path : '/jobs/:jobID/services/:serviceID/attempts/:attemptID',
+    name : 'attempt-details',
+    getComponent(nextState, cb){
+      import('routes/JobsRoute/AttemptDetailsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
     path : '/jobs/:jobID/services/:serviceID',
     name : 'service-details',
     getComponent(nextState, cb){
-      import('routes/ServicesRoute/ServiceDetailsRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/jobs/:jobID/services/',
-    name : 'services',
-    getComponent(nextState, cb){
-      import('routes/ServicesRoute').then(loadModule(cb)).catch(err)
+      import('routes/JobsRoute/ServiceDetailsRoute').then(loadModule(cb)).catch(err)
     },
   },{
     path : '/jobs/:jobID',

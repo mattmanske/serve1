@@ -13,7 +13,7 @@ const RecordsHeader = ({ title, count, avatar, subtitle, countType, children, ..
   return (
     <Records.Header { ...props }>
       {avatar && avatar}
-      
+
       <Records.Info>
         <Records.Title>{title}</Records.Title>
         <Records.Count>{count ? `${count} ${type}` : ' '}</Records.Count>

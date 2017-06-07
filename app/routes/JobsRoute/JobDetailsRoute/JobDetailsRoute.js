@@ -1,17 +1,23 @@
 //-----------  Imports  -----------//
 
-import React, { PropTypes }     from 'react'
-import { Badge, Input, Button } from 'antd'
-import { Link }                 from 'react-router'
+import moment               from 'moment'
 
-import ServicesTable            from 'containers/ServicesTable'
+import React, { PropTypes } from 'react'
+import { Link }             from 'react-router'
+import { Input,
+         Badge,
+         Button }           from 'antd'
 
-import PageWrapper              from 'components/PageWrapper'
-import RecordsHeader            from 'components/RecordsHeader'
+import JobBody              from './JobBody'
 
-import { recordsToArray }       from 'utils/records'
+import ServicesTable        from 'containers/ServicesTable'
+
+import PageWrapper          from 'components/PageWrapper'
+import RecordsHeader        from 'components/RecordsHeader'
+
+import { recordsToArray }   from 'utils/records'
 import { JOB_STATUS,
-         jobStatusBadge }       from 'utils/constants'
+         jobStatusBadge }   from 'utils/constants'
 
 //-----------  Definitions  -----------//
 
@@ -30,6 +36,22 @@ let breadcrumbs = [{
 
 class JobDetailsRoute extends React.Component {
 
+  //-----------  Event Handlers  -----------//
+
+  newService = () => {
+    const { jobID, redirectTo, servicesActions, modalActions } = this.props
+
+    modalActions.showModal('PARTY_FORM', {
+      canSelect       : true,
+      onSubmitSuccess : party => {
+        return new Promise((res, rej) => {
+          const service = { party: party.key, job: jobID }
+          return servicesActions.update(service, res, rej)
+        }).then(modalActions.hideModal)
+      }
+    }, { title: 'Add Service' })
+  }
+
   //-----------  HTML Render  -----------//
 
   render(){
@@ -39,26 +61,29 @@ class JobDetailsRoute extends React.Component {
     const records = recordsToArray(services)
 
     const createButton = (
-      <Link to={`/jobs/${jobID}/services/`}>
-        <Button type='primary' icon='plus'>
-          Record Service
-        </Button>
-      </Link>
+      <Button type='primary' icon='plus' onClick={this.newService}>
+        Add Service
+      </Button>
     )
 
-    const subtitle = <Badge status={jobStatusBadge(job.status)} text={JOB_STATUS[job.status]} />
+    const badge = <Badge status={jobStatusBadge(job.status)} text={JOB_STATUS[job.status]} />
+    const date  = (<span><strong>Date:</strong> {moment.utc().format('MMM Do, YYYY')}</span>)
+
+    const bodyProps = {}
 
     return (
       <PageWrapper title={title} loading={!job} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
-          title={job.id || title}
-          count={records.length}
-          countType='Attempt'
-          subtitle={subtitle}
+          title={job.id ? `Job ID: ${job.id}` : title}
+          subtitle={badge}
         >
-          <Search placeholder='Search Services...' />
+          <Button icon='user-add' onClick={this.assignTo}>
+            Assign
+          </Button>
           {createButton}
         </RecordsHeader>
+
+        <JobBody { ...this.props } />
 
         <ServicesTable records={records} empty={createButton} />
       </PageWrapper>
@@ -69,10 +94,14 @@ class JobDetailsRoute extends React.Component {
 //-----------  Prop Types  -----------//
 
 JobDetailsRoute.propTypes = {
-  job          : PropTypes.object.isRequired,
-  jobID        : PropTypes.string.isRequired,
-  services     : PropTypes.object.isRequired,
-  modalActions : PropTypes.object.isRequired
+  job             : PropTypes.object.isRequired,
+  jobID           : PropTypes.string.isRequired,
+  kase            : PropTypes.object,
+  client          : PropTypes.object,
+  contact         : PropTypes.object,
+  services        : PropTypes.object.isRequired,
+  modalActions    : PropTypes.object.isRequired,
+  servicesActions : PropTypes.object.isRequired,
 }
 
 //-----------  Exports  -----------//

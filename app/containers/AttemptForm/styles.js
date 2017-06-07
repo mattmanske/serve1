@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import vars   from 'styles/variables'
 
-//-----------  Service Form  ----------- */
+//-----------  Attempt Form  ----------- */
 
 const Elem = styled.div`
 `

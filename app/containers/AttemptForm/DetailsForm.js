@@ -1,6 +1,6 @@
 //-----------  Imports  -----------//
 
-import { validateNotes }    from './validate'
+import { validateDetails }  from './validate'
 
 import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
@@ -16,6 +16,8 @@ import { SERVICE_TYPES,
 
 //-----------  Definitions  -----------//
 
+const Option = Select.Option
+
 const fieldAttrs = {
   type      : 'input',
   field     : <Input />,
@@ -23,33 +25,39 @@ const fieldAttrs = {
 }
 
 const fields = [{
-  name      : 'milage',
-  label     : 'Milage',
+  type      : 'calendar',
+  name      : 'attemptd_at',
+  label     : 'Date',
+  required  : true,
+  field     : <DatePicker format={'MMM Do, YYYY'} />,
 },{
-  name      : 'Payment',
-  label     : 'Payment',
-},{
-  type      : 'textarea',
-  name      : 'notes',
-  label     : 'Notes',
-  field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
+  type      : 'select',
+  name      : 'type',
+  label     : 'Type',
+  required  : true,
+  field     : (
+    <Select placeholder='Select Type...'>
+      {constToSelect(SERVICE_TYPES).map(({ value, label }) => (
+        <Option key={value} value={value}>{label}</Option>
+      ))}
+    </Select>
+  )
 }]
-
 
 //-----------  Component  -----------//
 
-const NotesForm = (props) => {
+const DetailsForm = (props) => {
 
   const formProps = { ...props, fields, fieldAttrs }
 
   return (
-    <FormWrapper type='service' { ...formProps } />
+    <FormWrapper type='attempt' { ...formProps } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-NotesForm.propTypes = {
+DetailsForm.propTypes = {
   title           : PropTypes.string,
   canSelect       : PropTypes.bool,
   selectedID      : PropTypes.string,
@@ -63,4 +71,4 @@ NotesForm.propTypes = {
 
 //-----------  Exports  -----------//
 
-export default reduxForm({ form: 'service-notes', validateNotes })(NotesForm)
+export default reduxForm({ form: 'attempt-details', validateDetails })(DetailsForm)
