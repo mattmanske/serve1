@@ -35,22 +35,18 @@ class ServicesRoute extends React.Component {
 
   //-----------  Event Handlers  -----------//
 
-  onPartySuccess = (party) => {
-    console.log('party:', party)
-    this.setState({ party: party.key })
-  }
+  onPartySuccess = (party) => this.setState({ party: party.key })
+
+  onPersonSuccess = (service) => this.setState({ service })
 
   onDetailsSuccess = (service) => {
-    console.log('service:', service)
-    this.setState({ service })
+    if ('attempted' == service.type)
+      this.serviceComplete()
+    else
+      this.setState({ service })
   }
 
-  onPersonSuccess = (service) => {
-    console.log('service:', service)
-    this.setState({ service })
-  }
-
-  onNotesSuccess = (service) => {
+  serviceComplete = () => {
     const { jobID, redirectTo } = this.props
     return redirectTo(`/jobs/${jobID}`)
   }
@@ -84,7 +80,7 @@ class ServicesRoute extends React.Component {
       form            : ServiceNotesForm,
       title           : 'Service Notes',
       initialValues   : { party, ...service, job: jobID },
-      onSubmitSuccess : this.onNotesSuccess,
+      onSubmitSuccess : this.serviceComplete,
     }]
 
     return (

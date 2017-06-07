@@ -48,20 +48,20 @@ class ClientsRoute extends React.Component {
 
     const records = recordsToArray(data)
 
+    const createButton = (
+      <Button type='primary' icon='plus' onClick={this.newClient}>
+        Add Client
+      </Button>
+    )
+
     return (
       <PageWrapper title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
         <RecordsHeader title={title} count={records.length}>
           <Search placeholder='Search Clients...' disabled />
-          <Button
-            type='primary'
-            icon='user-add'
-            onClick={this.newClient}
-          >
-            Add Client
-          </Button>
+          {createButton}
         </RecordsHeader>
 
-        <ClientsTable records={records} />
+        <ClientsTable records={records} empty={createButton} />
       </PageWrapper>
     )
   }

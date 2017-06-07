@@ -6,20 +6,33 @@ import { Button }           from 'antd'
 import RecordsTable,
        { Cell, Columns }    from 'components/RecordsTable'
 
+import { JOB_STATUS,
+         jobStatusBadge }   from 'utils/constants'
+
 //-----------  Static Columns  -----------//
 
-const nameCol = {
-  key       : 'id',
-  title     : 'Job ID',
-  render    : job => (
-    <Cell.Link to={`/jobs/${job.key}`}>
-      <h5>{job.id}</h5>
-      <h6>Status: {job.status || 'Draft'}</h6>
-    </Cell.Link>
+const statusCol = {
+  key       : 'status',
+  width     : 120,
+  title     : 'Status',
+  dataIndex : 'status',
+  render    : status => (
+    <Cell.Status status={jobStatusBadge(status)} text={JOB_STATUS[status]} />
   )
 }
 
 //-----------  Dynamic Columns  -----------//
+
+const nameCol = ({ services }) => ({
+  key       : 'id',
+  title     : 'Job',
+  render    : job => (
+    <Cell.Link to={`/jobs/${job.key}`}>
+      <h5>{job.id}</h5>
+      <h6>{services[job.key] || 0} Services</h6>
+    </Cell.Link>
+  )
+})
 
 const caseCol = ({ cases, jobsActions, modalActions }) => ({
   key       : 'case',
@@ -69,14 +82,6 @@ const contactCol = ({ clients, contacts, jobsActions, modalActions }) => ({
   )
 })
 
-const servicesCol = ({ services }) => ({
-  key       : 'services',
-  title     : 'Attempts',
-  dataIndex : 'key',
-  className : 'centered',
-  render    : key => services[key] || 0
-})
-
 const actionsCol = ({ modalActions }) => Columns.Actions([{
   icon    : 'edit',
   title   : 'Edit Job',
@@ -91,28 +96,37 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
   onClick : job => console.log('delete :', { job })
 }])
 
+//-----------  Empty Column  -----------//
+
+const emptyCell = (empty) => ({ emptyText: (
+  <Cell.Empty>
+    <h4>No Jobs Created</h4>
+    <h5>Get started with the jobs functionality by clicking below.</h5>
+    {React.cloneElement(empty, { size: 'large', children: 'Create Your First Job' })}
+  </Cell.Empty>
+)})
+
 //-----------  Component  -----------//
 
-const JobsTable = ({ records, compact, ...props }) => {
+const JobsTable = ({ empty, records, compact, ...props }) => {
 
   const columns = [
-    Columns.Avatar('id', 'name'),
-    nameCol,
-    servicesCol(props),
+    statusCol,
+    nameCol(props),
     !compact && caseCol(props),
     contactCol(props),
-    Columns.Created,
     actionsCol(props),
   ]
 
   return (
-    <RecordsTable columns={columns} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} locale={emptyCell(empty)} dataSource={records} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
 JobsTable.propTypes = {
+  empty        : PropTypes.node,
   records      : PropTypes.array,
   cases        : PropTypes.object,
   clients      : PropTypes.object,

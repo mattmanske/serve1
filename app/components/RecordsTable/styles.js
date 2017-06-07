@@ -6,6 +6,7 @@ import * as avatar        from 'react-avatar'
 import { Link as link }   from 'react-router'
 import { Icon,
          Input,
+         Badge,
          Button,
          Popover,
          Table as table } from 'antd'
@@ -116,6 +117,14 @@ const Avatar = styled(avatar)`
   vertical-align : middle;
 `
 
+const Status = styled(Badge)`
+  .ant-badge-status-text {
+    color      : ${vars.gray} !important;
+    font-size  : 0.67rem;
+    font-style : italic;
+  }
+`
+
 const PopMenu = styled(Popover)``
 
 const PopIcon = styled(Icon)`
@@ -162,6 +171,17 @@ const Actions = styled.nav`
   }
 `
 
+const Empty = styled.div`
+  padding    : ${vars.gutterLg} 0;
+  text-align : center;
+
+  h5 {
+    color       : ${vars.gray};
+    font-weight : normal;
+    margin      : ${vars.gutter} auto;
+    max-width   : 14rem;
+  }
+`
 //-----------  Exports  ----------- */
 
-export default { Table, Link, A, Small, Avatar, Address, PopMenu, PopIcon, Stacked, Add, Actions }
+export default { Table, Link, A, Small, Avatar, Address, Status, PopMenu, PopIcon, Stacked, Add, Actions, Empty }

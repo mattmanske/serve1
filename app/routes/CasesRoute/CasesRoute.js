@@ -48,20 +48,20 @@ class CasesRoute extends React.Component {
 
     const records = recordsToArray(data)
 
+    const createButton = (
+      <Button type='primary' icon='plus' onClick={this.newCase}>
+        Add Case
+      </Button>
+    )
+
     return (
       <PageWrapper title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
         <RecordsHeader title={title} count={records.length}>
           <Search placeholder='Search Cases...' disabled />
-          <Button
-            type='primary'
-            icon='user-add'
-            onClick={this.newCase}
-          >
-            Add Case
-          </Button>
+          {createButton}
         </RecordsHeader>
 
-        <CasesTable records={records} />
+        <CasesTable records={records} empty={createButton} />
       </PageWrapper>
     )
   }

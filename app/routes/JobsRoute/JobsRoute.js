@@ -48,20 +48,20 @@ class JobsRoute extends React.Component {
 
     const records = recordsToArray(data)
 
+    const createButton = (
+      <Button type='primary' icon='plus' onClick={this.newJob}>
+        Add Job
+      </Button>
+    )
+
     return (
       <PageWrapper title={title} loading={!isWatching} breadcrumbs={breadcrumbs}>
         <RecordsHeader title={title} count={records.length}>
           <Search placeholder='Search Jobs...' disabled />
-          <Button
-            type='primary'
-            icon='user-add'
-            onClick={this.newJob}
-          >
-            Add Job
-          </Button>
+          {createButton}
         </RecordsHeader>
 
-        <JobsTable records={records} />
+        <JobsTable records={records} empty={createButton} />
       </PageWrapper>
     )
   }

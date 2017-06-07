@@ -26,12 +26,12 @@ const serviceCol = {
 const personCol = {
   key       : 'person',
   title     : 'Person Served',
-  render    : service => (
+  render    : service => service.person_name ? (
     <Cell.Stacked>
       <h5>{service.person_name}</h5>
       <h6>{service.person_title}</h6>
     </Cell.Stacked>
-  )
+  ) : (<Cell.Small>n/a</Cell.Small>)
 }
 
 //-----------  Dynamic Columns  -----------//
@@ -71,9 +71,19 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
   onClick : service => console.log('delete :', { service })
 }])
 
+//-----------  Empty Column  -----------//
+
+const emptyCell = (empty) => ({ emptyText: (
+  <Cell.Empty>
+    <h4>No Services Recorded</h4>
+    <h5>Record a service by clicking below.</h5>
+    {empty}
+  </Cell.Empty>
+)})
+
 //-----------  Component  -----------//
 
-const ServicesTable = ({ records, ...props }) => {
+const ServicesTable = ({ empty, records, ...props }) => {
 
   const columns = [
     serviceCol,
@@ -83,13 +93,14 @@ const ServicesTable = ({ records, ...props }) => {
   ]
 
   return (
-    <RecordsTable columns={columns} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} locale={emptyCell(empty)} dataSource={records} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
 ServicesTable.propTypes = {
+  empty           : PropTypes.node,
   records         : PropTypes.array,
   parties         : PropTypes.object.isRequired,
   modalActions    : PropTypes.object.isRequired,

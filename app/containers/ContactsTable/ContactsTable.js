@@ -83,9 +83,19 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
   onClick : contact => console.log('delete :', { contact })
 }])
 
+//-----------  Empty Column  -----------//
+
+const emptyCell = (empty) => ({ emptyText: (
+  <Cell.Empty>
+    <h4>No Contacts Added</h4>
+    <h5>Get started with the contacts functionality by clicking below.</h5>
+    {React.cloneElement(empty, { size: 'large', children: 'Add Your First Contact' })}
+  </Cell.Empty>
+)})
+
 //-----------  Component  -----------//
 
-const ContactsTable = ({ records, compact, ...props }) => {
+const ContactsTable = ({ empty, records, compact, ...props }) => {
 
   const columns = [
     Columns.Avatar('email'),
@@ -98,13 +108,14 @@ const ContactsTable = ({ records, compact, ...props }) => {
   ]
 
   return (
-    <RecordsTable columns={columns} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} locale={emptyCell(empty)} dataSource={records} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
 ContactsTable.propTypes = {
+  empty        : PropTypes.node,
   records      : PropTypes.array,
   clients      : PropTypes.object,
   compact      : PropTypes.bool,

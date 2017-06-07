@@ -97,9 +97,19 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
   onClick : kase => console.log('delete :', { kase })
 }])
 
+//-----------  Empty Column  -----------//
+
+const emptyCell = (empty) => ({ emptyText: (
+  <Cell.Empty>
+    <h4>No Cases Added</h4>
+    <h5>Get started with the cases functionality by clicking below.</h5>
+    {React.cloneElement(empty, { size: 'large', children: 'Add Your First Case' })}
+  </Cell.Empty>
+)})
+
 //-----------  Component  -----------//
 
-const CasesTable = ({ records, ...props }) => {
+const CasesTable = ({ empty, records, ...props }) => {
 
   const columns = [
     Columns.Avatar('id', 'name'),
@@ -111,13 +121,14 @@ const CasesTable = ({ records, ...props }) => {
   ]
 
   return (
-    <RecordsTable columns={columns} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} locale={emptyCell(empty)} dataSource={records} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
 CasesTable.propTypes = {
+  empty        : PropTypes.node,
   records      : PropTypes.array,
   clients      : PropTypes.object.isRequired,
   contacts     : PropTypes.object.isRequired,

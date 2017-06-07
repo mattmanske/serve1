@@ -60,9 +60,19 @@ const actionsCol = ({ modalActions }) => Columns.Actions([{
   onClick : client => console.log('delete :', { client })
 }])
 
+//-----------  Empty Column  -----------//
+
+const emptyCell = (empty) => ({ emptyText: (
+  <Cell.Empty>
+    <h4>No Clients Added</h4>
+    <h5>Get started with the clients functionality by clicking below.</h5>
+    {React.cloneElement(empty, { size: 'large', children: 'Add Your First Client' })}
+  </Cell.Empty>
+)})
+
 //-----------  Component  -----------//
 
-const ClientsTable = ({ records, ...props }) => {
+const ClientsTable = ({ empty, records, ...props }) => {
 
   const columns = [
     Columns.Avatar('name'),
@@ -73,13 +83,14 @@ const ClientsTable = ({ records, ...props }) => {
   ]
 
   return (
-    <RecordsTable columns={columns} dataSource={records} { ...props } />
+    <RecordsTable columns={columns} locale={emptyCell(empty)} dataSource={records} { ...props } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
 ClientsTable.propTypes = {
+  empty        : PropTypes.node,
   records      : PropTypes.array,
   modalActions : PropTypes.object.isRequired
 }

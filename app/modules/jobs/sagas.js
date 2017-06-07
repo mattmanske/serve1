@@ -22,7 +22,7 @@ function* syncJobsSaga(){
 }
 
 function* updateJobSaga({ job, resolve, reject }){
-  yield call(updateRecordSaga, job, dataType, sagaActions, resolve, reject)
+  yield call(updateRecordSaga, { status: 'received', ...job }, dataType, sagaActions, resolve, reject)
 }
 
 function* selectJobSaga({ jobID, resolve, reject }){

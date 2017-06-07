@@ -42,3 +42,23 @@ export const COURT_TYPES = {
 export function constToSelect(constants){
   return map(constants, (label, value) => ({ label, value }))
 }
+
+export function jobStatusBadge(status){
+  switch (status){
+    case 'closed'     : return 'default'
+    case 'sent'       : return 'success'
+    case 'completed'  : return 'success'
+    case 'dispatched' : return 'processing'
+    default           : return 'warning'
+  }
+}
+
+export function serviceStatusBadge(status){
+  switch (status){
+    case 'closed'     : return 'default'
+    case 'sent'       : return 'success'
+    case 'completed'  : return 'success'
+    case 'dispatched' : return 'processing'
+    default           : return 'warning'
+  }
+}

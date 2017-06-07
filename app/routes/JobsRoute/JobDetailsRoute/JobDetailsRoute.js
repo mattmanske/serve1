@@ -1,15 +1,17 @@
 //-----------  Imports  -----------//
 
-import React, { PropTypes } from 'react'
-import { Input, Button }    from 'antd'
-import { Link }             from 'react-router'
+import React, { PropTypes }     from 'react'
+import { Badge, Input, Button } from 'antd'
+import { Link }                 from 'react-router'
 
-import ServicesTable        from 'containers/ServicesTable'
+import ServicesTable            from 'containers/ServicesTable'
 
-import PageWrapper          from 'components/PageWrapper'
-import RecordsHeader        from 'components/RecordsHeader'
+import PageWrapper              from 'components/PageWrapper'
+import RecordsHeader            from 'components/RecordsHeader'
 
-import { recordsToArray }   from 'utils/records'
+import { recordsToArray }       from 'utils/records'
+import { JOB_STATUS,
+         jobStatusBadge }       from 'utils/constants'
 
 //-----------  Definitions  -----------//
 
@@ -36,23 +38,29 @@ class JobDetailsRoute extends React.Component {
 
     const records = recordsToArray(services)
 
+    const createButton = (
+      <Link to={`/jobs/${jobID}/services/`}>
+        <Button type='primary' icon='plus'>
+          Record Service
+        </Button>
+      </Link>
+    )
+
+    const subtitle = <Badge status={jobStatusBadge(job.status)} text={JOB_STATUS[job.status]} />
+
     return (
       <PageWrapper title={title} loading={!job} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
           title={job.id || title}
           count={records.length}
           countType='Attempt'
-          subtitle={`Status: ${job.status || 'Draft'}`}
+          subtitle={subtitle}
         >
           <Search placeholder='Search Services...' />
-          <Link to={`/jobs/${jobID}/services/`}>
-            <Button type='primary' icon='file-add'>
-              Record Service
-            </Button>
-          </Link>
+          {createButton}
         </RecordsHeader>
 
-        <ServicesTable records={records} />
+        <ServicesTable records={records} empty={createButton} />
       </PageWrapper>
     )
   }
