@@ -4,6 +4,29 @@ import map from 'lodash/map'
 
 //-----------  Case Constants  -----------//
 
+export const JOB_STATUS = {
+  received   : 'Received',
+  dispatched : 'Dispatched',
+  completed  : 'Completed',
+  sent       : 'Sent',
+  closed     : 'Closed',
+}
+
+export const SERVICE_STATUS = {
+  dispatched  : 'Dispatched',
+  in_progress : 'In Progress',
+  blocked     : 'Blocked',
+  served      : 'Served',
+}
+
+export const SERVICE_TYPES = {
+  attempted    : 'Attempted',
+  personal     : 'Personal',
+  substitute   : 'Substitute',
+  corporate    : 'Corporate',
+  governmental : 'Governmental',
+}
+
 export const COURT_TYPES = {
   municipal_court                     : 'Municipal Court',
   circuit_court                       : 'Circuit Court',

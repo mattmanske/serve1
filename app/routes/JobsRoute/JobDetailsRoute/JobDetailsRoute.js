@@ -2,8 +2,9 @@
 
 import React, { PropTypes } from 'react'
 import { Input, Button }    from 'antd'
+import { Link }             from 'react-router'
 
-// import ContactsTable        from 'containers/ContactsTable'
+// import ContactsTable       from 'containers/ContactsTable'
 
 import PageWrapper          from 'components/PageWrapper'
 import RecordsHeader        from 'components/RecordsHeader'
@@ -50,19 +51,17 @@ class JobDetailsRoute extends React.Component {
     return (
       <PageWrapper title={title} loading={!job} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
-          title={job.id}
+          title={job.id || title}
           // count={services.length}
           // countType='Contact'
           subtitle={`Status: ${job.status || 'Draft'}`}
         >
           <Search placeholder='Search Services...' />
-          <Button
-            type='primary'
-            icon='file-add'
-            onClick={this.newService}
-          >
-            Record Service
-          </Button>
+          <Link to={`/jobs/${jobID}/services/`}>
+            <Button type='primary' icon='file-add'>
+              Record Service
+            </Button>
+          </Link>
         </RecordsHeader>
 
         {/* <ContactsTable records={records} compact /> */}

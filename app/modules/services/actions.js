@@ -4,7 +4,7 @@ import { action, createActionConstants } from 'modules/helpers'
 
 //-----------  Definitions  -----------//
 
-export const SERVICES = createActionConstants('SERVICES', ['UPDATE', 'SELECT'])
+export const SERVICES = createActionConstants('SERVICES', ['UPDATE'])
 
 //-----------  Services Actions  -----------//
 
@@ -15,9 +15,6 @@ export const servicesActions = {
   update: (service, resolve, reject) => {
     return action(SERVICES.UPDATE, { service, resolve, reject })
   },
-  select: (serviceID, resolve, reject) => {
-    return action(SERVICES.SELECT, { serviceID, resolve, reject })
-  }
 }
 
 //-----------  Saga Actions  -----------//

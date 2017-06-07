@@ -3,11 +3,11 @@
 import React       from 'react'
 import { shallow } from 'enzyme'
 
-import NewCaseRoute from '../index'
+import PartiesTable from '../index'
 
 //-----------  Tests  -----------//
 
-describe('<NewCaseRoute />', () => {
+describe('<PartiesTable />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

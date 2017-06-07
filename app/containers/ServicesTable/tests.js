@@ -3,11 +3,11 @@
 import React       from 'react'
 import { shallow } from 'enzyme'
 
-import NewJobRoute from '../index'
+import PartiesTable from '../index'
 
 //-----------  Tests  -----------//
 
-describe('<NewJobRoute />', () => {
+describe('<PartiesTable />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

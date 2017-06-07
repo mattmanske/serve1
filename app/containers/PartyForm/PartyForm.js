@@ -4,17 +4,17 @@ import validate             from './validate'
 
 import React, { PropTypes } from 'react'
 import { reduxForm }        from 'redux-form'
-import { Input }            from 'antd'
+import { Input,
+         Select }           from 'antd'
 
 import FormWrapper          from 'components/FormWrapper'
 import ReduxAntdWrapper     from 'components/ReduxAntdWrapper'
 
-import ClientSelect         from 'containers/ClientSelect'
-import ContactSelect        from 'containers/ContactSelect'
+import PartySelect          from 'containers/PartySelect'
 
 //-----------  Definitions  -----------//
 
-const selector = ContactSelect
+const selector = PartySelect
 
 const fieldAttrs = {
   type      : 'input',
@@ -23,55 +23,52 @@ const fieldAttrs = {
 }
 
 const fields = [{
-  name      : 'first_name',
-  label     : 'First Name',
+  name      : 'name',
+  label     : 'Full Name',
   required  : true,
 },{
-  name      : 'last_name',
-  label     : 'Last Name',
+  type      : 'select',
+  name      : 'state',
+  label     : 'State',
   required  : true,
+  field     : (
+    <Select placeholder='Select State...'>
+      <Option value='WI'>Wisconsin</Option>
+    </Select>
+  )
 },{
-  name      : 'email',
-  label     : 'Email',
+  type      : 'select',
+  name      : 'county',
+  label     : 'County',
   required  : true,
-},{
-  name      : 'role',
-  label     : 'Role / Title',
-},{
-  name      : 'phone',
-  label     : 'Phone',
+  field     : (
+    <Select placeholder='Select County...'>
+      <Option value='Dane'>Dane</Option>
+    </Select>
+  )
 },{
   type      : 'textarea',
   name      : 'address',
   label     : 'Address',
+  required  : true,
   field     : <Input type='textarea' autosize={{ minRows: 3, maxRows: 3 }} />
 }]
 
 //-----------  Component  -----------//
 
-const ContactForm = (props) => {
+const PartyForm = (props) => {
 
-  const parentField = {
-    type      : 'select',
-    name      : 'client',
-    label     : 'Client',
-    required  : true,
-    field     : <ClientSelect />,
-    component : ReduxAntdWrapper
-  }
-
-  const formProps = { ...props, fields, fieldAttrs, selector, parentField }
+  const formProps = { ...props, fields, fieldAttrs, selector }
 
   return (
-    <FormWrapper type='contact' { ...formProps } />
+    <FormWrapper type='party' { ...formProps } />
   )
 }
 
 //-----------  Prop Types  -----------//
 
-ContactForm.propTypes = {
+PartyForm.propTypes = {
   title           : PropTypes.string,
-  filter          : PropTypes.string,
   canSelect       : PropTypes.bool,
   selectedID      : PropTypes.string,
   btnText         : PropTypes.string,
@@ -85,4 +82,4 @@ ContactForm.propTypes = {
 
 //-----------  Exports  -----------//
 
-export default reduxForm({ form: 'contact', validate })(ContactForm)
+export default reduxForm({ form: 'party', validate })(PartyForm)

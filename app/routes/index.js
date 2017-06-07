@@ -30,28 +30,16 @@ export default function createRoutes(store, subdomain){
       import('routes/HomeRoute').then(loadModule(cb)).catch(err)
     },
   }] : [{
-    path : '/cases/new(/:step)',
-    name : 'new-case',
+    path : '/jobs/:jobID/services/:serviceID',
+    name : 'service-details',
     getComponent(nextState, cb){
-      import('routes/CasesRoute/NewCaseRoute').then(loadModule(cb)).catch(err)
+      import('routes/ServicesRoute/ServiceDetailsRoute').then(loadModule(cb)).catch(err)
     },
   },{
-    path : '/cases/:caseID',
-    name : 'case-details',
+    path : '/jobs/:jobID/services/',
+    name : 'services',
     getComponent(nextState, cb){
-      import('routes/CasesRoute/CaseDetailsRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/cases',
-    name : 'cases',
-    getComponent(nextState, cb){
-      import('routes/CasesRoute').then(loadModule(cb)).catch(err)
-    },
-  },{
-    path : '/jobs/new(/:step)',
-    name : 'new-job',
-    getComponent(nextState, cb){
-      import('routes/JobsRoute/NewJobRoute').then(loadModule(cb)).catch(err)
+      import('routes/ServicesRoute').then(loadModule(cb)).catch(err)
     },
   },{
     path : '/jobs/:jobID',
@@ -64,6 +52,18 @@ export default function createRoutes(store, subdomain){
     name : 'jobs',
     getComponent(nextState, cb){
       import('routes/JobsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases/:caseID',
+    name : 'case-details',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute/CaseDetailsRoute').then(loadModule(cb)).catch(err)
+    },
+  },{
+    path : '/cases',
+    name : 'cases',
+    getComponent(nextState, cb){
+      import('routes/CasesRoute').then(loadModule(cb)).catch(err)
     },
   },{
     path : '/clients/:clientID',

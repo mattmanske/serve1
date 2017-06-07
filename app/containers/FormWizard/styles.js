@@ -15,7 +15,6 @@ const Content = styled.div`
 
   &::after,
   &::before {
-    background : red;
     bottom     : 0;
     content    : '';
     position   : absolute;

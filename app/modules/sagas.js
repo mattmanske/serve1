@@ -27,10 +27,10 @@ export function* updateRecordSaga(record, dataType, sagaActions, resolve, reject
     if (record.key){
       delete data.key
       yield call(RSF.update, `${dataType}/${org}/${record.key}`, data)
-      if (resolve) resolve(record.key)
+      if (resolve) resolve(record.key, data)
     } else {
       const key = yield call(RSF.create, `${dataType}/${org}`, data)
-      if (resolve) resolve(key)
+      if (resolve) resolve(key, data)
     }
   } catch(error){
     yield put(sagaActions.failure(error))
