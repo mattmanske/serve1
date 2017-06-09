@@ -5,7 +5,7 @@ const OfflinePlugin = require('offline-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const publicPath = '/nnsb-admin/'
+const publicPath = '/'
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -30,7 +30,7 @@ module.exports = require('./webpack.base.babel')({
 
     // Copy files (CNAME, etc.)
     new CopyWebpackPlugin([
-      // { from: 'app/CNAME' },
+      { from: 'app/CNAME' },
       { from: 'app/static', to: 'files' }
     ]),
 

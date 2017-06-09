@@ -46,7 +46,7 @@ const domain    = port ? `${protocol}//${domainUrl}:${port}` : `${protocol}//${d
 
 const initialState   = {}
 const browserHistory = useRouterHistory(createHistory)({
-  basename: (isProd) ? '/serve1' : ''
+  basename: (isProd) ? '' : ''
 })
 
 const store = configureStore(initialState, browserHistory, domain, subdomain)
