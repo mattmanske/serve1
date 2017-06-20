@@ -47,6 +47,12 @@ class CaseDetailsRoute extends React.Component {
 
     const records = recordsToArray(jobs)
 
+    const createButton = (
+      <Button type='primary' icon='plus' onClick={this.newJob}>
+        Add Job
+      </Button>
+    )
+
     return (
       <PageWrapper title={title} loading={!kase} breadcrumbs={[ ...breadcrumbs, crumb ]}>
         <RecordsHeader
@@ -56,16 +62,10 @@ class CaseDetailsRoute extends React.Component {
           subtitle={`${kase.plantiff} v. ${kase.defendant}`}
         >
           <Search placeholder='Search Jobs...' />
-          <Button
-            type='primary'
-            icon='user-add'
-            onClick={this.newJob}
-          >
-            Add Job
-          </Button>
+          {createButton}
         </RecordsHeader>
 
-        <JobsTable records={records} compact />
+        <JobsTable records={records} empty={createButton} compact />
       </PageWrapper>
     )
   }
